@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop All — MALOW LONDON</title>
-  <meta name="description" content="Shop every MALOW London heel — wedding, party, everyday and more. All styles in one place.">
+  <title>Shop All - MALOW LONDON</title>
+  <meta name="description" content="Shop every MALOW London heel - wedding, party, everyday and more. All styles in one place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/malow.css">
 </head>
 <body>
@@ -12,7 +15,7 @@
 <!-- Navigation -->
 <nav class="nav" role="navigation">
   <div class="container nav__inner">
-    <a href="index.html" class="nav__logo">MALOW</a>
+    <a href="index.html" class="nav__logo" aria-label="MALOW LONDON - Home"><img class="nav__logo-img" src="images/malow-wordmark.svg" alt="" width="220" height="40" decoding="async"></a>
     <div class="nav__links">
       <a href="shop-all.html" class="nav__link active">Shop All</a>
       <a href="about.html" class="nav__link">About Us</a>
@@ -28,7 +31,7 @@
       <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
       </button>
-      <a href="mailto:hello@malowlondon.com" class="nav__cta">Contact Us</a>
+      <a href="contact.html" class="nav__cta">Contact Us</a>
     </div>
   </div>
 </nav>
@@ -38,12 +41,12 @@
   <a href="about.html" class="mobile-menu__link">About Us</a>
   <a href="collections.html" class="mobile-menu__link">Collections</a>
   <a href="favourites.html" class="mobile-menu__link">Favourites</a>
-  <a href="mailto:hello@malowlondon.com" class="mobile-menu__link">Contact Us</a>
+  <a href="contact.html" class="mobile-menu__link">Contact Us</a>
 </div>
 
 
 <!-- ============================================================
-     SHOP ALL — Full filterable product grid
+     SHOP ALL - Full filterable product grid
      All 12 styles, filter by occasion
      ============================================================ -->
 <main class="collections-page">
@@ -59,14 +62,14 @@
       <button class="filter-pill" data-filter="everyday">Everyday</button>
     </div>
 
-    <!-- Product grid — populated by renderCollectionsGrid() -->
+    <!-- Product grid - populated by renderCollectionsGrid() -->
     <div class="product-grid" id="collections-grid">
       <!-- Populated dynamically from products.js -->
     </div>
 
     <!-- Empty state -->
     <div id="collections-empty" style="display:none;text-align:center;padding:64px 0;">
-      <p style="font-size:15px;font-weight:300;color:var(--sunday-slate);margin-bottom:32px;">No styles found in this category — check back soon.</p>
+      <p style="font-size:15px;font-weight:300;color:var(--sunday-slate);margin-bottom:32px;">No styles found in this category - check back soon.</p>
       <button class="btn-pill" onclick="document.querySelector('[data-filter=all]').click()">View All Styles</button>
     </div>
 
@@ -75,10 +78,9 @@
 
 
 <!-- Marquee -->
-<div class="ticker" aria-hidden="true">
+<div class="ticker" aria-hidden="true">  <!-- 16 items = 2× the visible set; animation scrolls to -50% for a seamless loop -->
   <div class="ticker__track">
-    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
-    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
+    <span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span>
   </div>
 </div>
 
@@ -87,16 +89,17 @@
   <div class="container">
     <div class="footer__inner">
       <div>
-        <span class="footer__monogram-m" aria-hidden="true">M</span>
-        <span class="footer__monogram-london">London</span>
+        <img src="images/malow-footer-mark.svg" alt="MALOW London" class="footer__monogram-img" width="320" height="300">
       </div>
       <div>
         <p class="footer__col-heading">Explore MALOW</p>
         <ul class="footer__links">
-          <li><a href="#" class="footer__link">Shipping</a></li>
-          <li><a href="#" class="footer__link">Returns &amp; Exchange Policy</a></li>
-          <li><a href="mailto:hello@malowlondon.com" class="footer__link">Get In Touch</a></li>
-          <li><a href="#" class="footer__link">Size Guide</a></li>
+          <li><a href="shipping.html" class="footer__link">Shipping &amp; Returns</a></li>
+          
+          <li><a href="contact.html" class="footer__link">Get In Touch</a></li>
+          <li><a href="size-guide.html" class="footer__link">Size Guide</a></li>
+          <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+          <li><a href="cookies-policy.html" class="footer__link">Cookies Policy</a></li>
         </ul>
       </div>
       <div>
@@ -109,7 +112,8 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <p class="footer__copyright">© 2025 MALOW London. All rights reserved.</p>
+      <p class="footer__copyright">© 2026 MALOW London. All rights reserved.</p>
+      <p class="footer__credit">Made by <a href="https://www.collectivstudio.uk/" target="_blank" rel="noopener noreferrer">Collectiv Studio</a></p>
     </div>
   </div>
 </footer>

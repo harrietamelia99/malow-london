@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MALOW LONDON — Luxury Heels</title>
-  <meta name="description" content="Luxury women's heels designed in London. Beautiful design meets real comfort — memory foam footbeds, gentle arch support.">
+  <title>MALOW LONDON - Luxury Heels</title>
+  <meta name="description" content="Luxury women's heels designed in London. Beautiful design meets real comfort - memory foam footbeds, gentle arch support.">
   <!-- Shopify: {% include 'head-meta' %} -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/malow.css">
   <!-- Shopify: {{ 'malow.css' | asset_url | stylesheet_tag }} -->
 </head>
@@ -18,8 +21,8 @@
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="container nav__inner">
 
-    <!-- Logo: ONLY element using Catchye Demo / display font -->
-    <a href="index.html" class="nav__logo" aria-label="MALOW LONDON — Home">MALOW</a>
+    <!-- Logo: brand wordmark (images/malow-wordmark.svg) -->
+    <a href="index.html" class="nav__logo" aria-label="MALOW LONDON - Home"><img class="nav__logo-img" src="images/malow-wordmark.svg" alt="" width="220" height="40" decoding="async"></a>
 
     <!-- Centre links -->
     <div class="nav__links">
@@ -48,7 +51,7 @@
       </button>
 
       <!-- Contact CTA -->
-      <a href="mailto:hello@malowlondon.com" class="nav__cta">Contact Us</a>
+      <a href="contact.html" class="nav__cta">Contact Us</a>
     </div>
   </div>
 </nav>
@@ -59,66 +62,42 @@
   <a href="about.html" class="mobile-menu__link">About Us</a>
   <a href="collections.html" class="mobile-menu__link">Collections</a>
   <a href="favourites.html" class="mobile-menu__link">Favourites</a>
-  <a href="mailto:hello@malowlondon.com" class="mobile-menu__link">Contact Us</a>
+  <a href="contact.html" class="mobile-menu__link">Contact Us</a>
 </div>
 
 
 <!-- ============================================================
-     SECTION 1 — HERO BANNER
+     SECTION 1 - HERO BANNER
      Shopify: sections/hero.liquid
      Replace gradient with: {{ section.settings.image | img_url: 'master' }}
      ============================================================ -->
 <section class="hero" aria-label="Hero banner">
-  <!-- Shopify: <img class="hero__bg" src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.image.alt }}"> -->
 
-  <!-- Decorative texture overlay -->
-  <div class="hero__texture" aria-hidden="true"></div>
+  <div class="hero__card-wrap">
+    <!-- ── Hero image card ─────────────────────────────────────────
+         Replace the src below with your hero image.
+         Recommended size: 2400 × 900px, object-fit: cover.
+    ─────────────────────────────────────────────────────────────── -->
+    <div class="hero__image-card">
+      <img src="images/hero-banner.png" alt="MALOW London - luxury heels designed for comfort" class="hero__image-card-img">
 
-  <!-- SVG rose petal decorative elements in hero background -->
-  <svg class="hero__texture" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 400">
-    <!-- Soft petal shapes -->
-    <ellipse cx="150" cy="80" rx="60" ry="90" fill="rgba(255,255,255,0.07)" transform="rotate(-25,150,80)"/>
-    <ellipse cx="280" cy="200" rx="80" ry="55" fill="rgba(255,255,255,0.05)" transform="rotate(15,280,200)"/>
-    <ellipse cx="950" cy="100" rx="70" ry="100" fill="rgba(255,255,255,0.06)" transform="rotate(20,950,100)"/>
-    <ellipse cx="1080" cy="300" rx="90" ry="60" fill="rgba(255,255,255,0.04)" transform="rotate(-10,1080,300)"/>
-    <ellipse cx="500" cy="350" rx="55" ry="80" fill="rgba(255,255,255,0.05)" transform="rotate(35,500,350)"/>
-    <ellipse cx="750" cy="50" rx="65" ry="45" fill="rgba(255,255,255,0.06)" transform="rotate(-15,750,50)"/>
-    <!-- Circular blob accents -->
-    <circle cx="380" cy="120" r="40" fill="rgba(251,208,203,0.18)"/>
-    <circle cx="850" cy="280" r="55" fill="rgba(229,194,178,0.14)"/>
-    <circle cx="650" cy="200" r="30" fill="rgba(255,255,255,0.08)"/>
-  </svg>
-
-  <!-- Centred M badge submark -->
-  <div class="hero__overlay">
-    <svg class="hero__badge" viewBox="0 0 124 124" xmlns="http://www.w3.org/2000/svg" aria-label="MALOW London badge">
-      <defs>
-        <path id="topRing"    d="M 62,62 m -42,0 a 42,42 0 1,1 84,0"/>
-        <path id="bottomRing" d="M 62,62 m -42,0 a 42,42 0 0,0 84,0"/>
-      </defs>
-      <!-- Frosted glass circle -->
-      <circle cx="62" cy="62" r="58" fill="rgba(255,255,255,0.84)"/>
-      <!-- Outer ring -->
-      <circle cx="62" cy="62" r="56" fill="none" stroke="rgba(149,137,137,0.38)" stroke-width="1.2"/>
-      <!-- Inner ring -->
-      <circle cx="62" cy="62" r="48" fill="none" stroke="rgba(149,137,137,0.18)" stroke-width="0.8"/>
-      <!-- LONDON arched text top -->
-      <text font-family="Avenir Next, Avenir, sans-serif" font-size="7.5" fill="rgba(149,137,137,0.75)" letter-spacing="4.5" font-weight="400">
-        <textPath href="#topRing" startOffset="16%">· LONDON ·</textPath>
-      </text>
-      <!-- LONDON arched text bottom -->
-      <text font-family="Avenir Next, Avenir, sans-serif" font-size="7.5" fill="rgba(149,137,137,0.75)" letter-spacing="4.5" font-weight="400">
-        <textPath href="#bottomRing" startOffset="14%">· LONDON ·</textPath>
-      </text>
-      <!-- Central M -->
-      <text x="62" y="75" text-anchor="middle" font-family="Catchye Demo, Cormorant SC, Georgia, serif" font-size="48" fill="rgba(149,137,137,0.82)" font-weight="400">M</text>
-    </svg>
+      <!-- Centred M badge submark -->
+      <div class="hero__overlay">
+        <div class="hero__badge-outer">
+          <div class="hero__badge-wrap">
+            <img src="images/malow-badge.png" alt="MALOW London badge" class="hero__badge">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </section>
 
 
+
 <!-- ============================================================
-     SECTION 2 — TAGLINE STRIP
+     SECTION 2 - TAGLINE STRIP
      Shopify: sections/tagline.liquid
      ============================================================ -->
 <section class="tagline">
@@ -128,7 +107,7 @@
 
 
 <!-- ============================================================
-     SECTION 3 — BESTSELLERS
+     SECTION 3 - BESTSELLERS
      Shopify: sections/featured-collection.liquid
      Collection handle: bestsellers
      ============================================================ -->
@@ -148,7 +127,7 @@
 
 
 <!-- ============================================================
-     SECTION 4 — WHY MALOW
+     SECTION 4 - WHY MALOW
      Shopify: sections/why-malow.liquid
      ============================================================ -->
 <section class="why-malow" aria-labelledby="why-malow-heading">
@@ -160,39 +139,12 @@
         <h2 class="why-malow__heading" id="why-malow-heading">Why MALOW?</h2>
         <p class="why-malow__body">From ultra soft memory foam footbeds to gentle arch support, each style is made to keep your feet happy, no matter the occasion.</p>
         <br>
-        <a href="about.html" class="btn-pill" style="margin-top:8px;">Discover More</a>
+        <a href="about.html" class="btn-pill why-malow__cta">Discover More</a>
       </div>
 
-      <!-- Image right — wax seal SVG -->
+      <!-- Image right - insole diagram -->
       <div class="why-malow__image-wrap" aria-hidden="true">
-        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-          <defs>
-            <radialGradient id="waxGrad" cx="40%" cy="36%" r="65%">
-              <stop offset="0%"   stop-color="#eac8b6"/>
-              <stop offset="50%"  stop-color="#d9a890"/>
-              <stop offset="100%" stop-color="#c08870"/>
-            </radialGradient>
-            <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
-              <stop offset="0%"   stop-color="#f5eee6"/>
-              <stop offset="100%" stop-color="#ecddd0"/>
-            </radialGradient>
-          </defs>
-          <!-- Card background -->
-          <rect width="300" height="300" fill="url(#bgGrad)"/>
-          <!-- Wax seal shadow -->
-          <circle cx="152" cy="154" r="102" fill="rgba(197,184,166,0.18)"/>
-          <!-- Wax seal body -->
-          <circle cx="150" cy="150" r="100" fill="url(#waxGrad)"/>
-          <!-- Wax highlight -->
-          <ellipse cx="122" cy="118" rx="38" ry="28" fill="rgba(255,255,255,0.11)" transform="rotate(-20,122,118)"/>
-          <!-- Embossed rings -->
-          <circle cx="150" cy="150" r="88" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.8"/>
-          <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-          <!-- M letterform -->
-          <text x="150" y="180" text-anchor="middle" font-family="Catchye Demo, Cormorant SC, Georgia, serif" font-size="90" fill="rgba(255,255,255,0.86)" font-weight="400">M</text>
-          <!-- LONDON text below M -->
-          <text x="150" y="202" text-anchor="middle" font-family="Avenir Next, Avenir, sans-serif" font-size="9" fill="rgba(255,255,255,0.55)" letter-spacing="5" font-weight="400">LONDON</text>
-        </svg>
+        <img src="images/malow-insole-diagram.png" alt="MALOW insole comfort diagram" class="why-malow__img">
       </div>
 
     </div>
@@ -201,7 +153,7 @@
 
 
 <!-- ============================================================
-     SECTION 5 — SHOP ALL
+     SECTION 5 - SHOP ALL
      Shopify: sections/shop-all.liquid
      Collection handle: shop-all
      ============================================================ -->
@@ -221,20 +173,48 @@
 
 
 <!-- ============================================================
-     SECTION 6 — MARQUEE TICKER
-     CSS animation only — no JS required
+     SECTION 5b - INSTAGRAM PREVIEW
+     Shopify: replace grid with Instagram Basic Display API / app embed
+     ============================================================ -->
+<section class="instagram-preview section" aria-labelledby="instagram-heading">
+  <div class="container">
+    <header class="instagram-preview__intro">
+      <span class="instagram-preview__kicker">@malowlondon</span>
+      <h2 class="instagram-preview__title" id="instagram-heading">On Instagram</h2>
+      <p class="instagram-preview__sub">Behind the scenes from our London studio — new styles, fittings, and how you wear MALOW.</p>
+      <a href="https://www.instagram.com/malowlondon/" class="btn-pill instagram-preview__cta" target="_blank" rel="noopener noreferrer">Follow us</a>
+    </header>
+
+    <div class="instagram-preview__grid" role="list">
+      <!-- Preview tiles: point href to real posts when using Instagram embed -->
+      <a href="https://www.instagram.com/malowlondon/" class="instagram-preview__tile" role="listitem" target="_blank" rel="noopener noreferrer" aria-label="MALOW on Instagram — Camila">
+        <img src="images/CAMILA_PUTTY_PU_copy-537eb5c6-33e8-41aa-a9f6-5b6dbe949857.png" alt="" loading="lazy" width="600" height="600">
+      </a>
+      <a href="https://www.instagram.com/malowlondon/" class="instagram-preview__tile" role="listitem" target="_blank" rel="noopener noreferrer" aria-label="MALOW on Instagram — Bella">
+        <img src="images/BELLA_CREAM_copy-8ec40bdc-4543-44e9-b626-9b5979bd0677.png" alt="" loading="lazy" width="600" height="600">
+      </a>
+      <a href="https://www.instagram.com/malowlondon/" class="instagram-preview__tile" role="listitem" target="_blank" rel="noopener noreferrer" aria-label="MALOW on Instagram — Chloe">
+        <img src="images/CHLOE_CREAM_copy-b7fe0013-cfcb-45f3-b03d-92039bcba438.png" alt="" loading="lazy" width="600" height="600">
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 6 - MARQUEE TICKER
+     CSS animation only - no JS required
      ============================================================ -->
 <div class="ticker" aria-hidden="true">
-  <!-- Content duplicated for seamless loop -->
+    <!-- 16 items = 2× the visible set; animation scrolls to -50% for a seamless loop -->
   <div class="ticker__track">
-    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
-    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
+    <span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span><span class="ticker__item ticker__item--mark"><img src="images/malow-wordmark.svg" alt="" class="ticker__mark" width="160" height="28" decoding="async"></span><span class="ticker__sep">&#10022;</span>
   </div>
 </div>
 
 
 <!-- ============================================================
-     SECTION 7 — FOOTER
+     SECTION 7 - FOOTER
      Shopify: sections/footer.liquid
      Email: connect to Klaviyo list in section settings
      ============================================================ -->
@@ -244,18 +224,19 @@
 
       <!-- Column 1: Monogram -->
       <div>
-        <span class="footer__monogram-m" aria-hidden="true">M</span>
-        <span class="footer__monogram-london">London</span>
+        <img src="images/malow-footer-mark.svg" alt="MALOW London" class="footer__monogram-img" width="320" height="300">
       </div>
 
       <!-- Column 2: Navigation links -->
       <div>
         <p class="footer__col-heading">Explore MALOW</p>
         <ul class="footer__links">
-          <li><a href="#" class="footer__link">Shipping</a></li>
-          <li><a href="#" class="footer__link">Returns &amp; Exchange Policy</a></li>
-          <li><a href="mailto:hello@malowlondon.com" class="footer__link">Get In Touch</a></li>
-          <li><a href="#" class="footer__link">Size Guide</a></li>
+          <li><a href="shipping.html" class="footer__link">Shipping &amp; Returns</a></li>
+          
+          <li><a href="contact.html" class="footer__link">Get In Touch</a></li>
+          <li><a href="size-guide.html" class="footer__link">Size Guide</a></li>
+          <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+          <li><a href="cookies-policy.html" class="footer__link">Cookies Policy</a></li>
         </ul>
       </div>
 
@@ -273,14 +254,15 @@
     </div>
 
     <div class="footer__bottom">
-      <p class="footer__copyright">© 2025 MALOW London. All rights reserved.</p>
+      <p class="footer__copyright">© 2026 MALOW London. All rights reserved.</p>
+      <p class="footer__credit">Made by <a href="https://www.collectivstudio.uk/" target="_blank" rel="noopener noreferrer">Collectiv Studio</a></p>
     </div>
   </div>
 </footer>
 
 
 <!-- ============================================================
-     CART DRAWER (global — present on all pages)
+     CART DRAWER (global - present on all pages)
      Shopify: sections/cart-drawer.liquid
      ============================================================ -->
 <div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>

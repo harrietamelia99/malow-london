@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Bag — MALOW LONDON</title>
+  <title>Your Bag - MALOW LONDON</title>
   <meta name="description" content="Review your MALOW London bag before checking out.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/malow.css">
-  <!-- Shopify: templates/cart.json — replace with Liquid cart data -->
+  <!-- Shopify: templates/cart.json - replace with Liquid cart data -->
 </head>
 <body>
 
 <!-- Navigation -->
 <nav class="nav" role="navigation">
   <div class="container nav__inner">
-    <a href="index.html" class="nav__logo">MALOW</a>
+    <a href="index.html" class="nav__logo" aria-label="MALOW LONDON - Home"><img class="nav__logo-img" src="images/malow-wordmark.svg" alt="" width="220" height="40" decoding="async"></a>
     <div class="nav__links">
       <a href="shop-all.html" class="nav__link">Shop All</a>
       <a href="about.html" class="nav__link">About Us</a>
@@ -29,7 +32,7 @@
       <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
       </button>
-      <a href="mailto:hello@malowlondon.com" class="nav__cta">Contact Us</a>
+      <a href="contact.html" class="nav__cta">Contact Us</a>
     </div>
   </div>
 </nav>
@@ -39,96 +42,58 @@
   <a href="about.html" class="mobile-menu__link">About Us</a>
   <a href="collections.html" class="mobile-menu__link">Collections</a>
   <a href="favourites.html" class="mobile-menu__link">Favourites</a>
-  <a href="mailto:hello@malowlondon.com" class="mobile-menu__link">Contact Us</a>
+  <a href="contact.html" class="mobile-menu__link">Contact Us</a>
 </div>
 
 
 <!-- ============================================================
-     CART PAGE
-     Shopify: templates/cart.json — Liquid: {{ cart.items }}
+     CART PAGE - dynamically rendered from Malow.cart (localStorage)
+     Shopify: swap for Liquid {{ cart.items }} in production
      ============================================================ -->
 <main class="cart-page">
   <div class="container">
 
     <h1 class="page-title">Your Bag</h1>
 
-    <!-- Shopify: {% if cart.item_count > 0 %} -->
-    <div class="cart-page__inner" id="cart-page-inner">
+    <!-- Populated state -->
+    <div class="cart-page__inner" id="cart-page-inner" style="display:none;">
 
       <!-- Left: item list -->
       <div>
-        <div class="cart-table" id="cart-page-items">
-          <!-- Shopify: {% for item in cart.items %} -->
-
-          <!-- Demo item 1 -->
-          <div class="cart-table__row">
-            <div class="cart-table__img">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><g opacity="0.38"><path d="M14 52C14 52 19 34 60 32C74 31 76 43 71 50C66 57 48 60 32 63C22 65 16 72 14 75L14 52Z" fill="currentColor"/><path d="M15 73L12 84L21 84L23 73Z" fill="currentColor"/></g></svg>
-            </div>
-            <div>
-              <!-- Shopify: {{ item.product.title }} -->
-              <p class="cart-table__name">Camila</p>
-              <p class="cart-table__size">Size 5 · Qty 1</p>
-              <!-- Shopify: {{ item.variant.title }} -->
-              <button class="cart-item__remove" style="margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sunday-slate);background:none;border:none;cursor:pointer;font-family:var(--font-body);padding:0;transition:color 0.2s ease;" onmouseover="this.style.color='var(--text-dark)'" onmouseout="this.style.color='var(--sunday-slate)'">Remove</button>
-            </div>
-            <!-- Shopify: {{ item.final_price | money }} -->
-            <p class="cart-table__price">£35.00</p>
-          </div>
-
-          <!-- Demo item 2 -->
-          <div class="cart-table__row">
-            <div class="cart-table__img">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><g opacity="0.38"><path d="M13 53C13 53 17 35 57 33C71 32 74 44 69 51C64 58 47 61 31 64C21 66 15 73 13 76L13 53Z" fill="currentColor"/><path d="M14 74L11 85L20 85L22 74Z" fill="currentColor"/><path d="M50 35L54 21L64 24L60 38Z" fill="currentColor"/></g></svg>
-            </div>
-            <div>
-              <p class="cart-table__name">Millie</p>
-              <p class="cart-table__size">Size 4 · Qty 1</p>
-              <button class="cart-item__remove" style="margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sunday-slate);background:none;border:none;cursor:pointer;font-family:var(--font-body);padding:0;transition:color 0.2s ease;" onmouseover="this.style.color='var(--text-dark)'" onmouseout="this.style.color='var(--sunday-slate)'">Remove</button>
-            </div>
-            <p class="cart-table__price">£45.00</p>
-          </div>
-
-          <!-- Shopify: {% endfor %} -->
-        </div>
-
-        <!-- Continue shopping -->
+        <div class="cart-table" id="cart-page-items"></div>
         <div style="margin-top:24px;">
           <a href="shop-all.html" class="btn-pill" style="font-size:11px;">← Continue Shopping</a>
         </div>
       </div>
 
       <!-- Right: order summary -->
-      <!-- Shopify: {{ cart.total_price | money }} -->
       <div class="order-summary-box">
         <p class="order-summary-box__heading">Order Summary</p>
 
         <div class="order-summary-box__row">
-          <span class="order-summary-box__label">Subtotal (2 items)</span>
-          <span class="order-summary-box__value">£80.00</span>
+          <span class="order-summary-box__label" id="cart-page-subtotal-label">Subtotal</span>
+          <span class="order-summary-box__value" id="cart-page-subtotal-value">£0.00</span>
         </div>
 
         <div class="order-summary-box__row">
           <span class="order-summary-box__label">Shipping</span>
-          <span class="order-summary-box__value">Calculated at checkout</span>
+          <span class="order-summary-box__value">Free standard delivery</span>
         </div>
 
         <div class="order-summary-box__row">
           <span class="order-summary-box__label">Discount</span>
-          <span class="order-summary-box__value">—</span>
+          <span class="order-summary-box__value">-</span>
         </div>
 
         <hr class="order-summary-box__divider">
 
         <div class="order-summary-box__total">
           <span class="order-summary-box__total-label">Total</span>
-          <span class="order-summary-box__total-value">£80.00</span>
+          <span class="order-summary-box__total-value" id="cart-page-total-value">£0.00</span>
         </div>
 
-        <!-- Shopify: links to /checkout -->
         <button class="btn-rect">Proceed to Checkout</button>
 
-        <!-- Trust badges -->
         <div style="display:flex;justify-content:center;gap:20px;margin-top:20px;">
           <span style="font-size:10px;font-weight:300;color:var(--sunday-slate);letter-spacing:0.5px;text-align:center;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;display:block;margin:0 auto 4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -148,7 +113,6 @@
     </div>
 
     <!-- Empty cart state -->
-    <!-- Shopify: {% else %} -->
     <div class="empty-state" id="cart-empty-state" style="display:none;">
       <svg class="empty-state__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -158,59 +122,16 @@
       <p class="empty-state__text">Your bag is empty.<br>Discover something beautiful.</p>
       <a href="shop-all.html" class="btn-pill">Shop the Collection</a>
     </div>
-    <!-- Shopify: {% endif %} -->
 
   </div>
 </main>
 
 
 <!-- "You may also like" -->
-<section class="also-like" aria-labelledby="also-like-heading">
+<section class="also-like" aria-labelledby="also-like-cart-heading">
   <div class="container">
-    <h2 class="also-like__heading" id="also-like-heading">You May Also Like</h2>
-    <div class="product-grid" style="grid-template-columns:repeat(4,1fr);">
-
-      <a class="product-card" href="product.html?id=chloe">
-        <div class="product-card__image">
-          <div class="product-card__img-bg" style="background:linear-gradient(150deg,#fdfaf8 0%,#f6eee8 100%);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><g opacity="0.38"><path d="M12 50C12 50 18 33 58 31C72 30 75 42 70 49C65 56 46 59 30 62C20 64 14 71 12 74L12 50Z" fill="currentColor"/><path d="M13 72L10 83L19 83L21 72Z" fill="currentColor"/></g></svg>
-          </div>
-          <button class="product-card__heart" data-wishlist-id="chloe" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        </div>
-        <div class="product-card__info"><p class="product-card__name">Chloe</p><p class="product-card__price">£26.00</p></div>
-      </a>
-
-      <a class="product-card" href="product.html?id=ava">
-        <div class="product-card__image">
-          <div class="product-card__img-bg" style="background:linear-gradient(150deg,#f8f0e8 0%,#eedcc8 100%);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><g opacity="0.38"><path d="M10 55C10 55 16 36 58 34C72 33 76 46 70 53C64 60 44 63 28 66C18 68 12 76 10 78L10 55Z" fill="currentColor"/><path d="M11 76L8 87L17 87L19 76Z" fill="currentColor"/></g></svg>
-          </div>
-          <button class="product-card__heart" data-wishlist-id="ava" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        </div>
-        <div class="product-card__info"><p class="product-card__name">Ava</p><p class="product-card__price">£31.00</p></div>
-      </a>
-
-      <a class="product-card" href="product.html?id=sabrina">
-        <div class="product-card__image">
-          <div class="product-card__img-bg" style="background:linear-gradient(150deg,#f4f2f0 0%,#e8e4e0 100%);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><g opacity="0.38"><path d="M14 52C14 52 18 34 56 32C70 31 73 43 68 50C63 57 46 60 30 63C20 65 14 72 14 75L14 52Z" fill="currentColor"/><path d="M15 73L12 84L21 84L23 73Z" fill="currentColor"/></g></svg>
-          </div>
-          <button class="product-card__heart" data-wishlist-id="sabrina" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        </div>
-        <div class="product-card__info"><p class="product-card__name">Sabrina</p><p class="product-card__price">£42.00</p></div>
-      </a>
-
-      <a class="product-card" href="product.html?id=molly">
-        <div class="product-card__image">
-          <div class="product-card__img-bg" style="background:linear-gradient(150deg,#faf5ef 0%,#f0e4d4 100%);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><g opacity="0.38"><path d="M10 50C10 50 16 30 56 28C70 27 74 40 68 47C62 54 42 57 26 60C16 62 10 70 10 72L10 50Z" fill="currentColor"/><path d="M11 70L8 82L17 82L19 70Z" fill="currentColor"/></g></svg>
-          </div>
-          <button class="product-card__heart" data-wishlist-id="molly" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        </div>
-        <div class="product-card__info"><p class="product-card__name">Molly</p><p class="product-card__price">£31.00</p></div>
-      </a>
-
-    </div>
+    <h2 class="also-like__heading" id="also-like-cart-heading">You May Also Like</h2>
+    <div class="product-grid also-like__grid" id="also-like-cart-grid"></div>
   </div>
 </section>
 
@@ -220,16 +141,17 @@
   <div class="container">
     <div class="footer__inner">
       <div>
-        <span class="footer__monogram-m" aria-hidden="true">M</span>
-        <span class="footer__monogram-london">London</span>
+        <img src="images/malow-footer-mark.svg" alt="MALOW London" class="footer__monogram-img" width="320" height="300">
       </div>
       <div>
         <p class="footer__col-heading">Explore MALOW</p>
         <ul class="footer__links">
-          <li><a href="#" class="footer__link">Shipping</a></li>
-          <li><a href="#" class="footer__link">Returns &amp; Exchange Policy</a></li>
-          <li><a href="mailto:hello@malowlondon.com" class="footer__link">Get In Touch</a></li>
-          <li><a href="#" class="footer__link">Size Guide</a></li>
+          <li><a href="shipping.html" class="footer__link">Shipping &amp; Returns</a></li>
+          
+          <li><a href="contact.html" class="footer__link">Get In Touch</a></li>
+          <li><a href="size-guide.html" class="footer__link">Size Guide</a></li>
+          <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+          <li><a href="cookies-policy.html" class="footer__link">Cookies Policy</a></li>
         </ul>
       </div>
       <div>
@@ -242,7 +164,8 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <p class="footer__copyright">© 2025 MALOW London. All rights reserved.</p>
+      <p class="footer__copyright">© 2026 MALOW London. All rights reserved.</p>
+      <p class="footer__credit">Made by <a href="https://www.collectivstudio.uk/" target="_blank" rel="noopener noreferrer">Collectiv Studio</a></p>
     </div>
   </div>
 </footer>
@@ -266,6 +189,7 @@
   </div>
 </aside>
 
+<script src="js/products.js"></script>
 <script src="js/malow.js"></script>
 </body>
 </html>

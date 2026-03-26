@@ -1,5 +1,5 @@
 /* ============================================================
-   MALOW LONDON — Main JavaScript v2.0
+   MALOW LONDON - Main JavaScript v2.0
    ============================================================
    Shopify integration notes:
    - Cart state: replace localStorage with Shopify Ajax Cart API
@@ -12,6 +12,8 @@
    ============================================================ */
 
 'use strict';
+
+let _productCardRevealObserver = null;
 
 /* ─── State (replace with Shopify APIs in production) ────── */
 const Malow = {
@@ -65,16 +67,22 @@ function shoeIcon() {
 
 /* ─── Product Card Builder ───────────────────────────────── */
 /* Shared renderer used on homepage, collections, and also-like */
-function buildProductCard(product) {
+/* activeFilter: e.g. 'wedding' - uses product.defaultVariantForFilters if set */
+function buildProductCard(product, activeFilter) {
   if (!product) return '';
-  const firstVariant = product.variants[0];
+  const filter = activeFilter && activeFilter !== 'all' ? activeFilter : null;
+  let vIndex = 0;
+  if (filter && product.defaultVariantForFilters && product.defaultVariantForFilters[filter] != null) {
+    vIndex = product.defaultVariantForFilters[filter];
+  }
+  const firstVariant = product.variants[vIndex] || product.variants[0];
   const firstImage   = firstVariant.images[0];
   const categories   = product.categories.join(' ');
 
   const swatchesHtml = product.variants.length > 1
     ? `<div class="product-card__swatches">
         ${product.variants.map((v, i) => `
-          <span class="product-card__swatch${i === 0 ? ' active' : ''}"
+          <span class="product-card__swatch${i === vIndex ? ' active' : ''}"
                 style="background:${v.swatch};"
                 data-img="${v.images[0]}"
                 title="${v.label}"
@@ -84,7 +92,7 @@ function buildProductCard(product) {
     : '';
 
   return `
-    <a class="product-card" href="product.html?id=${product.id}" data-categories="${categories}">
+    <a class="product-card" href="product.html?id=${product.id}" data-product-id="${product.id}" data-categories="${categories}">
       <div class="product-card__image">
         <img src="${firstImage}" alt="${product.name}" loading="lazy">
         <button class="product-card__heart" data-wishlist-id="${product.id}" aria-label="Save to favourites">${HEART_SVG}</button>
@@ -95,6 +103,49 @@ function buildProductCard(product) {
       </div>
       ${swatchesHtml}
     </a>`;
+}
+
+/* Matches IntersectionObserver rootMargin (bottom -6%) so first paint isn’t all hidden */
+function isProductCardInitiallyVisible(el) {
+  const r = el.getBoundingClientRect();
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  const vw = window.innerWidth || document.documentElement.clientWidth;
+  const rootBottom = vh - vh * 0.06;
+  return r.top < rootBottom && r.bottom > 32 && r.left < vw && r.right > 0;
+}
+
+/* Scroll-triggered fade/slide — product cards only (respects reduced motion) */
+function initProductCardScrollReveal() {
+  const cards = document.querySelectorAll('.product-card');
+  if (!cards.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(el => el.classList.add('product-card--inview'));
+    return;
+  }
+
+  cards.forEach(card => {
+    if (isProductCardInitiallyVisible(card)) card.classList.add('product-card--inview');
+  });
+
+  document.documentElement.classList.add('js-product-card-reveal');
+
+  _productCardRevealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('product-card--inview');
+        _productCardRevealObserver.unobserve(entry.target);
+      });
+    },
+    { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.06 }
+  );
+
+  cards.forEach(card => {
+    if (!card.classList.contains('product-card--inview')) {
+      _productCardRevealObserver.observe(card);
+    }
+  });
 }
 
 /* Attach swatch-dot hover/click to a rendered grid container */
@@ -203,7 +254,7 @@ function renderCartDrawer() {
           : shoeIcon()}
       </div>
       <div class="cart-item__info">
-        <div class="cart-item__name">${item.name}${item.colour ? ` — ${item.colour}` : ''}</div>
+        <div class="cart-item__name">${item.name}${item.colour ? ` - ${item.colour}` : ''}</div>
         <div class="cart-item__meta">Size ${item.size} · Qty ${item.qty}</div>
         <div class="cart-item__price">£${(item.price * item.qty).toFixed(2)}</div>
         <button class="cart-item__remove" onclick="removeFromCart(${idx})">Remove</button>
@@ -217,6 +268,7 @@ window.removeFromCart = function(idx) {
   Malow.cart.splice(idx, 1);
   Malow.saveCart();
   renderCartDrawer();
+  renderCartPage();
 };
 
 function addToCart(product) {
@@ -286,6 +338,27 @@ function initAboutTabs() {
   });
 }
 
+/* Update card images to filter-specific default variants (e.g. Taylor White on Wedding) */
+function syncCollectionGridVariantThumbnails(filter) {
+  const grid = document.getElementById('collections-grid');
+  if (!grid || typeof PRODUCTS === 'undefined') return;
+  grid.querySelectorAll('.product-card[data-product-id]').forEach(card => {
+    const id = card.dataset.productId;
+    const product = PRODUCTS[id];
+    if (!product || !product.variants || !product.variants.length) return;
+    let vIndex = 0;
+    if (filter && filter !== 'all' && product.defaultVariantForFilters && product.defaultVariantForFilters[filter] != null) {
+      vIndex = product.defaultVariantForFilters[filter];
+    }
+    const v = product.variants[vIndex] || product.variants[0];
+    const img = card.querySelector('.product-card__image img');
+    if (img && v.images && v.images[0]) img.src = v.images[0];
+    card.querySelectorAll('.product-card__swatch').forEach((s, i) => {
+      s.classList.toggle('active', i === vIndex);
+    });
+  });
+}
+
 /* ─── Collections Filter ─────────────────────────────────── */
 /* Supports multi-category: data-categories="wedding party"  */
 function initFilter() {
@@ -309,6 +382,8 @@ function initFilter() {
 
       const empty = document.getElementById('collections-empty');
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+
+      syncCollectionGridVariantThumbnails(filter);
     });
   });
 }
@@ -318,16 +393,18 @@ function renderCollectionsGrid() {
   const grid = document.getElementById('collections-grid');
   if (!grid || typeof PRODUCTS === 'undefined') return;
 
-  grid.innerHTML = PRODUCTS_LIST.map(id => buildProductCard(PRODUCTS[id])).join('');
+  const urlFilter = new URLSearchParams(window.location.search).get('filter') || 'all';
+  grid.innerHTML = PRODUCTS_LIST.map(id => buildProductCard(PRODUCTS[id], urlFilter)).join('');
   initCardSwatches(grid);
   initFilter();
   initWishlist();
 
   /* Auto-apply ?filter= param when arriving from collections hub */
-  const urlFilter = new URLSearchParams(window.location.search).get('filter');
   if (urlFilter && urlFilter !== 'all') {
     const matchPill = document.querySelector(`.filter-pill[data-filter="${urlFilter}"]`);
     if (matchPill) matchPill.click();
+  } else {
+    syncCollectionGridVariantThumbnails('all');
   }
 }
 
@@ -348,6 +425,15 @@ function renderHomepageProducts() {
     initCardSwatches(shopAllGrid);
   }
 
+  /* About page shop teaser - 4 bestsellers */
+  const aboutShopGrid = document.getElementById('about-shop-grid');
+  if (aboutShopGrid) {
+    const picks = PRODUCTS_LIST.filter(id => PRODUCTS[id] && PRODUCTS[id].bestseller).slice(0, 4);
+    const fill  = picks.length < 4 ? PRODUCTS_LIST.filter(id => !picks.includes(id)).slice(0, 4 - picks.length) : [];
+    aboutShopGrid.innerHTML = [...picks, ...fill].map(id => buildProductCard(PRODUCTS[id])).join('');
+    initCardSwatches(aboutShopGrid);
+  }
+
   initWishlist();
 }
 
@@ -363,13 +449,13 @@ function initDynamicProduct() {
   if (!product) {
     inner.innerHTML = `
       <div style="grid-column:1/-1;text-align:center;padding:80px 0;">
-        <p style="font-size:15px;font-weight:300;color:var(--sunday-slate);margin-bottom:28px;">Product not found.</p>
+        <p style="font-size:15px;font-weight:400;color:var(--sunday-slate);margin-bottom:28px;">Product not found.</p>
         <a href="shop-all.html" class="btn-pill">View All Styles</a>
       </div>`;
     return;
   }
 
-  document.title = `${product.name} — MALOW LONDON`;
+  document.title = `${product.name} - MALOW LONDON`;
 
   const bcEl = document.getElementById('breadcrumb-product');
   if (bcEl) bcEl.textContent = product.name;
@@ -384,7 +470,7 @@ function initDynamicProduct() {
     const mainImg  = getMainImg();
     if (mainImg) {
       mainImg.src = variant.images[0];
-      mainImg.alt = `${product.name} — ${variant.label}`;
+      mainImg.alt = `${product.name} - ${variant.label}`;
     }
     const thumbsEl = getThumbsEl();
     if (!thumbsEl) return;
@@ -422,7 +508,7 @@ function initDynamicProduct() {
       <h1 class="product-info__name">${product.name}</h1>
       <p class="product-info__price">£${product.price.toFixed(2)}</p>
 
-      <p class="product-info__label">Colour — <span id="active-colour-name">${product.variants[0].label}</span></p>
+      <p class="product-info__label">Colour - <span id="active-colour-name">${product.variants[0].label}</span></p>
       <div class="colour-selector" id="colour-selector">
         ${product.variants.map((v, i) => `
           <button class="colour-swatch-btn${i === 0 ? ' active' : ''}"
@@ -437,7 +523,7 @@ function initDynamicProduct() {
         ${product.sizes.map(s => `<button class="size-btn" data-size="${s}" aria-label="Size ${s}">${s}</button>`).join('')}
       </div>
 
-      <p style="font-size:11px;font-weight:300;color:var(--sunday-slate);margin-bottom:24px;margin-top:-8px;">
+      <p style="font-size:11px;font-weight:400;color:var(--sunday-slate);margin-bottom:24px;margin-top:-8px;">
         <a href="#" style="color:var(--sunday-slate);text-decoration:underline;text-decoration-color:var(--warm-linen);">Size guide</a>
       </p>
 
@@ -497,7 +583,7 @@ function initDynamicProduct() {
             <p>MALOW heels are true to size. If you are between sizes, we recommend sizing up.</p>
             <br>
             <div style="overflow-x:auto;">
-              <table style="width:100%;border-collapse:collapse;font-size:12px;font-weight:300;color:var(--text-muted);">
+              <table style="width:100%;border-collapse:collapse;font-size:12px;font-weight:400;color:var(--text-muted);">
                 <thead><tr style="border-bottom:1px solid var(--rosy-blush);">
                   <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">UK</th>
                   <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">EU</th>
@@ -604,6 +690,52 @@ function initDynamicProduct() {
   }
 }
 
+/* ─── Cart Page ──────────────────────────────────────────── */
+function renderCartPage() {
+  const itemsEl    = document.getElementById('cart-page-items');
+  const pageInner  = document.getElementById('cart-page-inner');
+  const emptyState = document.getElementById('cart-empty-state');
+  if (!itemsEl) return;
+
+  if (Malow.cart.length === 0) {
+    if (pageInner)  pageInner.style.display  = 'none';
+    if (emptyState) emptyState.style.display = 'block';
+    return;
+  }
+
+  if (pageInner)  pageInner.style.display  = '';
+  if (emptyState) emptyState.style.display = 'none';
+
+  itemsEl.innerHTML = Malow.cart.map((item, idx) => `
+    <div class="cart-table__row">
+      <div class="cart-table__img">
+        ${item.image
+          ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`
+          : shoeIcon()}
+      </div>
+      <div>
+        <p class="cart-table__name">${item.name}${item.colour ? ` - ${item.colour}` : ''}</p>
+        <p class="cart-table__size">Size ${item.size} &nbsp;&middot;&nbsp; Qty ${item.qty}</p>
+        <button class="cart-item__remove"
+                onclick="removeFromCart(${idx})"
+                style="margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+                       color:var(--sunday-slate);background:none;border:none;cursor:pointer;
+                       font-family:var(--font-body);padding:0;transition:color 0.2s ease;">Remove</button>
+      </div>
+      <p class="cart-table__price">£${(item.price * item.qty).toFixed(2)}</p>
+    </div>`).join('');
+
+  const count = Malow.getCartCount();
+  const total = Malow.getCartTotal();
+
+  const labelEl = document.getElementById('cart-page-subtotal-label');
+  const subEl   = document.getElementById('cart-page-subtotal-value');
+  const totEl   = document.getElementById('cart-page-total-value');
+  if (labelEl) labelEl.textContent = `Subtotal (${count} item${count !== 1 ? 's' : ''})`;
+  if (subEl)   subEl.textContent   = `£${total.toFixed(2)}`;
+  if (totEl)   totEl.textContent   = `£${total.toFixed(2)}`;
+}
+
 /* ─── Accordion ──────────────────────────────────────────── */
 function initAccordion() {
   document.querySelectorAll('.accordion-toggle').forEach(toggle => {
@@ -671,7 +803,7 @@ function initFavouritesPage() {
       }
     } else {
       grid.innerHTML = `
-        <p style="font-size:13px;font-weight:300;color:var(--sunday-slate);text-align:center;padding:24px 0;grid-column:1/-1;">
+        <p style="font-size:13px;font-weight:400;color:var(--sunday-slate);text-align:center;padding:24px 0;grid-column:1/-1;">
           ${Malow.wishlist.length} saved style${Malow.wishlist.length > 1 ? 's' : ''}.
         </p>`;
     }
@@ -690,6 +822,24 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordion();
   initEmailForms();
   initFavouritesPage();
+  renderCartPage();
+
+  /* "Also like" grid on cart page */
+  const alsoLikeCartGrid = document.getElementById('also-like-cart-grid');
+  if (alsoLikeCartGrid && typeof PRODUCTS_LIST !== 'undefined') {
+    const cartIds = new Set(Malow.cart.map(i => i.id));
+    const picks   = PRODUCTS_LIST.filter(id => !cartIds.has(id)).slice(0, 4);
+    const fallback = picks.length < 4
+      ? PRODUCTS_LIST.filter(id => !picks.includes(id)).slice(0, 4 - picks.length)
+      : [];
+    alsoLikeCartGrid.innerHTML = [...picks, ...fallback]
+      .map(id => buildProductCard(PRODUCTS[id])).join('');
+    initCardSwatches(alsoLikeCartGrid);
+    initWishlist();
+  }
+
   Malow.updateCartUI();
   Malow.updateWishlistUI();
+
+  initProductCardScrollReveal();
 });

@@ -1,5 +1,5 @@
 /* ================================================================
-   MALOW LONDON — Products Data
+   MALOW LONDON - Products Data
    ================================================================
    All product variants and image galleries live here.
    On Shopify: replace with product JSON / Liquid object.
@@ -18,7 +18,7 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days. Express next-day available at checkout.',
     returns: 'Free returns within 30 days. Items must be unworn and in original packaging.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['wedding', 'party', 'everyday'],
+    categories: ['wedding', 'party'],
     bestseller: true,
     variants: [
       {
@@ -91,7 +91,7 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
     returns: 'Free returns within 30 days.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['wedding', 'everyday', 'party'],
+    categories: ['wedding', 'everyday'],
     bestseller: true,
     variants: [
       {
@@ -134,7 +134,7 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
     returns: 'Free returns within 30 days.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['party', 'everyday'],
+    categories: ['party'],
     bestseller: false,
     variants: [
       {
@@ -191,7 +191,7 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
     returns: 'Free returns within 30 days.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['wedding', 'party', 'everyday'],
+    categories: ['wedding', 'everyday'],
     bestseller: true,
     variants: [
       {
@@ -200,7 +200,7 @@ const PRODUCTS = {
         swatch: '#f0ead8',
         images: [
           'images/CHLOE_CREAM_copy-b7fe0013-cfcb-45f3-b03d-92039bcba438.png',
-          'images/CHLOE_CREAM-HEEL_copy-2521d8be-31a9-475d-8db3-18f4723ec8c7.png',
+          'images/CHLOE_CREAM-HEEL_copy-2521d8be-31a9-475d-8dc3-18f4723ec8c7.png',
           'images/CHLOE_CREAM-FRONT_copy-caf47edb-5621-4ba3-8969-bedb632bc513.png',
           'images/CHLOE_CREAM-ABOVE_copy-f6f5e489-cc7b-46a1-8ae4-eeef5e53f82d.png',
           'images/CHLOE_CREAM-SIDE_copy-a9d8afc1-3d0e-4a14-94a5-993802095a84.png',
@@ -308,7 +308,7 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
     returns: 'Free returns within 30 days.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['wedding', 'everyday', 'party'],
+    categories: ['wedding'],
     bestseller: false,
     variants: [
       {
@@ -554,8 +554,10 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
     returns: 'Free returns within 30 days.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['everyday', 'party'],
+    categories: ['wedding'],
     bestseller: false,
+    /* Shop grid: show White when Wedding filter is active */
+    defaultVariantForFilters: { wedding: 1 },
     variants: [
       {
         id: 'black',
@@ -627,7 +629,7 @@ const PRODUCTS = {
     delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
     returns: 'Free returns within 30 days.',
     sizes: [3, 4, 5, 6, 7, 8],
-    categories: ['wedding', 'everyday', 'party'],
+    categories: ['wedding'],
     bestseller: false,
     variants: [
       {

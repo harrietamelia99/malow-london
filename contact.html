@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - MALOW LONDON</title>
-  <meta name="description" content="Learn about MALOW London - luxury heels designed for real occasions, with memory foam footbeds and gentle arch support.">
+  <title>Contact Us - MALOW LONDON</title>
+  <meta name="description" content="Get in touch with MALOW London. We're here to help with orders, sizing, and anything else you need.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     <a href="index.html" class="nav__logo" aria-label="MALOW LONDON - Home"><img class="nav__logo-img" src="images/malow-wordmark.svg" alt="" width="220" height="40" decoding="async"></a>
     <div class="nav__links">
       <a href="shop-all.html" class="nav__link">Shop All</a>
-      <a href="about.html" class="nav__link active">About Us</a>
+      <a href="about.html" class="nav__link">About Us</a>
       <a href="collections.html" class="nav__link">Collections</a>
     </div>
     <div class="nav__actions">
@@ -31,7 +31,7 @@
       <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
       </button>
-      <a href="contact.html" class="nav__cta">Contact Us</a>
+      <a href="contact.html" class="nav__cta active">Contact Us</a>
     </div>
   </div>
 </nav>
@@ -46,73 +46,109 @@
 
 
 <!-- ============================================================
-     ABOUT HERO - original: watermark M, centred text, no image
+     CONTACT HERO
      ============================================================ -->
-<section class="about-hero about-hero--centred">
-  <span class="about-hero__watermark" aria-hidden="true">M</span>
-  <div class="container">
-    <div class="about-hero__text-wrap">
-      <span class="about-hero__kicker">Est. London &nbsp;&middot;&nbsp; 2026</span>
-      <h1 class="about-hero__headline">Made for moments<br>that matter.</h1>
-      <p class="about-hero__statement">Glamour should never mean discomfort.</p>
-      <p class="about-hero__sub">Heels designed for weddings, proms, race days and every unforgettable moment - so you can look extraordinary and feel confident from the first step to the last dance.</p>
-      <a href="shop-all.html" class="btn-rect">Shop the Collection</a>
-    </div>
+<section class="info-hero">
+  <div class="container info-hero__inner">
+    <span class="info-hero__kicker">We'd love to hear from you</span>
+    <h1 class="info-hero__title">Get In Touch</h1>
+    <p class="info-hero__sub">Our team is available Monday–Friday, 9am–5pm GMT.<br>We aim to respond within 24 hours.</p>
   </div>
 </section>
 
 
 <!-- ============================================================
-     MANIFESTO STRIP
+     CONTACT LAYOUT
      ============================================================ -->
+<section class="section contact-layout">
+  <div class="container contact-layout__inner">
 
-<!-- ============================================================
-     FEATURES - what's inside every pair
-     ============================================================ -->
-<section class="about-features section">
-  <div class="container">
+    <!-- Left: Form -->
+    <div class="contact-form-wrap">
+      <h2 class="contact-form__heading">Send us a message</h2>
+      <form class="contact-form" id="contact-form" novalidate>
 
-    <div class="about-features__header">
-      <span class="about-features__kicker">The Design</span>
-      <h2 class="about-features__heading">What's inside every pair</h2>
+        <div class="contact-form__row contact-form__row--split">
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="contact-name">Full name</label>
+            <input class="contact-form__input" type="text" id="contact-name" name="name" placeholder="Jane Smith" autocomplete="name" required>
+          </div>
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="contact-email">Email address</label>
+            <input class="contact-form__input" type="email" id="contact-email" name="email" placeholder="jane@example.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="contact-subject">Subject</label>
+          <select class="contact-form__input contact-form__select" id="contact-subject" name="subject" required>
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="order">Order enquiry</option>
+            <option value="returns">Returns &amp; exchanges</option>
+            <option value="sizing">Sizing help</option>
+            <option value="wholesale">Wholesale</option>
+            <option value="press">Press &amp; media</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="contact-order">Order number <span class="contact-form__optional">(optional)</span></label>
+          <input class="contact-form__input" type="text" id="contact-order" name="order" placeholder="e.g. ML-00492">
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="contact-message">Your message</label>
+          <textarea class="contact-form__input contact-form__textarea" id="contact-message" name="message" placeholder="Tell us how we can help…" rows="6" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-rect contact-form__submit">Send message</button>
+        <p class="contact-form__success" id="contact-success" aria-live="polite">Thank you - we'll be in touch shortly.</p>
+
+      </form>
     </div>
 
-    <div class="about-features__grid">
+    <!-- Right: Info -->
+    <div class="contact-info">
 
-      <div class="about-feature">
-        <div class="about-feature__top">
-          <span class="about-feature__num">01</span>
-          <span class="about-feature__rule"></span>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <h4 class="about-feature__name">Thick cushioned foam footbed</h4>
-        <p class="about-feature__desc">A thick cushioned foam footbed absorbs impact, keeping you comfortable from the first step to the last dance.</p>
+        <div>
+          <p class="contact-card__label">General enquiries</p>
+          <a href="mailto:hello@malowlondon.com" class="contact-card__value">hello@malowlondon.com</a>
+        </div>
       </div>
 
-      <div class="about-feature">
-        <div class="about-feature__top">
-          <span class="about-feature__num">02</span>
-          <span class="about-feature__rule"></span>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <h4 class="about-feature__name">Supportive insole board</h4>
-        <p class="about-feature__desc">A supportive insole board creates natural balance and ease, so every step feels as stable as it looks elegant.</p>
+        <div>
+          <p class="contact-card__label">Customer care hours</p>
+          <p class="contact-card__value">Mon–Fri, 9am–5pm GMT</p>
+        </div>
       </div>
 
-      <div class="about-feature">
-        <div class="about-feature__top">
-          <span class="about-feature__num">03</span>
-          <span class="about-feature__rule"></span>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
-        <h4 class="about-feature__name">Subtle arch support</h4>
-        <p class="about-feature__desc">Built-in subtle arch support creates natural balance and ease, intelligently integrated into the construction of every pair.</p>
+        <div>
+          <p class="contact-card__label">Based in</p>
+          <p class="contact-card__value">London, United Kingdom</p>
+        </div>
       </div>
 
-      <div class="about-feature">
-        <div class="about-feature__top">
-          <span class="about-feature__num">04</span>
-          <span class="about-feature__rule"></span>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.59 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
         </div>
-        <h4 class="about-feature__name">Designed with purpose</h4>
-        <p class="about-feature__desc">We design with purpose - combining comfort, structure, and refined proportions to ensure each silhouette feels as good as it looks.</p>
+        <div>
+          <p class="contact-card__label">Press &amp; partnerships</p>
+          <a href="mailto:press@malowlondon.com" class="contact-card__value">press@malowlondon.com</a>
+        </div>
       </div>
 
     </div>
@@ -122,52 +158,61 @@
 
 
 <!-- ============================================================
-     THREE PILLARS
+     FAQ
      ============================================================ -->
-<section class="about-pillars">
-  <div class="container">
-    <div class="about-pillars__grid">
+<section class="section contact-faq">
+  <div class="container contact-faq__inner">
 
-      <div class="about-pillar">
-        <span class="about-pillar__num">01</span>
-        <h3 class="about-pillar__heading">Comfort at our Core</h3>
-        <p class="about-pillar__text">Every pair is thoughtfully designed with comfort at its core, featuring cushioned foam footbeds, balanced heel shapes, and carefully chosen materials.</p>
-      </div>
+    <h2 class="contact-faq__heading">Frequently asked questions</h2>
 
-      <div class="about-pillar">
-        <span class="about-pillar__num">02</span>
-        <h3 class="about-pillar__heading">Details that Matter</h3>
-        <p class="about-pillar__text">We focus on the details that matter: secure straps, stable heels, soft linings, and silhouettes that flatter without sacrificing wearability.</p>
-      </div>
+    <div class="faq-list">
 
-      <div class="about-pillar">
-        <span class="about-pillar__num">03</span>
-        <h3 class="about-pillar__heading">Style without Compromise</h3>
-        <p class="about-pillar__text">We never compromise on style. Our designs are made to compliment your outfit and elevate your look, whatever the occasion.</p>
-      </div>
+      <details class="faq-item">
+        <summary class="faq-item__q">How long will my order take to arrive?</summary>
+        <div class="faq-item__a">
+          <p>Standard UK delivery takes 3–5 working days. Express delivery (1–2 working days) is available at checkout. International orders typically arrive within 7–14 working days. See our <a href="shipping.html" class="faq-item__link">full shipping page</a> for details.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">Can I return or exchange my shoes?</summary>
+        <div class="faq-item__a">
+          <p>Yes. We accept returns within 30 days of delivery, provided items are unworn and in original packaging. Exchange requests are processed within 3–5 working days of us receiving your return. Visit our <a href="shipping.html" class="faq-item__link">Shipping &amp; Returns</a> page for full details.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">I'm not sure about my size - what should I do?</summary>
+        <div class="faq-item__a">
+          <p>Our styles run true to size. If you're between sizes, we recommend sizing up. You can find our full conversion chart and foot measuring guide on the <a href="size-guide.html" class="faq-item__link">Size Guide</a> page.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">Where is my order?</summary>
+        <div class="faq-item__a">
+          <p>Once your order has been dispatched, you'll receive a confirmation email with a tracking link. If you haven't received this within 24 hours of placing your order, please get in touch and include your order number.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">Do you ship internationally?</summary>
+        <div class="faq-item__a">
+          <p>Yes - we ship worldwide. International shipping rates and estimated delivery times are shown at checkout. Please note that customs duties and taxes may apply depending on your country and are the responsibility of the recipient.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">Can I change or cancel my order?</summary>
+        <div class="faq-item__a">
+          <p>We process orders quickly, but if you need to make a change, please email us at <a href="mailto:hello@malowlondon.com" class="faq-item__link">hello@malowlondon.com</a> as soon as possible with your order number. We'll do our best to help before dispatch.</p>
+        </div>
+      </details>
 
     </div>
+
   </div>
 </section>
-
-
-<!-- ============================================================
-     SHOP SECTION - teaser grid of 4 bestsellers
-     ============================================================ -->
-<section class="about-shop section">
-  <div class="container">
-    <div class="about-shop__header">
-      <span class="about-shop__kicker">The Collection</span>
-      <h2 class="about-shop__heading">Shop MALOW</h2>
-    </div>
-    <div class="product-grid" id="about-shop-grid"></div>
-    <div class="about-shop__cta">
-      <a href="shop-all.html" class="btn-rect">View All Styles</a>
-    </div>
-  </div>
-</section>
-
-
 
 
 <!-- Marquee -->
@@ -189,7 +234,6 @@
         <p class="footer__col-heading">Explore MALOW</p>
         <ul class="footer__links">
           <li><a href="shipping.html" class="footer__link">Shipping &amp; Returns</a></li>
-          
           <li><a href="contact.html" class="footer__link">Get In Touch</a></li>
           <li><a href="size-guide.html" class="footer__link">Size Guide</a></li>
           <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
@@ -231,7 +275,16 @@
   </div>
 </aside>
 
-<script src="js/products.js"></script>
 <script src="js/malow.js"></script>
+<script>
+  /* Contact form – client-side only demo */
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.reset();
+    var msg = document.getElementById('contact-success');
+    msg.style.display = 'block';
+    setTimeout(function(){ msg.style.display = 'none'; }, 5000);
+  });
+</script>
 </body>
 </html>

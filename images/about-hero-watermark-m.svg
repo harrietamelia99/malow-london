@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 810" fill="none" aria-hidden="true">
+  <defs>
+    <clipPath id="about-hero-m-clip">
+      <rect x="0" y="0" width="700" height="799"/>
+    </clipPath>
+  </defs>
+  <g transform="translate(110,11)">
+    <g clip-path="url(#about-hero-m-clip)">
+      <g transform="translate(11.338442,725.951347)" fill="#FBD0CB">
+        <path d="M 19.875 0 L 9.9375 0 L 9.9375 -695.796875 L 89.46875 -695.796875 L 282.296875 -284.28125 L 472.15625 -695.796875 L 551.65625 -695.796875 L 551.65625 0 L 472.15625 0 L 472.15625 -673.921875 L 252.484375 -199.796875 L 242.546875 -199.796875 L 19.875 -674.921875 Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

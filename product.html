@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MALOW LONDON</title>
+  <meta name="description" content="Shop luxury heels by MALOW London — memory foam footbeds, gentle arch support, beautiful design.">
+  <link rel="stylesheet" href="css/malow.css">
+  <!-- Shopify: templates/product.json — product data from {{ product }} Liquid object -->
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">MALOW</a>
+    <div class="nav__links">
+      <a href="shop-all.html" class="nav__link">Shop All</a>
+      <a href="about.html" class="nav__link">About Us</a>
+      <a href="collections.html" class="nav__link">Collections</a>
+    </div>
+    <div class="nav__actions">
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="favourites.html" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </a>
+      <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
+      </button>
+      <a href="mailto:hello@malowlondon.com" class="nav__cta">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="shop-all.html" class="mobile-menu__link">Shop All</a>
+  <a href="about.html" class="mobile-menu__link">About Us</a>
+  <a href="collections.html" class="mobile-menu__link">Collections</a>
+  <a href="favourites.html" class="mobile-menu__link">Favourites</a>
+  <a href="mailto:hello@malowlondon.com" class="mobile-menu__link">Contact Us</a>
+</div>
+
+<!-- Breadcrumb -->
+<div style="background:var(--sugar-petal);border-bottom:1px solid var(--rosy-blush);padding:14px 0;">
+  <div class="container">
+    <p style="font-size:11px;font-weight:300;color:var(--sunday-slate);letter-spacing:0.5px;">
+      <a href="index.html" style="color:var(--sunday-slate);transition:color 0.2s ease;"
+         onmouseover="this.style.color='var(--text-dark)'" onmouseout="this.style.color='var(--sunday-slate)'">Home</a>
+      &nbsp;/&nbsp;
+      <a href="collections.html" style="color:var(--sunday-slate);transition:color 0.2s ease;"
+         onmouseover="this.style.color='var(--text-dark)'" onmouseout="this.style.color='var(--sunday-slate)'">Collections</a>
+      &nbsp;/&nbsp;
+      <span id="breadcrumb-product" style="color:var(--text-dark);">Product</span>
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================
+     PRODUCT PAGE — content rendered dynamically from products.js
+     Shopify: templates/product.json + sections/product-template.liquid
+     ============================================================ -->
+<main class="product-page">
+  <div class="container">
+    <div class="product-page__inner" id="product-page-inner">
+      <!-- Populated by initDynamicProduct() in malow.js -->
+      <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;min-height:400px;">
+        <p style="font-size:13px;font-weight:300;color:var(--sunday-slate);letter-spacing:1px;">Loading…</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<!-- "You may also like" -->
+<section class="also-like" aria-labelledby="also-like-heading">
+  <div class="container">
+    <h2 class="also-like__heading" id="also-like-heading">You May Also Like</h2>
+    <div class="product-grid" id="also-like-grid">
+      <!-- Populated by initDynamicProduct() -->
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <span class="footer__monogram-m" aria-hidden="true">M</span>
+        <span class="footer__monogram-london">London</span>
+      </div>
+      <div>
+        <p class="footer__col-heading">Explore MALOW</p>
+        <ul class="footer__links">
+          <li><a href="#" class="footer__link">Shipping</a></li>
+          <li><a href="#" class="footer__link">Returns &amp; Exchange Policy</a></li>
+          <li><a href="mailto:hello@malowlondon.com" class="footer__link">Get In Touch</a></li>
+          <li><a href="#" class="footer__link">Size Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-heading">Step Inside MALOW</p>
+        <p class="footer__description">Join the MALOW family and be first to discover new arrivals, exclusive offers, and behind-the-scenes moments from our London studio.</p>
+        <form class="footer__email-form" data-email-form>
+          <input type="email" class="footer__email-input" placeholder="Email address" autocomplete="email" aria-label="Email address">
+          <button type="submit" class="footer__email-btn">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copyright">© 2025 MALOW London. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping bag" aria-modal="true">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Your Bag</span>
+    <button class="cart-drawer__close" id="cart-drawer-close" aria-label="Close bag">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-drawer__body" id="cart-drawer-body"></div>
+  <div class="cart-drawer__footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal__label">Subtotal</span>
+      <span class="cart-subtotal__amount" id="cart-drawer-subtotal">£0.00</span>
+    </div>
+    <button class="btn-rect" onclick="window.location.href='cart.html'">Checkout</button>
+  </div>
+</aside>
+
+<script src="js/products.js"></script>
+<script src="js/malow.js"></script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MALOW LONDON — Luxury Heels</title>
+  <meta name="description" content="Luxury women's heels designed in London. Beautiful design meets real comfort — memory foam footbeds, gentle arch support.">
+  <!-- Shopify: {% include 'head-meta' %} -->
+  <link rel="stylesheet" href="css/malow.css">
+  <!-- Shopify: {{ 'malow.css' | asset_url | stylesheet_tag }} -->
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     Shopify: sections/header.liquid
+     ============================================================ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav__inner">
+
+    <!-- Logo: ONLY element using Catchye Demo / display font -->
+    <a href="index.html" class="nav__logo" aria-label="MALOW LONDON — Home">MALOW</a>
+
+    <!-- Centre links -->
+    <div class="nav__links">
+      <a href="shop-all.html" class="nav__link">Shop All</a>
+      <a href="about.html" class="nav__link">About Us</a>
+      <a href="collections.html" class="nav__link">Collections</a>
+    </div>
+
+    <!-- Right actions -->
+    <div class="nav__actions">
+      <!-- Hamburger (mobile only) -->
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Wishlist / heart (filled pink) -->
+      <a href="favourites.html" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </a>
+
+      <!-- Cart / bag -->
+      <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
+      </button>
+
+      <!-- Contact CTA -->
+      <a href="mailto:hello@malowlondon.com" class="nav__cta">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <a href="shop-all.html" class="mobile-menu__link">Shop All</a>
+  <a href="about.html" class="mobile-menu__link">About Us</a>
+  <a href="collections.html" class="mobile-menu__link">Collections</a>
+  <a href="favourites.html" class="mobile-menu__link">Favourites</a>
+  <a href="mailto:hello@malowlondon.com" class="mobile-menu__link">Contact Us</a>
+</div>
+
+
+<!-- ============================================================
+     SECTION 1 — HERO BANNER
+     Shopify: sections/hero.liquid
+     Replace gradient with: {{ section.settings.image | img_url: 'master' }}
+     ============================================================ -->
+<section class="hero" aria-label="Hero banner">
+  <!-- Shopify: <img class="hero__bg" src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.image.alt }}"> -->
+
+  <!-- Decorative texture overlay -->
+  <div class="hero__texture" aria-hidden="true"></div>
+
+  <!-- SVG rose petal decorative elements in hero background -->
+  <svg class="hero__texture" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 400">
+    <!-- Soft petal shapes -->
+    <ellipse cx="150" cy="80" rx="60" ry="90" fill="rgba(255,255,255,0.07)" transform="rotate(-25,150,80)"/>
+    <ellipse cx="280" cy="200" rx="80" ry="55" fill="rgba(255,255,255,0.05)" transform="rotate(15,280,200)"/>
+    <ellipse cx="950" cy="100" rx="70" ry="100" fill="rgba(255,255,255,0.06)" transform="rotate(20,950,100)"/>
+    <ellipse cx="1080" cy="300" rx="90" ry="60" fill="rgba(255,255,255,0.04)" transform="rotate(-10,1080,300)"/>
+    <ellipse cx="500" cy="350" rx="55" ry="80" fill="rgba(255,255,255,0.05)" transform="rotate(35,500,350)"/>
+    <ellipse cx="750" cy="50" rx="65" ry="45" fill="rgba(255,255,255,0.06)" transform="rotate(-15,750,50)"/>
+    <!-- Circular blob accents -->
+    <circle cx="380" cy="120" r="40" fill="rgba(251,208,203,0.18)"/>
+    <circle cx="850" cy="280" r="55" fill="rgba(229,194,178,0.14)"/>
+    <circle cx="650" cy="200" r="30" fill="rgba(255,255,255,0.08)"/>
+  </svg>
+
+  <!-- Centred M badge submark -->
+  <div class="hero__overlay">
+    <svg class="hero__badge" viewBox="0 0 124 124" xmlns="http://www.w3.org/2000/svg" aria-label="MALOW London badge">
+      <defs>
+        <path id="topRing"    d="M 62,62 m -42,0 a 42,42 0 1,1 84,0"/>
+        <path id="bottomRing" d="M 62,62 m -42,0 a 42,42 0 0,0 84,0"/>
+      </defs>
+      <!-- Frosted glass circle -->
+      <circle cx="62" cy="62" r="58" fill="rgba(255,255,255,0.84)"/>
+      <!-- Outer ring -->
+      <circle cx="62" cy="62" r="56" fill="none" stroke="rgba(149,137,137,0.38)" stroke-width="1.2"/>
+      <!-- Inner ring -->
+      <circle cx="62" cy="62" r="48" fill="none" stroke="rgba(149,137,137,0.18)" stroke-width="0.8"/>
+      <!-- LONDON arched text top -->
+      <text font-family="Avenir Next, Avenir, sans-serif" font-size="7.5" fill="rgba(149,137,137,0.75)" letter-spacing="4.5" font-weight="400">
+        <textPath href="#topRing" startOffset="16%">· LONDON ·</textPath>
+      </text>
+      <!-- LONDON arched text bottom -->
+      <text font-family="Avenir Next, Avenir, sans-serif" font-size="7.5" fill="rgba(149,137,137,0.75)" letter-spacing="4.5" font-weight="400">
+        <textPath href="#bottomRing" startOffset="14%">· LONDON ·</textPath>
+      </text>
+      <!-- Central M -->
+      <text x="62" y="75" text-anchor="middle" font-family="Catchye Demo, Cormorant SC, Georgia, serif" font-size="48" fill="rgba(149,137,137,0.82)" font-weight="400">M</text>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 2 — TAGLINE STRIP
+     Shopify: sections/tagline.liquid
+     ============================================================ -->
+<section class="tagline">
+  <!-- Shopify: {{ section.settings.tagline_text }} -->
+  <p class="tagline__text">Where beautiful design meets comfort.</p>
+</section>
+
+
+<!-- ============================================================
+     SECTION 3 — BESTSELLERS
+     Shopify: sections/featured-collection.liquid
+     Collection handle: bestsellers
+     ============================================================ -->
+<section class="bestsellers section" aria-labelledby="bestsellers-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-heading" id="bestsellers-heading">Our Bestsellers</h2>
+      <a href="shop-all.html" class="btn-pill">Shop Now</a>
+    </div>
+
+    <!-- Shopify: {% for product in collections['bestsellers'].products limit: 4 %} -->
+    <!-- Rendered dynamically by renderHomepageProducts() in malow.js -->
+    <div class="product-grid" id="bestsellers-grid"></div>
+    <!-- Shopify: {% endfor %} -->
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 4 — WHY MALOW
+     Shopify: sections/why-malow.liquid
+     ============================================================ -->
+<section class="why-malow" aria-labelledby="why-malow-heading">
+  <div class="container">
+    <div class="why-malow__inner">
+
+      <!-- Text left -->
+      <div>
+        <h2 class="why-malow__heading" id="why-malow-heading">Why MALOW?</h2>
+        <p class="why-malow__body">From ultra soft memory foam footbeds to gentle arch support, each style is made to keep your feet happy, no matter the occasion.</p>
+        <br>
+        <a href="about.html" class="btn-pill" style="margin-top:8px;">Discover More</a>
+      </div>
+
+      <!-- Image right — wax seal SVG -->
+      <div class="why-malow__image-wrap" aria-hidden="true">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+          <defs>
+            <radialGradient id="waxGrad" cx="40%" cy="36%" r="65%">
+              <stop offset="0%"   stop-color="#eac8b6"/>
+              <stop offset="50%"  stop-color="#d9a890"/>
+              <stop offset="100%" stop-color="#c08870"/>
+            </radialGradient>
+            <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+              <stop offset="0%"   stop-color="#f5eee6"/>
+              <stop offset="100%" stop-color="#ecddd0"/>
+            </radialGradient>
+          </defs>
+          <!-- Card background -->
+          <rect width="300" height="300" fill="url(#bgGrad)"/>
+          <!-- Wax seal shadow -->
+          <circle cx="152" cy="154" r="102" fill="rgba(197,184,166,0.18)"/>
+          <!-- Wax seal body -->
+          <circle cx="150" cy="150" r="100" fill="url(#waxGrad)"/>
+          <!-- Wax highlight -->
+          <ellipse cx="122" cy="118" rx="38" ry="28" fill="rgba(255,255,255,0.11)" transform="rotate(-20,122,118)"/>
+          <!-- Embossed rings -->
+          <circle cx="150" cy="150" r="88" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.8"/>
+          <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+          <!-- M letterform -->
+          <text x="150" y="180" text-anchor="middle" font-family="Catchye Demo, Cormorant SC, Georgia, serif" font-size="90" fill="rgba(255,255,255,0.86)" font-weight="400">M</text>
+          <!-- LONDON text below M -->
+          <text x="150" y="202" text-anchor="middle" font-family="Avenir Next, Avenir, sans-serif" font-size="9" fill="rgba(255,255,255,0.55)" letter-spacing="5" font-weight="400">LONDON</text>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 5 — SHOP ALL
+     Shopify: sections/shop-all.liquid
+     Collection handle: shop-all
+     ============================================================ -->
+<section class="shop-all section" aria-labelledby="shop-all-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-heading" id="shop-all-heading">Shop All</h2>
+      <a href="shop-all.html" class="btn-pill">View All</a>
+    </div>
+
+    <!-- Shopify: {% for product in collections['shop-all'].products limit: 8 %} -->
+    <!-- Rendered dynamically by renderHomepageProducts() in malow.js -->
+    <div class="product-grid" id="shop-all-grid"></div>
+    <!-- Shopify: {% endfor %} -->
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 6 — MARQUEE TICKER
+     CSS animation only — no JS required
+     ============================================================ -->
+<div class="ticker" aria-hidden="true">
+  <!-- Content duplicated for seamless loop -->
+  <div class="ticker__track">
+    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
+    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SECTION 7 — FOOTER
+     Shopify: sections/footer.liquid
+     Email: connect to Klaviyo list in section settings
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+
+      <!-- Column 1: Monogram -->
+      <div>
+        <span class="footer__monogram-m" aria-hidden="true">M</span>
+        <span class="footer__monogram-london">London</span>
+      </div>
+
+      <!-- Column 2: Navigation links -->
+      <div>
+        <p class="footer__col-heading">Explore MALOW</p>
+        <ul class="footer__links">
+          <li><a href="#" class="footer__link">Shipping</a></li>
+          <li><a href="#" class="footer__link">Returns &amp; Exchange Policy</a></li>
+          <li><a href="mailto:hello@malowlondon.com" class="footer__link">Get In Touch</a></li>
+          <li><a href="#" class="footer__link">Size Guide</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Newsletter -->
+      <div>
+        <p class="footer__col-heading">Step Inside MALOW</p>
+        <p class="footer__description">Join the MALOW family and be first to discover new arrivals, exclusive offers, and behind-the-scenes moments from our London studio.</p>
+        <!-- Shopify: replace with Klaviyo embed code -->
+        <form class="footer__email-form" data-email-form>
+          <input type="email" class="footer__email-input" placeholder="Email address" autocomplete="email" aria-label="Email address">
+          <button type="submit" class="footer__email-btn">Submit</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">© 2025 MALOW London. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     CART DRAWER (global — present on all pages)
+     Shopify: sections/cart-drawer.liquid
+     ============================================================ -->
+<div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping bag" aria-modal="true">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Your Bag</span>
+    <button class="cart-drawer__close" id="cart-drawer-close" aria-label="Close bag">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="cart-drawer__body" id="cart-drawer-body">
+    <!-- Populated by malow.js -->
+  </div>
+  <div class="cart-drawer__footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal__label">Subtotal</span>
+      <span class="cart-subtotal__amount" id="cart-drawer-subtotal">£0.00</span>
+    </div>
+    <!-- Shopify: links to /checkout -->
+    <button class="btn-rect" onclick="window.location.href='cart.html'">Checkout</button>
+  </div>
+</aside>
+
+
+<script src="js/products.js"></script>
+<script src="js/malow.js"></script>
+<!-- Shopify: {{ 'malow.js' | asset_url | script_tag }} -->
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collections — MALOW LONDON</title>
+  <meta name="description" content="Explore MALOW London collections — Bestsellers, Wedding, Party, and Everyday styles curated for every occasion.">
+  <link rel="stylesheet" href="css/malow.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">MALOW</a>
+    <div class="nav__links">
+      <a href="shop-all.html" class="nav__link">Shop All</a>
+      <a href="about.html" class="nav__link">About Us</a>
+      <a href="collections.html" class="nav__link active">Collections</a>
+    </div>
+    <div class="nav__actions">
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="favourites.html" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </a>
+      <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
+      </button>
+      <a href="mailto:hello@malowlondon.com" class="nav__cta">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="shop-all.html" class="mobile-menu__link">Shop All</a>
+  <a href="about.html" class="mobile-menu__link">About Us</a>
+  <a href="collections.html" class="mobile-menu__link">Collections</a>
+  <a href="favourites.html" class="mobile-menu__link">Favourites</a>
+  <a href="mailto:hello@malowlondon.com" class="mobile-menu__link">Contact Us</a>
+</div>
+
+
+<!-- ============================================================
+     COLLECTIONS HUB
+     Editorial landing page — curated categories
+     Each card links to shop-all.html?filter=[category]
+     ============================================================ -->
+<main class="collections-hub">
+  <div class="container">
+
+    <h1 class="collections-hub__title">Collections</h1>
+    <p class="collections-hub__subtitle">Curated edits for every occasion.</p>
+
+    <div class="collections-hub__grid">
+
+      <!-- Bestsellers -->
+      <a class="collection-card" href="shop-all.html?filter=all" aria-label="Shop our Bestsellers">
+        <img class="collection-card__img"
+             src="images/CAMILA_PUTTY_PU_copy-537eb5c6-33e8-41aa-a9f6-5b6dbe949857.png"
+             alt="Camila in Putty — MALOW Bestseller"
+             loading="eager">
+        <div class="collection-card__overlay"></div>
+        <div class="collection-card__body">
+          <span class="collection-card__tag">Our most loved</span>
+          <p class="collection-card__name">Bestsellers</p>
+          <span class="collection-card__cta">Shop Now &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- Wedding -->
+      <a class="collection-card" href="shop-all.html?filter=wedding" aria-label="Shop the Wedding collection">
+        <img class="collection-card__img"
+             src="images/CHLOE_CREAM_copy-b7fe0013-cfcb-45f3-b03d-92039bcba438.png"
+             alt="Chloe in Cream — Wedding collection"
+             loading="eager">
+        <div class="collection-card__overlay"></div>
+        <div class="collection-card__body">
+          <span class="collection-card__tag">From ceremony to dance floor</span>
+          <p class="collection-card__name">Wedding</p>
+          <span class="collection-card__cta">Shop Now &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- Party -->
+      <a class="collection-card" href="shop-all.html?filter=party" aria-label="Shop the Party collection">
+        <img class="collection-card__img"
+             src="images/MILLIE_BLACK_copy-6254cad7-c7a5-4740-8cb9-73b489d51a20.png"
+             alt="Millie in Black — Party collection"
+             loading="lazy">
+        <div class="collection-card__overlay"></div>
+        <div class="collection-card__body">
+          <span class="collection-card__tag">Make your entrance</span>
+          <p class="collection-card__name">Party</p>
+          <span class="collection-card__cta">Shop Now &nbsp;→</span>
+        </div>
+      </a>
+
+      <!-- Everyday -->
+      <a class="collection-card" href="shop-all.html?filter=everyday" aria-label="Shop the Everyday collection">
+        <img class="collection-card__img"
+             src="images/BELLA_CREAM_copy-8ec40bdc-4543-44e9-b626-9b5979bd0677.png"
+             alt="Bella in Cream — Everyday collection"
+             loading="lazy">
+        <div class="collection-card__overlay"></div>
+        <div class="collection-card__body">
+          <span class="collection-card__tag">Comfort from morning to midnight</span>
+          <p class="collection-card__name">Everyday</p>
+          <span class="collection-card__cta">Shop Now &nbsp;→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- View all -->
+    <div class="collections-hub__view-all">
+      <a href="shop-all.html" class="btn-pill">View All Styles</a>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- Marquee -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
+    <span class="ticker__item">MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp; MALOW &nbsp;*&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <span class="footer__monogram-m" aria-hidden="true">M</span>
+        <span class="footer__monogram-london">London</span>
+      </div>
+      <div>
+        <p class="footer__col-heading">Explore MALOW</p>
+        <ul class="footer__links">
+          <li><a href="#" class="footer__link">Shipping</a></li>
+          <li><a href="#" class="footer__link">Returns &amp; Exchange Policy</a></li>
+          <li><a href="mailto:hello@malowlondon.com" class="footer__link">Get In Touch</a></li>
+          <li><a href="#" class="footer__link">Size Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-heading">Step Inside MALOW</p>
+        <p class="footer__description">Join the MALOW family and be first to discover new arrivals, exclusive offers, and behind-the-scenes moments from our London studio.</p>
+        <form class="footer__email-form" data-email-form>
+          <input type="email" class="footer__email-input" placeholder="Email address" autocomplete="email" aria-label="Email address">
+          <button type="submit" class="footer__email-btn">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copyright">© 2025 MALOW London. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping bag" aria-modal="true">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Your Bag</span>
+    <button class="cart-drawer__close" id="cart-drawer-close" aria-label="Close bag">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-drawer__body" id="cart-drawer-body"></div>
+  <div class="cart-drawer__footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal__label">Subtotal</span>
+      <span class="cart-subtotal__amount" id="cart-drawer-subtotal">£0.00</span>
+    </div>
+    <button class="btn-rect" onclick="window.location.href='cart.html'">Checkout</button>
+  </div>
+</aside>
+
+<script src="js/malow.js"></script>
+</body>
+</html>

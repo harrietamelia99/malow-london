@@ -219,7 +219,7 @@ function initAboutFounderExpand() {
   const btn   = document.getElementById('about-founder-toggle');
   if (!panel || !rest || !btn) return;
 
-  const mq = window.matchMedia('(max-width: 900px)');
+  const mq = window.matchMedia('(max-width: 768px)');
 
   function applyLayout(isMobile) {
     if (isMobile) {
@@ -256,7 +256,12 @@ function initAboutFounderExpand() {
   });
 
   applyLayout(mq.matches);
-  mq.addEventListener('change', () => applyLayout(mq.matches));
+  const onMqChange = () => applyLayout(mq.matches);
+  if (typeof mq.addEventListener === 'function') {
+    mq.addEventListener('change', onMqChange);
+  } else if (typeof mq.addListener === 'function') {
+    mq.addListener(onMqChange);
+  }
 }
 
 /* Update card images to filter-specific default variants (see product.defaultVariantForFilters) */

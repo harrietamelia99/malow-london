@@ -123,10 +123,13 @@ p, span, a, li, label, input, button, textarea, select {
   z-index: 1000;
   background: transparent;
   padding: 16px clamp(20px, 4vw, 40px);
+  /* Let clicks reach page content in the transparent margins around the pill */
+  pointer-events: none;
 }
 
 
 .nav__inner {
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1568,6 +1571,21 @@ p, span, a, li, label, input, button, textarea, select {
   padding-bottom: clamp(48px, 7vw, 92px);
 }
 
+/* Match nav pill width + inset (see .nav + .nav__inner) */
+@media (min-width: 769px) {
+  .about-founder {
+    padding-left: clamp(20px, 4vw, 40px);
+    padding-right: clamp(20px, 4vw, 40px);
+    box-sizing: border-box;
+  }
+
+  .about-founder .about-founder__shell.container {
+    max-width: var(--max-width-hero-nav);
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}
+
 /* Shared height: portrait column (4:5) and white story panel align on large screens */
 .about-founder__grid {
   --about-founder-rail: clamp(420px, 46vh, 580px);
@@ -1595,7 +1613,7 @@ p, span, a, li, label, input, button, textarea, select {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: min(36rem, 100%);
+  max-width: none;
   min-height: var(--about-founder-rail);
   max-height: var(--about-founder-rail);
   overflow: hidden;
@@ -1706,6 +1724,8 @@ p, span, a, li, label, input, button, textarea, select {
 }
 
 .about-founder__toggle {
+  position: relative;
+  z-index: 2;
   flex-shrink: 0;
   margin-top: auto;
   padding-top: 14px;
@@ -2870,6 +2890,18 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
   .about-founder__shell {
     padding-top: 36px;
     padding-bottom: 40px;
+  }
+
+  .about-founder {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  .about-founder .about-founder__shell.container {
+    max-width: var(--max-width-hero-nav);
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .about-founder__grid {

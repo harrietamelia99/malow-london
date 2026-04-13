@@ -1,49 +1,26 @@
 /* ============================================================
    MALOW LONDON - Main JavaScript v2.0
    ============================================================
-   Shopify integration notes:
-   - Cart state: replace localStorage with Shopify Ajax Cart API
-     POST /cart/add.js, GET /cart.js, POST /cart/change.js
+   Lookbook mode: no cart / checkout (re-enable via Shopify Ajax Cart
+   when the client sells online).
    - Wishlist: replace localStorage with Wishlist Hero app API
-     https://wishlisthero.io/pages/developer-docs
-   - Klaviyo email capture: replace form handler with Klaviyo
-     subscribe endpoint or use Klaviyo embed form
    - products.js: replace PRODUCTS object with Liquid product data
    ============================================================ */
 
 'use strict';
 
+/** Retail partner — PDP “shop” CTA (lookbook site links out) */
+const JUSTFAB_SHOP_URL = 'https://www.justfab.co.uk/';
+
 let _productCardRevealObserver = null;
 
 /* ─── State (replace with Shopify APIs in production) ────── */
 const Malow = {
-  cart: JSON.parse(localStorage.getItem('malow-cart') || '[]'),
   wishlist: JSON.parse(localStorage.getItem('malow-wishlist') || '[]'),
-
-  saveCart() {
-    localStorage.setItem('malow-cart', JSON.stringify(this.cart));
-    this.updateCartUI();
-  },
 
   saveWishlist() {
     localStorage.setItem('malow-wishlist', JSON.stringify(this.wishlist));
     this.updateWishlistUI();
-  },
-
-  getCartTotal() {
-    return this.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  },
-
-  getCartCount() {
-    return this.cart.reduce((sum, item) => sum + item.qty, 0);
-  },
-
-  updateCartUI() {
-    const count = this.getCartCount();
-    document.querySelectorAll('[data-cart-count]').forEach(el => {
-      el.textContent = count > 0 ? count : '';
-      el.style.display = count > 0 ? 'flex' : 'none';
-    });
   },
 
   updateWishlistUI() {
@@ -58,15 +35,8 @@ const Malow = {
 /* ─── Shared SVGs ────────────────────────────────────────── */
 const HEART_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
 
-function shoeIcon() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
-    <g opacity="0.38"><path d="M14 52C14 52 19 34 60 32C74 31 76 43 71 50C66 57 48 60 32 63C22 65 16 72 14 75L14 52Z" fill="currentColor"/>
-    <path d="M15 73L12 84L21 84L23 73Z" fill="currentColor"/>
-    <path d="M52 34L56 22L66 25L62 37Z" fill="currentColor"/></g></svg>`;
-}
-
 /* ─── Product Card Builder ───────────────────────────────── */
-/* Shared renderer used on homepage, collections, and also-like */
+/* Shared renderer used on homepage, shop-all grid, and also-like */
 /* activeFilter: e.g. 'wedding' - uses product.defaultVariantForFilters if set */
 function buildProductCard(product, activeFilter) {
   if (!product) return '';
@@ -194,102 +164,6 @@ function initNav() {
   });
 }
 
-/* ─── Cart Drawer ────────────────────────────────────────── */
-function initCartDrawer() {
-  const drawer   = document.getElementById('cart-drawer');
-  const overlay  = document.getElementById('cart-overlay');
-  const closeBtn = document.getElementById('cart-drawer-close');
-
-  if (!drawer) return;
-
-  function openDrawer() {
-    renderCartDrawer();
-    drawer.classList.add('open');
-    if (overlay) overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  document.querySelectorAll('[data-open-cart]').forEach(el => {
-    el.addEventListener('click', e => { e.preventDefault(); openDrawer(); });
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  if (overlay)  overlay.addEventListener('click', closeDrawer);
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
-  });
-}
-
-function renderCartDrawer() {
-  const body     = document.getElementById('cart-drawer-body');
-  const subtotal = document.getElementById('cart-drawer-subtotal');
-  if (!body) return;
-
-  if (Malow.cart.length === 0) {
-    body.innerHTML = `
-      <div class="cart-empty">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <p class="cart-empty__text">Your bag is empty.<br>Discover something beautiful.</p>
-        <a href="shop-all.html" class="btn-pill">Shop the Collection</a>
-      </div>`;
-    if (subtotal) subtotal.textContent = '£0.00';
-    return;
-  }
-
-  body.innerHTML = Malow.cart.map((item, idx) => `
-    <div class="cart-item">
-      <div class="cart-item__thumb">
-        ${item.image
-          ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;">`
-          : shoeIcon()}
-      </div>
-      <div class="cart-item__info">
-        <div class="cart-item__name">${item.name}${item.colour ? ` - ${item.colour}` : ''}</div>
-        <div class="cart-item__meta">Size ${item.size} · Qty ${item.qty}</div>
-        <div class="cart-item__price">£${(item.price * item.qty).toFixed(2)}</div>
-        <button class="cart-item__remove" onclick="removeFromCart(${idx})">Remove</button>
-      </div>
-    </div>`).join('');
-
-  if (subtotal) subtotal.textContent = `£${Malow.getCartTotal().toFixed(2)}`;
-}
-
-window.removeFromCart = function(idx) {
-  Malow.cart.splice(idx, 1);
-  Malow.saveCart();
-  renderCartDrawer();
-  renderCartPage();
-};
-
-function addToCart(product) {
-  /* Shopify: POST /cart/add.js with { id: variant_id, quantity: 1 } */
-  const existing = Malow.cart.find(
-    item => item.id === product.id && item.size === product.size && item.colour === product.colour
-  );
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    Malow.cart.push({ ...product, qty: 1 });
-  }
-  Malow.saveCart();
-  renderCartDrawer();
-
-  document.querySelectorAll('[data-open-cart] svg').forEach(svg => {
-    svg.style.transform = 'scale(1.35)';
-    setTimeout(() => { svg.style.transform = ''; }, 280);
-  });
-}
-
 /* ─── Wishlist (event-delegated, safe to call once) ─────── */
 /* Shopify: Wishlist Hero app handles this in production      */
 let _wishlistInited = false;
@@ -338,7 +212,54 @@ function initAboutTabs() {
   });
 }
 
-/* Update card images to filter-specific default variants (e.g. Taylor White on Wedding) */
+/* About founder — white panel read more (desktop); full text on narrow viewports */
+function initAboutFounderExpand() {
+  const panel = document.getElementById('about-founder-panel');
+  const rest  = document.getElementById('about-founder-rest');
+  const btn   = document.getElementById('about-founder-toggle');
+  if (!panel || !rest || !btn) return;
+
+  const mq = window.matchMedia('(max-width: 900px)');
+
+  function applyLayout(isMobile) {
+    if (isMobile) {
+      rest.removeAttribute('hidden');
+      panel.classList.add('about-founder__panel--expanded');
+      btn.hidden = true;
+      btn.setAttribute('aria-expanded', 'true');
+      return;
+    }
+    btn.hidden = false;
+    if (!panel.dataset.aboutExpanded) {
+      rest.setAttribute('hidden', '');
+      panel.classList.remove('about-founder__panel--expanded');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'Read full story';
+    }
+  }
+
+  btn.addEventListener('click', () => {
+    const isOpen = panel.classList.contains('about-founder__panel--expanded');
+    if (!isOpen) {
+      rest.removeAttribute('hidden');
+      panel.classList.add('about-founder__panel--expanded');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.textContent = 'Show less';
+      panel.dataset.aboutExpanded = '1';
+    } else {
+      rest.setAttribute('hidden', '');
+      panel.classList.remove('about-founder__panel--expanded');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'Read full story';
+      delete panel.dataset.aboutExpanded;
+    }
+  });
+
+  applyLayout(mq.matches);
+  mq.addEventListener('change', () => applyLayout(mq.matches));
+}
+
+/* Update card images to filter-specific default variants (see product.defaultVariantForFilters) */
 function syncCollectionGridVariantThumbnails(filter) {
   const grid = document.getElementById('collections-grid');
   if (!grid || typeof PRODUCTS === 'undefined') return;
@@ -383,6 +304,13 @@ function initFilter() {
       const empty = document.getElementById('collections-empty');
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
 
+      document.querySelectorAll('#collections-grid .collections-group').forEach(section => {
+        const anyShown = [...section.querySelectorAll('.product-card')].some(
+          c => c.style.display !== 'none'
+        );
+        section.style.display = anyShown ? '' : 'none';
+      });
+
       syncCollectionGridVariantThumbnails(filter);
     });
   });
@@ -394,12 +322,28 @@ function renderCollectionsGrid() {
   if (!grid || typeof PRODUCTS === 'undefined') return;
 
   const urlFilter = new URLSearchParams(window.location.search).get('filter') || 'all';
-  grid.innerHTML = PRODUCTS_LIST.map(id => buildProductCard(PRODUCTS[id], urlFilter)).join('');
+
+  const groups =
+    typeof SHOP_ALL_GROUPS !== 'undefined' && SHOP_ALL_GROUPS.length
+      ? SHOP_ALL_GROUPS
+      : [{ ids: PRODUCTS_LIST }];
+
+  grid.classList.add('collections-groups');
+  grid.innerHTML = groups
+    .map(group => {
+      const cards = group.ids
+        .map(id => (PRODUCTS[id] ? buildProductCard(PRODUCTS[id], urlFilter) : ''))
+        .join('');
+      if (!cards) return '';
+      return `<section class="collections-group"><div class="product-grid collections-group__grid">${cards}</div></section>`;
+    })
+    .join('');
+
   initCardSwatches(grid);
   initFilter();
   initWishlist();
 
-  /* Auto-apply ?filter= param when arriving from collections hub */
+  /* Auto-apply ?filter= param from URL (e.g. shop-all.html?filter=wedding) */
   if (urlFilter && urlFilter !== 'all') {
     const matchPill = document.querySelector(`.filter-pill[data-filter="${urlFilter}"]`);
     if (matchPill) matchPill.click();
@@ -524,18 +468,11 @@ function initDynamicProduct() {
       </div>
 
       <p style="font-size:11px;font-weight:400;color:var(--sunday-slate);margin-bottom:24px;margin-top:-8px;">
-        <a href="#" style="color:var(--sunday-slate);text-decoration:underline;text-decoration-color:var(--warm-linen);">Size guide</a>
+        <a href="size-guide.html" style="color:var(--sunday-slate);text-decoration:underline;text-decoration-color:var(--warm-linen);">Size guide</a>
       </p>
 
-      <div class="product-info__add-wrap">
-        <button class="btn-rect" id="add-to-bag-btn"
-                data-product-id="${product.id}"
-                data-product-name="${product.name}"
-                data-price="${product.price.toFixed(2)}"
-                data-image="${product.variants[0].images[0]}">
-          Add to Bag
-        </button>
-      </div>
+      <a href="${JUSTFAB_SHOP_URL}" class="btn-rect product-info__shop-external" target="_blank" rel="noopener noreferrer"
+         aria-label="Shop on JustFab (opens in a new tab)">Shop on JustFab</a>
 
       <button class="product-info__wishlist-btn" id="product-wishlist-btn"
               data-wishlist-id="${product.id}" aria-label="Add to favourites">
@@ -591,12 +528,12 @@ function initDynamicProduct() {
                   <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">Foot</th>
                 </tr></thead>
                 <tbody>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">3</td><td style="padding:8px 0;">36</td><td style="padding:8px 0;">5.5</td><td style="padding:8px 0;">22.5 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">4</td><td style="padding:8px 0;">37</td><td style="padding:8px 0;">6.5</td><td style="padding:8px 0;">23.5 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">5</td><td style="padding:8px 0;">38</td><td style="padding:8px 0;">7.5</td><td style="padding:8px 0;">24.5 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">6</td><td style="padding:8px 0;">39</td><td style="padding:8px 0;">8.5</td><td style="padding:8px 0;">25.5 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">7</td><td style="padding:8px 0;">40</td><td style="padding:8px 0;">9.5</td><td style="padding:8px 0;">26.5 cm</td></tr>
-                  <tr><td style="padding:8px 0;">8</td><td style="padding:8px 0;">41</td><td style="padding:8px 0;">10.5</td><td style="padding:8px 0;">27.5 cm</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">3</td><td style="padding:8px 0;">36</td><td style="padding:8px 0;">5.5</td><td style="padding:8px 0;">23.7 cm</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">4</td><td style="padding:8px 0;">37</td><td style="padding:8px 0;">6.5</td><td style="padding:8px 0;">24.5 cm</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">5</td><td style="padding:8px 0;">38</td><td style="padding:8px 0;">7.5</td><td style="padding:8px 0;">25.3 cm</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">6</td><td style="padding:8px 0;">39</td><td style="padding:8px 0;">8.5</td><td style="padding:8px 0;">26.2 cm</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">7</td><td style="padding:8px 0;">40</td><td style="padding:8px 0;">9.5</td><td style="padding:8px 0;">27.0 cm</td></tr>
+                  <tr><td style="padding:8px 0;">8</td><td style="padding:8px 0;">41</td><td style="padding:8px 0;">10.5</td><td style="padding:8px 0;">27.9 cm</td></tr>
                 </tbody>
               </table>
             </div>
@@ -617,57 +554,16 @@ function initDynamicProduct() {
       renderGallery(idx);
       const colourName = document.getElementById('active-colour-name');
       if (colourName) colourName.textContent = product.variants[idx].label;
-      const addBtn = document.getElementById('add-to-bag-btn');
-      if (addBtn) {
-        addBtn.dataset.image  = product.variants[idx].images[0];
-        addBtn.dataset.colour = product.variants[idx].label;
-      }
     });
   });
 
-  /* Size selector */
-  const sizeBtns = document.querySelectorAll('.size-btn');
-  let selectedSize = null;
-  sizeBtns.forEach(btn => {
+  /* Size selector (visual only — lookbook) */
+  document.querySelectorAll('.size-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      sizeBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      selectedSize = btn.dataset.size;
     });
   });
-
-  /* Add to Bag */
-  const addBtn = document.getElementById('add-to-bag-btn');
-  if (addBtn) {
-    addBtn.addEventListener('click', () => {
-      if (!selectedSize) {
-        const orig = addBtn.textContent;
-        addBtn.textContent = 'Please select a size';
-        addBtn.style.background = 'var(--warm-linen)';
-        setTimeout(() => { addBtn.textContent = orig; addBtn.style.background = ''; }, 2000);
-        return;
-      }
-      addToCart({
-        id:     addBtn.dataset.productId,
-        name:   addBtn.dataset.productName,
-        price:  parseFloat(addBtn.dataset.price),
-        size:   selectedSize,
-        colour: addBtn.dataset.colour || product.variants[0].label,
-        image:  addBtn.dataset.image  || product.variants[0].images[0]
-      });
-      const orig = addBtn.textContent;
-      addBtn.textContent = 'Added to Bag ✓';
-      addBtn.style.background = 'var(--warm-linen)';
-      setTimeout(() => { addBtn.textContent = orig; addBtn.style.background = ''; }, 1800);
-      const drawer  = document.getElementById('cart-drawer');
-      const overlay = document.getElementById('cart-overlay');
-      if (drawer) {
-        drawer.classList.add('open');
-        if (overlay) overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  }
 
   /* Accordion */
   initAccordion();
@@ -688,52 +584,6 @@ function initDynamicProduct() {
     alsoLikeGrid.innerHTML = others.map(id => buildProductCard(PRODUCTS[id])).join('');
     initCardSwatches(alsoLikeGrid);
   }
-}
-
-/* ─── Cart Page ──────────────────────────────────────────── */
-function renderCartPage() {
-  const itemsEl    = document.getElementById('cart-page-items');
-  const pageInner  = document.getElementById('cart-page-inner');
-  const emptyState = document.getElementById('cart-empty-state');
-  if (!itemsEl) return;
-
-  if (Malow.cart.length === 0) {
-    if (pageInner)  pageInner.style.display  = 'none';
-    if (emptyState) emptyState.style.display = 'block';
-    return;
-  }
-
-  if (pageInner)  pageInner.style.display  = '';
-  if (emptyState) emptyState.style.display = 'none';
-
-  itemsEl.innerHTML = Malow.cart.map((item, idx) => `
-    <div class="cart-table__row">
-      <div class="cart-table__img">
-        ${item.image
-          ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`
-          : shoeIcon()}
-      </div>
-      <div>
-        <p class="cart-table__name">${item.name}${item.colour ? ` - ${item.colour}` : ''}</p>
-        <p class="cart-table__size">Size ${item.size} &nbsp;&middot;&nbsp; Qty ${item.qty}</p>
-        <button class="cart-item__remove"
-                onclick="removeFromCart(${idx})"
-                style="margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;
-                       color:var(--sunday-slate);background:none;border:none;cursor:pointer;
-                       font-family:var(--font-body);padding:0;transition:color 0.2s ease;">Remove</button>
-      </div>
-      <p class="cart-table__price">£${(item.price * item.qty).toFixed(2)}</p>
-    </div>`).join('');
-
-  const count = Malow.getCartCount();
-  const total = Malow.getCartTotal();
-
-  const labelEl = document.getElementById('cart-page-subtotal-label');
-  const subEl   = document.getElementById('cart-page-subtotal-value');
-  const totEl   = document.getElementById('cart-page-total-value');
-  if (labelEl) labelEl.textContent = `Subtotal (${count} item${count !== 1 ? 's' : ''})`;
-  if (subEl)   subEl.textContent   = `£${total.toFixed(2)}`;
-  if (totEl)   totEl.textContent   = `£${total.toFixed(2)}`;
 }
 
 /* ─── Accordion ──────────────────────────────────────────── */
@@ -813,32 +663,16 @@ function initFavouritesPage() {
 /* ─── Init ───────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
-  initCartDrawer();
   initWishlist();
   initAboutTabs();
+  initAboutFounderExpand();
   renderCollectionsGrid();
   renderHomepageProducts();
   initDynamicProduct();
   initAccordion();
   initEmailForms();
   initFavouritesPage();
-  renderCartPage();
 
-  /* "Also like" grid on cart page */
-  const alsoLikeCartGrid = document.getElementById('also-like-cart-grid');
-  if (alsoLikeCartGrid && typeof PRODUCTS_LIST !== 'undefined') {
-    const cartIds = new Set(Malow.cart.map(i => i.id));
-    const picks   = PRODUCTS_LIST.filter(id => !cartIds.has(id)).slice(0, 4);
-    const fallback = picks.length < 4
-      ? PRODUCTS_LIST.filter(id => !picks.includes(id)).slice(0, 4 - picks.length)
-      : [];
-    alsoLikeCartGrid.innerHTML = [...picks, ...fallback]
-      .map(id => buildProductCard(PRODUCTS[id])).join('');
-    initCardSwatches(alsoLikeCartGrid);
-    initWishlist();
-  }
-
-  Malow.updateCartUI();
   Malow.updateWishlistUI();
 
   initProductCardScrollReveal();

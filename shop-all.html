@@ -7,7 +7,7 @@
   <meta name="description" content="Shop every MALOW London heel - wedding, party, everyday and more. All styles in one place.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/malow.css">
 </head>
 <body>
@@ -16,22 +16,25 @@
 <nav class="nav" role="navigation">
   <div class="container nav__inner">
     <a href="index.html" class="nav__logo" aria-label="MALOW LONDON - Home"><img class="nav__logo-img" src="images/malow-wordmark.svg" alt="" width="220" height="40" decoding="async"></a>
-    <div class="nav__links">
-      <a href="shop-all.html" class="nav__link active">Shop All</a>
-      <a href="about.html" class="nav__link">About Us</a>
-      <a href="collections.html" class="nav__link">Collections</a>
-    </div>
     <div class="nav__actions">
+      <div class="nav__links nav__links--trailing">
+        <a href="about.html" class="nav__link">About Us</a>
+      </div>
       <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
+      <div class="nav__social-cluster">
+        <a href="https://www.instagram.com/malowlondon/" class="nav__icon-btn nav__icon-btn--social" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.facebook.com/malowlondon" class="nav__icon-btn nav__icon-btn--social" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
       <a href="favourites.html" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </a>
-      <button class="nav__icon-btn" data-open-cart aria-label="Open cart">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
-      </button>
-      <a href="contact.html" class="nav__cta">Contact Us</a>
+<a href="shop-all.html" class="nav__cta active">Shop All</a>
     </div>
   </div>
 </nav>
@@ -39,9 +42,7 @@
 <div class="mobile-menu" id="mobile-menu">
   <a href="shop-all.html" class="mobile-menu__link">Shop All</a>
   <a href="about.html" class="mobile-menu__link">About Us</a>
-  <a href="collections.html" class="mobile-menu__link">Collections</a>
   <a href="favourites.html" class="mobile-menu__link">Favourites</a>
-  <a href="contact.html" class="mobile-menu__link">Contact Us</a>
 </div>
 
 
@@ -94,21 +95,25 @@
       <div>
         <p class="footer__col-heading">Explore MALOW</p>
         <ul class="footer__links">
-          <li><a href="shipping.html" class="footer__link">Shipping &amp; Returns</a></li>
-          
-          <li><a href="contact.html" class="footer__link">Get In Touch</a></li>
           <li><a href="size-guide.html" class="footer__link">Size Guide</a></li>
           <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
           <li><a href="cookies-policy.html" class="footer__link">Cookies Policy</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer__col-heading">Step Inside MALOW</p>
-        <p class="footer__description">Join the MALOW family and be first to discover new arrivals, exclusive offers, and behind-the-scenes moments from our London studio.</p>
-        <form class="footer__email-form" data-email-form>
-          <input type="email" class="footer__email-input" placeholder="Email address" autocomplete="email" aria-label="Email address">
-          <button type="submit" class="footer__email-btn">Submit</button>
-        </form>
+        <p class="footer__col-heading">Follow MALOW</p>
+        <ul class="footer__social" role="list">
+          <li>
+            <a href="https://www.instagram.com/malowlondon/" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
+              <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/malowlondon" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Facebook">
+              <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="footer__bottom">
@@ -117,26 +122,6 @@
     </div>
   </div>
 </footer>
-
-<!-- Cart Drawer -->
-<div class="cart-overlay" id="cart-overlay"></div>
-<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping bag" aria-modal="true">
-  <div class="cart-drawer__header">
-    <span class="cart-drawer__title">Your Bag</span>
-    <button class="cart-drawer__close" id="cart-drawer-close" aria-label="Close bag">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="cart-drawer__body" id="cart-drawer-body"></div>
-  <div class="cart-drawer__footer">
-    <div class="cart-subtotal">
-      <span class="cart-subtotal__label">Subtotal</span>
-      <span class="cart-subtotal__amount" id="cart-drawer-subtotal">£0.00</span>
-    </div>
-    <button class="btn-rect" onclick="window.location.href='cart.html'">Checkout</button>
-  </div>
-</aside>
-
 <script src="js/products.js"></script>
 <script src="js/malow.js"></script>
 </body>

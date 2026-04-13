@@ -105,6 +105,7 @@ const PRODUCTS = {
           'images/BELLA_CREAM-ABOVE_copy-12199c37-6fce-4a95-9e93-24239c1cc9b0.png',
           'images/BELLA_CREAM-SIDE_copy-20b58991-88cd-460e-adae-b8be86bbc529.png',
           'images/BELLA_CREAM-INSTEP_copy-da625687-c8fe-42a0-ade4-f5eaa5b09cca.png',
+          'images/BELLA_CREAM-SOLE_copy-f1bec3f9-12f8-4df6-a5ec-5dc1786939a2.png',
         ]
       },
       {
@@ -118,6 +119,7 @@ const PRODUCTS = {
           'images/BELLA_BLACK-ABOVE_copy-21abef83-0104-425e-a917-5b4abe8c2d8d.png',
           'images/BELLA_BLACK-SIDE_copy-5f3fd1e0-8b6a-4d02-95e1-a747ad4b6125.png',
           'images/BELLA_BLACK-INSTEP_copy-dd56e0b5-2d2d-4700-b135-0446542af779.png',
+          'images/BELLA_BLACK-SOLE_copy-7801a7f4-2900-4ac9-9789-1be3a735ed03.png',
         ]
       },
     ]
@@ -138,16 +140,16 @@ const PRODUCTS = {
     bestseller: false,
     variants: [
       {
-        id: 'black',
-        label: 'Black',
-        swatch: '#3a3535',
+        id: 'gold',
+        label: 'Gold',
+        swatch: '#c9a45a',
         images: [
-          'images/AVA_BLACK_copy-f81d6f9f-e09e-44bb-8281-052d6495f239.png',
-          'images/AVA_BLACK-HEEL_copy-11ba98fb-2801-4869-a3b0-bfb711d92715.png',
-          'images/AVA_BLACK-FRONT_copy-0688b047-df84-4245-8718-1f13707da7df.png',
-          'images/AVA_BLACK-ABOVE_copy-1fd0d63b-535a-45e7-9712-632b4666664c.png',
-          'images/AVA_BLACK-SIDE_copy-5d55bdbb-bd87-43c8-b975-704225f9cc61.png',
-          'images/AVA_BLACK-INSTEP_copy-b768ebdc-ef38-43cb-86b2-70c8fe794c35.png',
+          'images/AVA_GOLD_copy-f09d9466-4045-40f2-83a5-81de2774cb17.png',
+          'images/AVA_GOLD-HEEL_copy-663aeb7b-1e41-40a6-8067-3c2394238b38.png',
+          'images/AVA_GOLD-FRONT_copy-6332a57e-baf9-4f7b-9881-7f55868b9ccd.png',
+          'images/AVA_GOLD-ABOVE_copy-3a18508f-7cbf-4627-afbf-fc3b1273a1a9.png',
+          'images/AVA_GOLD-SIDE_copy-50644eb3-8329-41d6-a55f-23af4148dfbf.png',
+          'images/AVA_GOLD-INSTEP_copy-784add49-cdc4-4d1b-97d4-ef8fe1579322.png',
         ]
       },
       {
@@ -165,16 +167,16 @@ const PRODUCTS = {
         ]
       },
       {
-        id: 'gold',
-        label: 'Gold',
-        swatch: '#c9a45a',
+        id: 'black',
+        label: 'Black',
+        swatch: '#3a3535',
         images: [
-          'images/AVA_GOLD_copy-f09d9466-4045-40f2-83a5-81de2774cb17.png',
-          'images/AVA_GOLD-HEEL_copy-663aeb7b-1e41-40a6-8067-3c2394238b38.png',
-          'images/AVA_GOLD-FRONT_copy-6332a57e-baf9-4f7b-9881-7f55868b9ccd.png',
-          'images/AVA_GOLD-ABOVE_copy-3a18508f-7cbf-4627-afbf-fc3b1273a1a9.png',
-          'images/AVA_GOLD-SIDE_copy-50644eb3-8329-41d6-a55f-23af4148dfbf.png',
-          'images/AVA_GOLD-INSTEP_copy-784add49-cdc4-4d1b-97d4-ef8fe1579322.png',
+          'images/AVA_BLACK_copy-f81d6f9f-e09e-44bb-8281-052d6495f239.png',
+          'images/AVA_BLACK-HEEL_copy-11ba98fb-2801-4869-a3b0-bfb711d92715.png',
+          'images/AVA_BLACK-FRONT_copy-0688b047-df84-4245-8718-1f13707da7df.png',
+          'images/AVA_BLACK-ABOVE_copy-1fd0d63b-535a-45e7-9712-632b4666664c.png',
+          'images/AVA_BLACK-SIDE_copy-5d55bdbb-bd87-43c8-b975-704225f9cc61.png',
+          'images/AVA_BLACK-INSTEP_copy-b768ebdc-ef38-43cb-86b2-70c8fe794c35.png',
         ]
       },
     ]
@@ -267,20 +269,6 @@ const PRODUCTS = {
     bestseller: true,
     variants: [
       {
-        id: 'black',
-        label: 'Black',
-        swatch: '#3a3535',
-        images: [
-          'images/MILLIE_BLACK_copy-6254cad7-c7a5-4740-8cb9-73b489d51a20.png',
-          'images/MILLIE_BLACK-HEEL_copy-66ab9f09-4999-49ca-8197-941ad714c9ec.png',
-          'images/MILLIE_BLACK-front_copy-09339f2e-2587-4ae1-a12c-846ec56cf486.png',
-          'images/MILLIE_BLACK-above_copy-8f0506a9-a517-4fde-92f7-9302dc56629c.png',
-          'images/MILLIE_BLACK-side_copy-08d7b593-6fd8-43bd-893c-0d64ce8ca9df.png',
-          'images/MILLIE_BLACK-INSTEP_copy-cf3aa480-8585-4804-8c38-27031a74c9fc.png',
-          'images/MILLIE_BLACK_PU-SOLE_copy-16cc7772-cc88-486a-804e-30fb6e47cc9f.png',
-        ]
-      },
-      {
         id: 'mocha',
         label: 'Mocha',
         swatch: '#8b6f5e',
@@ -292,6 +280,20 @@ const PRODUCTS = {
           'images/MILLIE_MOCHA-SIDE_copy-1b23df2f-3366-45b2-b79f-bfeec99c9134.png',
           'images/MILLIE_MOCHA-INSTEP_copy-1a437f7e-6af8-4367-9059-52d1f26915ef.png',
           'images/MILLIE_MOCHA_PU-SOLE_copy-e0e85fb2-85a7-4b46-9617-7dd900e268ad.png',
+        ]
+      },
+      {
+        id: 'black',
+        label: 'Black',
+        swatch: '#3a3535',
+        images: [
+          'images/MILLIE_BLACK_copy-6254cad7-c7a5-4740-8cb9-73b489d51a20.png',
+          'images/MILLIE_BLACK-HEEL_copy-66ab9f09-4999-49ca-8197-941ad714c9ec.png',
+          'images/MILLIE_BLACK-front_copy-09339f2e-2587-4ae1-a12c-846ec56cf486.png',
+          'images/MILLIE_BLACK-above_copy-8f0506a9-a517-4fde-92f7-9302dc56629c.png',
+          'images/MILLIE_BLACK-side_copy-08d7b593-6fd8-43bd-893c-0d64ce8ca9df.png',
+          'images/MILLIE_BLACK-INSTEP_copy-cf3aa480-8585-4804-8c38-27031a74c9fc.png',
+          'images/MILLIE_BLACK_PU-SOLE_copy-16cc7772-cc88-486a-804e-30fb6e47cc9f.png',
         ]
       },
     ]
@@ -500,19 +502,6 @@ const PRODUCTS = {
     bestseller: false,
     variants: [
       {
-        id: 'black',
-        label: 'Black',
-        swatch: '#3a3535',
-        images: [
-          'images/SABRINA_BLACK_PU_copy-a81f4bee-8fb6-4c22-9e86-2250189eaa0f.png',
-          'images/SABRINA_BLACK_PU-HEEL_copy-07528dd4-b07e-46dc-9205-f3f4b1dc1aa1.png',
-          'images/SABRINA_BLACK_PU-SIDE_copy-e536d71f-68df-4b60-8208-a234f333d474.png',
-          'images/SABRINA_BLACK_PU-INSTEP_copy-4b97f685-a0e1-4063-84c2-6e266562f3b8.png',
-          'images/SABRINA_BLACK_PU-ABOVE_copy-cf87fd56-50ce-425c-b969-a3ea83d16f69.png',
-          'images/SABRINA_BLACK_PU-SOLE_copy-a2582904-1668-421e-9412-acddf0b4be27.png',
-        ]
-      },
-      {
         id: 'gold',
         label: 'Gold',
         swatch: '#c9a45a',
@@ -540,6 +529,19 @@ const PRODUCTS = {
           'images/SABRINA_SILVER_PU-SOLE_copy-a920499a-53c0-49ad-8b75-4509044af344.png',
         ]
       },
+      {
+        id: 'black',
+        label: 'Black',
+        swatch: '#3a3535',
+        images: [
+          'images/SABRINA_BLACK_PU_copy-a81f4bee-8fb6-4c22-9e86-2250189eaa0f.png',
+          'images/SABRINA_BLACK_PU-HEEL_copy-07528dd4-b07e-46dc-9205-f3f4b1dc1aa1.png',
+          'images/SABRINA_BLACK_PU-SIDE_copy-e536d71f-68df-4b60-8208-a234f333d474.png',
+          'images/SABRINA_BLACK_PU-INSTEP_copy-4b97f685-a0e1-4063-84c2-6e266562f3b8.png',
+          'images/SABRINA_BLACK_PU-ABOVE_copy-cf87fd56-50ce-425c-b969-a3ea83d16f69.png',
+          'images/SABRINA_BLACK_PU-SOLE_copy-a2582904-1668-421e-9412-acddf0b4be27.png',
+        ]
+      },
     ]
   },
 
@@ -556,23 +558,7 @@ const PRODUCTS = {
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding'],
     bestseller: false,
-    /* Shop grid: show White when Wedding filter is active */
-    defaultVariantForFilters: { wedding: 1 },
     variants: [
-      {
-        id: 'black',
-        label: 'Black',
-        swatch: '#3a3535',
-        images: [
-          'images/TAYLOR_BLACK_PU_copy-8d6bb762-3305-45ff-b4b2-2c0486b7d97c.png',
-          'images/TAYLOR_BLACK_PU-HEEL_copy-ee903d12-8498-45e2-bd63-6b8400f34cd7.png',
-          'images/TAYLOR_BLACK-PU-FRONT_copy-679bc0fa-7c1c-49a2-951a-3c2ff027964c.png',
-          'images/TAYLOR_BLACK-PU-ABOVE_copy-d6593d3c-c035-4688-b5b8-6155957aa7d0.png',
-          'images/TAYLOR_BLACK_PU-SIDE_copy-84d0132f-b16b-40cd-a5b1-5ee2d37ba70b.png',
-          'images/TAYLOR_BLACK_PU-INSTEP_copy-566683be-a632-472f-9f43-3c3dede5558f.png',
-          'images/TAYLOR_BLACK_PU-SOLE_copy-a028abb2-b084-4c02-97e5-bd6134c9d11d.png',
-        ]
-      },
       {
         id: 'white',
         label: 'White',
@@ -613,6 +599,20 @@ const PRODUCTS = {
           'images/TAYLOR_SILVER_PU-SIDE_copy-47e141d3-e8fd-485e-a66b-30ae4b088855.png',
           'images/TAYLOR_SILVER_PU-INSTEP_copy-41b04145-3eea-441d-bc2a-b9a07974a82c.png',
           'images/TAYLOR_SILVER_PU-SOLE_copy-1e3f0065-ecee-4726-ac04-285dd7928025.png',
+        ]
+      },
+      {
+        id: 'black',
+        label: 'Black',
+        swatch: '#3a3535',
+        images: [
+          'images/TAYLOR_BLACK_PU_copy-8d6bb762-3305-45ff-b4b2-2c0486b7d97c.png',
+          'images/TAYLOR_BLACK_PU-HEEL_copy-ee903d12-8498-45e2-bd63-6b8400f34cd7.png',
+          'images/TAYLOR_BLACK-PU-FRONT_copy-679bc0fa-7c1c-49a2-951a-3c2ff027964c.png',
+          'images/TAYLOR_BLACK-PU-ABOVE_copy-d6593d3c-c035-4688-b5b8-6155957aa7d0.png',
+          'images/TAYLOR_BLACK_PU-SIDE_copy-84d0132f-b16b-40cd-a5b1-5ee2d37ba70b.png',
+          'images/TAYLOR_BLACK_PU-INSTEP_copy-566683be-a632-472f-9f43-3c3dede5558f.png',
+          'images/TAYLOR_BLACK_PU-SOLE_copy-a028abb2-b084-4c02-97e5-bd6134c9d11d.png',
         ]
       },
     ]
@@ -689,19 +689,6 @@ const PRODUCTS = {
     bestseller: false,
     variants: [
       {
-        id: 'black',
-        label: 'Black',
-        swatch: '#3a3535',
-        images: [
-          'images/LANA_BLACK_PU-FRONT_copy-f846f794-de45-4c70-99a3-2f487857be64.png',
-          'images/LANA_BLACK-PU-HEEL_copy-d61cc333-aa1a-43aa-8ba6-4078cff082fd.png',
-          'images/LANA_BLACK_PU-ABOVE_copy-6112be2e-6953-47bb-ab53-67ac74d666ba.png',
-          'images/LANA_BLACK_PU-SIDE_copy-c6e1322f-e83e-466b-8c1d-f5453f2b3b95.png',
-          'images/LANA_BLACK_PU-INSTEP_copy-658a7f01-c467-4b17-8455-cafbb7b25493.png',
-          'images/LANA_BLACK_PU-SOLE_copy-fd8b67f2-2dc7-430d-82fc-064dac55e4c8.png',
-        ]
-      },
-      {
         id: 'gold',
         label: 'Gold',
         swatch: '#c9a45a',
@@ -729,6 +716,19 @@ const PRODUCTS = {
           'images/LANA_SILVER_PU-SOLE_copy-826024cb-880a-43a7-b9e4-d3d429ff550e.png',
         ]
       },
+      {
+        id: 'black',
+        label: 'Black',
+        swatch: '#3a3535',
+        images: [
+          'images/LANA_BLACK_PU-FRONT_copy-f846f794-de45-4c70-99a3-2f487857be64.png',
+          'images/LANA_BLACK-PU-HEEL_copy-d61cc333-aa1a-43aa-8ba6-4078cff082fd.png',
+          'images/LANA_BLACK_PU-ABOVE_copy-6112be2e-6953-47bb-ab53-67ac74d666ba.png',
+          'images/LANA_BLACK_PU-SIDE_copy-c6e1322f-e83e-466b-8c1d-f5453f2b3b95.png',
+          'images/LANA_BLACK_PU-INSTEP_copy-658a7f01-c467-4b17-8455-cafbb7b25493.png',
+          'images/LANA_BLACK_PU-SOLE_copy-fd8b67f2-2dc7-430d-82fc-064dac55e4c8.png',
+        ]
+      },
     ]
   },
 
@@ -746,20 +746,6 @@ const PRODUCTS = {
     categories: ['party'],
     bestseller: false,
     variants: [
-      {
-        id: 'black-patent',
-        label: 'Black Patent',
-        swatch: '#1e1e1e',
-        images: [
-          'images/SELENA_BLACK_copy-909249dc-cd3b-4d5d-9be4-866fb5393c11.png',
-          'images/SELENA_BLACK_PATENT-HEEL_copy-b15d534f-5bb3-455e-9070-120c632debe5.png',
-          'images/SELENA_BLACK-PATENT-FRONT_copy-adfdc67a-0f2c-436a-a177-eedba0d45011.png',
-          'images/SELENA_BLACK-PATENT-ABOVE_copy-e216afb4-9427-4ab8-a6c9-a3e36397b965.png',
-          'images/SELENA_BLACK_SIDE_copy-da1ae9d9-2505-4a59-82ed-9f09082535fb.png',
-          'images/SELENA_BLACK_PATENT-INSTEP_copy-7ffea620-061c-4840-95d9-634e227cf52d.png',
-          'images/SELENA_BLACK_PATENT-SOLE_copy-1530010f-91dd-416e-b417-1cdf1168868d.png',
-        ]
-      },
       {
         id: 'gold',
         label: 'Gold',
@@ -788,16 +774,36 @@ const PRODUCTS = {
           'images/SELENA_SIVER_PU-SOLE_copy-daae8d74-64cb-4de6-bac9-81acd5636b2f.png',
         ]
       },
+      {
+        id: 'black-patent',
+        label: 'Black Patent',
+        swatch: '#1e1e1e',
+        images: [
+          'images/SELENA_BLACK_copy-909249dc-cd3b-4d5d-9be4-866fb5393c11.png',
+          'images/SELENA_BLACK_PATENT-HEEL_copy-b15d534f-5bb3-455e-9070-120c632debe5.png',
+          'images/SELENA_BLACK-PATENT-FRONT_copy-adfdc67a-0f2c-436a-a177-eedba0d45011.png',
+          'images/SELENA_BLACK-PATENT-ABOVE_copy-e216afb4-9427-4ab8-a6c9-a3e36397b965.png',
+          'images/SELENA_BLACK_SIDE_copy-da1ae9d9-2505-4a59-82ed-9f09082535fb.png',
+          'images/SELENA_BLACK_PATENT-INSTEP_copy-7ffea620-061c-4840-95d9-634e227cf52d.png',
+          'images/SELENA_BLACK_PATENT-SOLE_copy-1530010f-91dd-416e-b417-1cdf1168868d.png',
+        ]
+      },
     ]
   },
 
 };
 
-/* ── Ordered list for rendering ──────────────────────────────────── */
-const PRODUCTS_LIST = [
-  'camila', 'bella', 'ava', 'chloe', 'millie',
-  'molly', 'olivia', 'sabrina', 'taylor', 'jenna', 'lana', 'selena'
+/* ── Shop All page: product rows (order within each sub-grid) ────── */
+const SHOP_ALL_GROUPS = [
+  { ids: ['lana', 'chloe', 'bella'] },
+  { ids: ['sabrina', 'molly'] },
+  { ids: ['millie', 'taylor'] },
+  { ids: ['ava', 'jenna'] },
+  { ids: ['camila', 'selena', 'olivia'] },
 ];
+
+/* ── Ordered list for rendering (homepage, favourites, etc.) ─────── */
+const PRODUCTS_LIST = SHOP_ALL_GROUPS.flatMap(g => g.ids);
 
 /* ── Bestsellers list ─────────────────────────────────────────────── */
 const BESTSELLERS_LIST = PRODUCTS_LIST.filter(id => PRODUCTS[id].bestseller);

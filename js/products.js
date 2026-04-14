@@ -14,9 +14,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Pointed-toe court heel with adjustable ankle strap',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This elegant slingback heel features a comfortable pointed toe and a mid-height stiletto heel for a timeless silhouette. The delicate wraparound ankle straps with adjustable buckles add a modern, feminine touch while ensuring a secure fit. Perfect for special occasions or polished everyday styling.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining & upper', 'Signature pink sole with branded metal tab', 'Heel height approx. 9 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days. Express next-day available at checkout.',
-    returns: 'Free returns within 30 days. Items must be unworn and in original packaging.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining & upper', 'Signature pink sole with branded metal tab', 'Heel height approx. 8.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding', 'party'],
     bestseller: true,
@@ -87,9 +85,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Twist-front block heel sandal with ankle strap',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This chic sandal features a smooth, minimalist design with a soft padded crossover front strap for added comfort. Set on a sturdy mid-height block heel, it offers both stability and style. The adjustable ankle strap and buckle ensure a secure fit, making it a versatile choice for everything from daytime events to evening outings.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Signature pink sole', 'Block heel approx. 7.5 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper & lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 5.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding', 'everyday'],
     bestseller: true,
@@ -132,9 +128,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Platform espadrille wedge with adjustable ankle strap',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This statement wedge sandal features a tall espadrille-style platform sole for a chic, summery feel. Delicate multi-strap detailing across the front and slim ankle straps with an adjustable buckle provide a secure and flattering fit. Sparkling embellishments add a touch of glamour, making it perfect for warm-weather events, holidays, or evening outings.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Jute espadrille platform', 'Signature pink sole', 'Wedge heel approx. 13 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Jute espadrille platform', 'Heel height approx. 11.5 cm', 'Upper & linings – vegan synthetic material'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['party'],
     bestseller: false,
@@ -182,16 +176,14 @@ const PRODUCTS = {
     ]
   },
 
-  /* ── CHLOE ───────────────────────────── crystal cage slingback */
+  /* ── CHLOE ───────────────────────────── diamanté cage slingback */
   chloe: {
     id: 'chloe',
     name: 'Chloe',
     price: 75.00,
-    tagline: 'Crystal cage slingback with kitten heel',
+    tagline: 'Diamanté cage slingback with kitten heel',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This timeless sandal features a clean, minimalist silhouette with a smooth single front strap and a supportive ankle strap and buckle. The sturdy mid-height block heel provides comfortable lift and stability, for all day wear and for any occasion.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Crystal embellished upper', 'Kitten heel approx. 7 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper & lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 5.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding', 'everyday'],
     bestseller: true,
@@ -261,9 +253,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Sculptural knot-front block heel sandal',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This sophisticated sandal features a sleek single front strap and a tall, sculpted stiletto heel for a refined, elegant silhouette. The wide ankle strap and buckle add a bold, modern touch while providing a secure fit. Perfect for evenings out or special occasions, it pairs timeless style with comfortable height.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Signature pink sole', 'Block heel approx. 10 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper & lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 9 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['party'],
     bestseller: true,
@@ -306,9 +296,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Twist-front block heel sandal in four colours',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This elegant sandal features super-soft crossover front straps and a tall, block heel for a refined silhouette. The slim ankle strap and buckle fastening offers a secure, adjustable fit, while the cushioned footbed ensures added comfort. Perfect for weddings, parties, or special occasions, it brings a delicate, feminine touch to any look.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Signature pink sole', 'Block heel approx. 8 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper & lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 8.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding'],
     bestseller: false,
@@ -379,9 +367,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Slim-heel square-toe sandal with ankle strap',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This timeless court shoe features a comfortable pointed toe and a classic mid-height stiletto for an elegant silhouette. Designed with a smooth finish and clean lines, it offers effortless sophistication for both professional and formal settings. A versatile wardrobe staple, it pairs perfectly with both tailored pieces and occasion wear.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Signature pink sole', 'Stiletto heel approx. 10 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper and lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 8.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['party', 'everyday'],
     bestseller: false,
@@ -492,11 +478,9 @@ const PRODUCTS = {
     id: 'sabrina',
     name: 'Sabrina',
     price: 75.00,
-    tagline: 'Strappy stiletto sandal with crystal ankle detail',
-    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This glamorous sandal offers a sleek finish and a striking high block heel for elevated elegance. Sparkling crystal-embellished ankle straps add a touch of shimmer, while the slim padded front strap keeps the silhouette refined and comfortable. Perfect for formal events or special evenings, it delivers standout style for any occasion.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Crystal-embellished ankle strap', 'Signature pink sole', 'Stiletto heel approx. 11 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    tagline: 'Strappy stiletto sandal with diamanté ankle detail',
+    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This glamorous sandal offers a sleek finish and a striking high block heel for elevated elegance. Sparkling embellished ankle straps add a touch of shimmer, while the slim padded front strap keeps the silhouette refined and comfortable. Perfect for formal events or special evenings, it delivers standout style for any occasion.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Embellished ankle strap', 'Signature pink sole with branded metal tab', 'Heel height approx. 8.5 cm', 'Soft vegan upper & lining'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['party'],
     bestseller: false,
@@ -551,10 +535,8 @@ const PRODUCTS = {
     name: 'Taylor',
     price: 75.00,
     tagline: 'Classic pointed-toe court pump',
-    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This stunning sandal features a sturdy stiletto heel for a refined, elevated look. The sparkling crystal-embellished padded front strap adds eye-catching glamour, while the slim ankle straps with an adjustable buckle provide a secure, elegant fit. Perfect for formal events or special occasions, it delivers both statement style and comfort.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Signature pink sole', 'Mid heel approx. 8 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This stunning sandal features a sturdy stiletto heel for a refined, elevated look. The sparkling diamanté-embellished padded front strap adds eye-catching glamour, while the slim ankle straps with an adjustable buckle provide a secure, elegant fit. Perfect for formal events or special occasions, it delivers both statement style and comfort.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper & lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 9 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding'],
     bestseller: false,
@@ -625,9 +607,7 @@ const PRODUCTS = {
     price: 75.00,
     tagline: 'Strappy slingback sandal with delicate ankle tie',
     description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This chic wedge sandal features a tall espadrille-style platform for a fresh, summery look. The comfortable padded single front strap is complemented by a supportive ankle strap with an adjustable buckle for a secure fit. Combining height with stability, it\'s perfect for holidays, outdoor events, or effortless warm-weather styling.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan lining', 'Signature pink sole', 'Heel height approx. 7 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper & lining', 'Heel height approx. 11.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['wedding'],
     bestseller: false,
@@ -674,16 +654,14 @@ const PRODUCTS = {
     ]
   },
 
-  /* ── LANA ────────────────────────────── crystal espadrille wedge */
+  /* ── LANA ────────────────────────────── diamanté espadrille wedge */
   lana: {
     id: 'lana',
     name: 'Lana',
     price: 75.00,
-    tagline: 'Crystal-strap espadrille wedge with block heel',
-    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This elegant sandal features a sturdy block heel for comfortable lift. Delicate crystal-embellished front straps add a touch of sparkle, while the slim adjustable ankle strap ensures a secure fit. Perfect for special occasions or evening events, it combines modern glamour with effortless sophistication.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Jute espadrille detailing', 'Crystal-studded straps', 'Block heel approx. 9 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    tagline: 'Diamanté-strap espadrille wedge with block heel',
+    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This elegant sandal features a sturdy block heel for comfortable lift. Delicate diamanté-embellished front straps add a touch of sparkle, while the slim adjustable ankle strap ensures a secure fit. Perfect for special occasions or evening events, it combines modern glamour with effortless sophistication.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Super soft vegan upper and lining', 'Signature pink sole with branded metal tab', 'Heel height approx. 5.5 cm'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['party', 'everyday'],
     bestseller: false,
@@ -721,10 +699,11 @@ const PRODUCTS = {
         label: 'Black',
         swatch: '#3a3535',
         images: [
+          'images/LANA_BLACK_PU_copy-de975e57-42fc-42f2-8d4f-9553a8cb1bf8.png',
+          'images/LANA_BLACK_PU-SIDE_copy-c6e1322f-e83e-466b-8c1d-f5453f2b3b95.png',
           'images/LANA_BLACK_PU-FRONT_copy-f846f794-de45-4c70-99a3-2f487857be64.png',
           'images/LANA_BLACK-PU-HEEL_copy-d61cc333-aa1a-43aa-8ba6-4078cff082fd.png',
           'images/LANA_BLACK_PU-ABOVE_copy-6112be2e-6953-47bb-ab53-67ac74d666ba.png',
-          'images/LANA_BLACK_PU-SIDE_copy-c6e1322f-e83e-466b-8c1d-f5453f2b3b95.png',
           'images/LANA_BLACK_PU-INSTEP_copy-658a7f01-c467-4b17-8455-cafbb7b25493.png',
           'images/LANA_BLACK_PU-SOLE_copy-fd8b67f2-2dc7-430d-82fc-064dac55e4c8.png',
         ]
@@ -732,16 +711,14 @@ const PRODUCTS = {
     ]
   },
 
-  /* ── SELENA ──────────────────────────── crystal cage slingback stiletto */
+  /* ── SELENA ──────────────────────────── diamanté cage slingback stiletto */
   selena: {
     id: 'selena',
     name: 'Selena',
     price: 75.00,
-    tagline: 'Crystal-cage slingback stiletto',
-    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This elegant slingback heel features a comfortable pointed toe and a mid-height stiletto heel for a feminine silhouette. Delicate, crystal-embellished straps create a striking caged design across the front, adding texture and sparkle. Finished with an adjustable buckle for a secure fit, it\'s the perfect choice for formal events and special occasions.',
-    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Crystal-encrusted cage upper', 'Signature pink sole', 'Stiletto heel approx. 9 cm'],
-    delivery: 'Free UK delivery on orders over £50. Standard 3–5 working days.',
-    returns: 'Free returns within 30 days.',
+    tagline: 'Diamanté-cage slingback stiletto',
+    description: 'Experience luxurious comfort with every step in Malow heels. Created with an ultra-padded footbed, gentle arch support and super soft materials, they will ensure you look and feel fabulous from day to night. This elegant slingback heel features a comfortable pointed toe and a mid-height stiletto heel for a feminine silhouette. Delicate, embellished straps create a striking caged design across the front, adding texture and sparkle. Finished with an adjustable buckle for a secure fit, it\'s the perfect choice for formal events and special occasions.',
+    details: ['Extra thick memory foam footbed', 'Built-in gentle arch support', 'Encrusted cage upper', 'Signature pink sole with branded metal tab', 'Heel height approx. 8.5 cm', 'Upper & linings – vegan synthetic material'],
     sizes: [3, 4, 5, 6, 7, 8],
     categories: ['party'],
     bestseller: false,
@@ -804,6 +781,3 @@ const SHOP_ALL_GROUPS = [
 
 /* ── Ordered list for rendering (homepage, favourites, etc.) ─────── */
 const PRODUCTS_LIST = SHOP_ALL_GROUPS.flatMap(g => g.ids);
-
-/* ── Bestsellers list ─────────────────────────────────────────────── */
-const BESTSELLERS_LIST = PRODUCTS_LIST.filter(id => PRODUCTS[id].bestseller);

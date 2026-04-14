@@ -51,6 +51,8 @@ input, textarea { font-family: var(--font-body); }
   --blush-mist:       #F8E8E4;
   /* About founder strip — dusty pink panel */
   --about-founder-bg: #F9EBE8;
+  /* Hero badge: upright asset (malow-badge.svg); nudge with small deg if export drifts */
+  --hero-badge-rotate: 0deg;
   --radius-card:      12px;
   --radius-panel:     20px;
   --radius-pill:      30px;
@@ -83,7 +85,6 @@ p, span, a, li, label, input, button, textarea, select {
 
 /* ─── 4. Section Dividers ────────────────────────────────── */
 .tagline,
-.bestsellers,
 .why-malow,
 .shop-all,
 .instagram-preview,
@@ -224,7 +225,7 @@ p, span, a, li, label, input, button, textarea, select {
   min-width: 0;
 }
 
-/* Instagram + Facebook — same 20×20 / vintage-pink treatment as heart */
+/* Instagram — same 20×20 / vintage-pink treatment as heart */
 .nav__social-cluster {
   display: flex;
   align-items: center;
@@ -511,53 +512,6 @@ p, span, a, li, label, input, button, textarea, select {
   color: var(--text-dark);
 }
 
-/* Bestsellers row — twin hairlines fading into the gap */
-.bestsellers .section-header {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  column-gap: 18px;
-}
-
-.bestsellers .section-header .section-heading {
-  order: 1;
-  flex-shrink: 0;
-}
-
-.bestsellers .section-header::before {
-  content: '';
-  order: 2;
-  flex: 1 1 auto;
-  min-width: 32px;
-  height: 6px;
-  align-self: center;
-  /* Faded hairlines in brand pink (vintage-pink family) */
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(251, 208, 203, 0.2) 22%,
-      rgba(251, 208, 203, 0.5) 50%,
-      rgba(251, 208, 203, 0.2) 78%,
-      transparent 100%
-    )
-    center 0 / 100% 1px no-repeat,
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(251, 208, 203, 0.12) 25%,
-      rgba(251, 208, 203, 0.32) 50%,
-      rgba(251, 208, 203, 0.12) 75%,
-      transparent 100%
-    )
-    center 5px / 100% 1px no-repeat;
-}
-
-.bestsellers .section-header > a {
-  order: 3;
-  flex-shrink: 0;
-}
-
 /* ─── 9. PRODUCT GRID ────────────────────────────────────── */
 .product-grid {
   display: grid;
@@ -647,13 +601,13 @@ p, span, a, li, label, input, button, textarea, select {
   }
 }
 
-/* Outer: hairline stroke + soft centred halo — icon ≈ 40% of hero card height */
+/* Outer: hairline stroke + soft centred halo — SVG rings use rotated matrices (do not simplify); light CSS rotation offsets export tilt */
 .hero__badge-outer {
-  width: clamp(104px, 20vmin, 260px);
-  height: clamp(104px, 20vmin, 260px);
+  width: clamp(152px, 34vmin, 408px);
+  height: clamp(152px, 34vmin, 408px);
   border-radius: 50%;
   flex-shrink: 0;
-  border: 0.5px solid var(--sunday-slate);
+  border: 0.5px solid #8e8583;
   box-shadow:
     0 0 1px rgba(60, 52, 52, 0.08),
     0 0 36px rgba(100, 90, 90, 0.12),
@@ -678,8 +632,8 @@ p, span, a, li, label, input, button, textarea, select {
 
 @supports (width: 1cqh) {
   .hero__badge-outer {
-    width: clamp(96px, 40cqh, 280px);
-    height: clamp(96px, 40cqh, 280px);
+    width: clamp(140px, 54cqh, 432px);
+    height: clamp(140px, 54cqh, 432px);
   }
 }
 
@@ -688,17 +642,20 @@ p, span, a, li, label, input, button, textarea, select {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  background-color: #ffffff;
+  /* Fallback behind SVG; matches pale blush field in malow-badge.svg */
+  background-color: #fdf9f9;
   background-image: url('../images/malow-badge.svg');
   background-position: center;
   /* SVG has wide internal margins in viewBox - scale up so the disc fills the circle */
-  background-size: 142% 142%;
+  background-size: 158% 158%;
   background-repeat: no-repeat;
+  transform: rotate(var(--hero-badge-rotate, 0deg));
+  transform-origin: center center;
   transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero__badge-outer:hover .hero__badge-wrap {
-  background-size: 152% 152%;
+  background-size: 170% 170%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -715,7 +672,7 @@ p, span, a, li, label, input, button, textarea, select {
       0 0 14px rgba(100, 90, 90, 0.1);
   }
   .hero__badge-outer:hover .hero__badge-wrap {
-    background-size: 142% 142%;
+    background-size: 158% 158%;
   }
 }
 
@@ -748,19 +705,7 @@ p, span, a, li, label, input, button, textarea, select {
   margin: 0;
 }
 
-/* ─── 12. BESTSELLERS ────────────────────────────────────── */
-/* Shopify: section — collection: Bestsellers               */
-.bestsellers {
-  background: var(--rosy-blush);
-  padding-top: 28px;
-  padding-bottom: var(--section-pad);
-}
-
-#bestsellers {
-  scroll-margin-top: calc(var(--nav-height) + 16px);
-}
-
-/* ─── 13. WHY MALOW ──────────────────────────────────────── */
+/* ─── 12. WHY MALOW ──────────────────────────────────────── */
 .why-malow {
   background: var(--soft-porcelain);
   padding: clamp(40px, 5vw, 52px) 0;
@@ -1035,9 +980,9 @@ p, span, a, li, label, input, button, textarea, select {
 .footer__monogram-img {
   display: block;
   width: auto;
-  height: clamp(132px, 19vw, 158px);
+  height: clamp(148px, 21vw, 182px);
   max-width: 100%;
-  max-height: 158px;
+  max-height: 182px;
   object-fit: contain;
   margin-bottom: 0;
 }
@@ -2050,39 +1995,6 @@ p, span, a, li, label, input, button, textarea, select {
   margin-bottom: 44px;
 }
 
-.filter-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 44px;
-  flex-wrap: wrap;
-}
-
-.filter-pill {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 8px 20px;
-  border: 0.5px solid var(--sunday-slate);
-  border-radius: 14px;
-  background: transparent;
-  color: var(--sunday-slate);
-  cursor: pointer;
-  transition: all var(--transition);
-}
-
-.filter-pill.active {
-  background: var(--text-dark);
-  border-color: var(--text-dark);
-  color: var(--soft-porcelain);
-}
-
-.filter-pill:hover:not(.active) {
-  border-color: var(--text-dark);
-  color: var(--text-dark);
-}
-
 /* Shop All — product rows + pink dividers between sections */
 .collections-groups {
   display: flex;
@@ -2102,46 +2014,6 @@ p, span, a, li, label, input, button, textarea, select {
 
 .collections-group__grid {
   margin: 0;
-}
-
-/* Shop All — filters: balanced grid + tap targets on small screens */
-@media (max-width: 768px) {
-  .filter-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 36px;
-    justify-content: stretch;
-  }
-
-  .filter-pill {
-    min-height: 46px;
-    width: 100%;
-    padding: 12px 14px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: var(--radius-pill);
-    font-size: 11px;
-    letter-spacing: 1.2px;
-    -webkit-tap-highlight-color: transparent;
-  }
-}
-
-@media (max-width: 380px) {
-  .filter-row {
-    column-gap: 10px;
-    row-gap: 10px;
-  }
-
-  .filter-pill {
-    min-height: 44px;
-    padding: 10px 10px;
-    font-size: 10px;
-    letter-spacing: 0.9px;
-  }
 }
 
 /* ─── 20. FAVOURITES PAGE ────────────────────────────────── */
@@ -2712,8 +2584,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
   .footer__monogram-img {
     width: auto;
-    height: min(112px, 30vw);
-    max-height: 120px;
+    height: min(126px, 32vw);
+    max-height: 136px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -2770,49 +2642,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
   .tagline { padding: 8px 24px 10px; }
   .tagline__text { font-size: 20px; }
-  .bestsellers { padding-top: 28px; }
 
-  /* Bestsellers header — grid so “Shop Now” stays on-screen (flex row was clipping) */
-  .bestsellers .section-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
-    gap: 12px 12px;
-    align-items: center;
-    column-gap: 12px;
-  }
-
-  .bestsellers .section-header .section-heading {
-    order: unset;
-    grid-column: 1;
-    grid-row: 1;
-    min-width: 0;
-    font-size: clamp(17px, 4.6vw, 21px);
-    line-height: 1.2;
-  }
-
-  .bestsellers .section-header > a {
-    order: unset;
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
-    padding: 11px 18px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .bestsellers .section-header::before {
-    order: unset;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    flex: unset;
-    min-width: 0;
-    width: 100%;
-  }
-
-  /* Shop All row — same clipping fix as bestsellers */
+  /* Shop All header — grid so CTA stays on-screen */
   .shop-all .section-header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -3015,13 +2846,12 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
   .tagline { padding: 6px 22px 8px; }
   .tagline__text { font-size: 18px; }
   .section-heading { font-size: 18px; }
-  .bestsellers .section-header > a,
   .shop-all .section-header > a {
     padding: 10px 14px;
     font-size: 10px;
     letter-spacing: 1.2px;
   }
-  .hero__badge-wrap { background-size: 142% 142%; }
+  .hero__badge-wrap { background-size: 158% 158%; }
 
   .about-manifesto { padding: 48px 0; }
   .about-trio { height: 200px; grid-template-columns: 1fr 1fr; }
@@ -3032,8 +2862,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
   .footer__inner { gap: 24px; }
   .footer__monogram-img {
-    height: min(100px, 28vw);
-    max-height: 108px;
+    height: min(112px, 30vw);
+    max-height: 120px;
   }
   .footer__inner > div:first-child {
     padding-top: 20px;
@@ -3060,12 +2890,6 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 .btn-pill:active,
 .nav__cta:active {
   transform: translateY(0);
-}
-
-/* Filter pills */
-.filter-pill:hover:not(.active) {
-  transform: translateY(-1px);
-  background: var(--sugar-petal);
 }
 
 /* Product cards — scroll reveal (see initProductCardScrollReveal in malow.js) */
@@ -3657,10 +3481,6 @@ a.contact-card__value:hover { color: var(--vintage-pink); }
   padding-left: 28px;
   text-align: left;
   color: var(--sunday-slate);
-}
-.size-table__cell--length {
-  font-size: 13px;
-  opacity: 0.65;
 }
 
 /* Measure steps --------------------------------------------- */

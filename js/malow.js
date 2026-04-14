@@ -287,37 +287,39 @@ function syncCollectionGridVariantThumbnails(filter) {
 
 /* ─── Collections Filter ─────────────────────────────────── */
 /* Supports multi-category: data-categories="wedding party"  */
+function applyCollectionsFilter(filter) {
+  document.querySelectorAll('.filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.filter === filter);
+  });
+
+  const cards = document.querySelectorAll('#collections-grid [data-categories]');
+  let visible = 0;
+  cards.forEach(card => {
+    const cats = (card.dataset.categories || '').split(' ');
+    const show = filter === 'all' || cats.includes(filter);
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  const empty = document.getElementById('collections-empty');
+  if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+
+  document.querySelectorAll('#collections-grid .collections-group').forEach(section => {
+    const anyShown = [...section.querySelectorAll('.product-card')].some(
+      c => c.style.display !== 'none'
+    );
+    section.style.display = anyShown ? '' : 'none';
+  });
+
+  syncCollectionGridVariantThumbnails(filter);
+}
+
 function initFilter() {
   const pills = document.querySelectorAll('.filter-pill');
   if (!pills.length) return;
 
   pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const filter = pill.dataset.filter;
-      pills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-
-      const cards = document.querySelectorAll('#collections-grid [data-categories]');
-      let visible = 0;
-      cards.forEach(card => {
-        const cats = (card.dataset.categories || '').split(' ');
-        const show = filter === 'all' || cats.includes(filter);
-        card.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-
-      const empty = document.getElementById('collections-empty');
-      if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
-
-      document.querySelectorAll('#collections-grid .collections-group').forEach(section => {
-        const anyShown = [...section.querySelectorAll('.product-card')].some(
-          c => c.style.display !== 'none'
-        );
-        section.style.display = anyShown ? '' : 'none';
-      });
-
-      syncCollectionGridVariantThumbnails(filter);
-    });
+    pill.addEventListener('click', () => applyCollectionsFilter(pill.dataset.filter));
   });
 }
 
@@ -348,10 +350,11 @@ function renderCollectionsGrid() {
   initFilter();
   initWishlist();
 
-  /* Auto-apply ?filter= param from URL (e.g. shop-all.html?filter=wedding) */
+  /* Auto-apply ?filter= from URL when pills absent (e.g. shop-all.html?filter=wedding) */
   if (urlFilter && urlFilter !== 'all') {
     const matchPill = document.querySelector(`.filter-pill[data-filter="${urlFilter}"]`);
     if (matchPill) matchPill.click();
+    else applyCollectionsFilter(urlFilter);
   } else {
     syncCollectionGridVariantThumbnails('all');
   }
@@ -360,13 +363,6 @@ function renderCollectionsGrid() {
 /* ─── Render Homepage Products (index.html) ──────────────── */
 function renderHomepageProducts() {
   if (typeof PRODUCTS === 'undefined') return;
-
-  const bestsellersGrid = document.getElementById('bestsellers-grid');
-  if (bestsellersGrid) {
-    const bList = PRODUCTS_LIST.filter(id => PRODUCTS[id] && PRODUCTS[id].bestseller);
-    bestsellersGrid.innerHTML = bList.map(id => buildProductCard(PRODUCTS[id])).join('');
-    initCardSwatches(bestsellersGrid);
-  }
 
   const shopAllGrid = document.getElementById('shop-all-grid');
   if (shopAllGrid) {
@@ -497,23 +493,6 @@ function initDynamicProduct() {
             <ul style="padding-left:0;list-style:none;">
               ${product.details.map(d => `<li style="margin-bottom:6px;">· ${d}</li>`).join('')}
             </ul>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-toggle" aria-expanded="false">
-            Delivery
-            <span class="accordion-toggle__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="accordion-body"><p>${product.delivery}</p></div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-toggle" aria-expanded="false">
-            Returns
-            <span class="accordion-toggle__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="accordion-body">
-            <p>${product.returns}</p>
-            <p style="margin-top:8px;">To start a return: <a href="mailto:returns@malowlondon.com" style="color:var(--sunday-slate);">returns@malowlondon.com</a></p>
           </div>
         </div>
         <div class="accordion-item">

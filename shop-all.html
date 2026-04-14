@@ -24,11 +24,8 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav__social-cluster">
-        <a href="https://www.instagram.com/malowlondon/" class="nav__icon-btn nav__icon-btn--social" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
+        <a href="https://www.instagram.com/malow_london/" class="nav__icon-btn nav__icon-btn--social" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="https://www.facebook.com/malowlondon" class="nav__icon-btn nav__icon-btn--social" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Facebook">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         </a>
       </div>
       <a href="favourites.html" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
@@ -47,21 +44,12 @@
 
 
 <!-- ============================================================
-     SHOP ALL - Full filterable product grid
-     All 12 styles, filter by occasion
+     SHOP ALL - Full product grid
      ============================================================ -->
 <main class="collections-page">
   <div class="container">
 
     <h1 class="collections-page__title">Shop All</h1>
-
-    <!-- Filter pills -->
-    <div class="filter-row" role="group" aria-label="Filter by occasion">
-      <button class="filter-pill active" data-filter="all">All</button>
-      <button class="filter-pill" data-filter="wedding">Wedding</button>
-      <button class="filter-pill" data-filter="party">Party</button>
-      <button class="filter-pill" data-filter="everyday">Everyday</button>
-    </div>
 
     <!-- Product grid - populated by renderCollectionsGrid() -->
     <div class="product-grid" id="collections-grid">
@@ -71,7 +59,7 @@
     <!-- Empty state -->
     <div id="collections-empty" style="display:none;text-align:center;padding:64px 0;">
       <p style="font-size:15px;font-weight:300;color:var(--sunday-slate);margin-bottom:32px;">No styles found in this category - check back soon.</p>
-      <button class="btn-pill" onclick="document.querySelector('[data-filter=all]').click()">View All Styles</button>
+      <a href="shop-all.html" class="btn-pill">View All Styles</a>
     </div>
 
   </div>
@@ -104,13 +92,8 @@
         <p class="footer__col-heading">Follow MALOW</p>
         <ul class="footer__social" role="list">
           <li>
-            <a href="https://www.instagram.com/malowlondon/" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
+            <a href="https://www.instagram.com/malow_london/" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
               <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.facebook.com/malowlondon" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Facebook">
-              <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
             </a>
           </li>
         </ul>

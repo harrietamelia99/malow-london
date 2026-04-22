@@ -1,22 +1,43 @@
 /* ============================================================
-   MALOW LONDON - Main JavaScript v2.0
+   MALOW LONDON — Main JavaScript v2.0
    ============================================================
-   Lookbook mode: no cart / checkout (re-enable via Shopify Ajax Cart
-   when the client sells online).
+   Cart: localStorage prototype — wire to Shopify Ajax Cart in production
+     POST /cart/add.js, GET /cart.js, POST /cart/change.js, /checkout
    - Wishlist: replace localStorage with Wishlist Hero app API
    - products.js: replace PRODUCTS object with Liquid product data
    ============================================================ */
 
 'use strict';
 
-/** Retail partner — PDP “shop” CTA (lookbook site links out) */
-const JUSTFAB_SHOP_URL = 'https://www.justfab.co.uk/';
-
 let _productCardRevealObserver = null;
 
 /* ─── State (replace with Shopify APIs in production) ────── */
 const Malow = {
+  cart: JSON.parse(localStorage.getItem('malow-cart') || '[]'),
   wishlist: JSON.parse(localStorage.getItem('malow-wishlist') || '[]'),
+
+  saveCart() {
+    localStorage.setItem('malow-cart', JSON.stringify(this.cart));
+    this.updateCartUI();
+    if (document.getElementById('cart-drawer-body')) renderCartDrawer();
+    if (document.getElementById('cart-root')) renderCartPage();
+  },
+
+  getCartTotal() {
+    return this.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  },
+
+  getCartCount() {
+    return this.cart.reduce((sum, item) => sum + item.qty, 0);
+  },
+
+  updateCartUI() {
+    const count = this.getCartCount();
+    document.querySelectorAll('[data-cart-count]').forEach(el => {
+      el.textContent = count > 0 ? String(count) : '';
+      el.style.display = count > 0 ? 'flex' : 'none';
+    });
+  },
 
   saveWishlist() {
     localStorage.setItem('malow-wishlist', JSON.stringify(this.wishlist));
@@ -34,6 +55,13 @@ const Malow = {
 
 /* ─── Shared SVGs ────────────────────────────────────────── */
 const HEART_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+
+function shoeIcon() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+    <g opacity="0.38"><path d="M14 52C14 52 19 34 60 32C74 31 76 43 71 50C66 57 48 60 32 63C22 65 16 72 14 75L14 52Z" fill="currentColor"/>
+    <path d="M15 73L12 84L21 84L23 73Z" fill="currentColor"/>
+    <path d="M52 34L56 22L66 25L62 37Z" fill="currentColor"/></g></svg>`;
+}
 
 /* ─── Product Card Builder ───────────────────────────────── */
 /* Shared renderer used on homepage, shop-all grid, and also-like */
@@ -162,6 +190,196 @@ function initNav() {
       link.classList.add('active');
     }
   });
+}
+
+/* ─── Cart drawer (prototype; Shopify: cart-drawer.liquid) ─ */
+function initCartDrawer() {
+  const drawer   = document.getElementById('cart-drawer');
+  const overlay  = document.getElementById('cart-overlay');
+  const closeBtn = document.getElementById('cart-drawer-close');
+
+  if (!drawer) return;
+
+  function openDrawer() {
+    renderCartDrawer();
+    drawer.classList.add('open');
+    if (overlay) overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-open-cart]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); openDrawer(); });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (overlay) overlay.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+  });
+}
+
+function renderCartDrawer() {
+  const body     = document.getElementById('cart-drawer-body');
+  const subtotal = document.getElementById('cart-drawer-subtotal');
+  if (!body) return;
+
+  if (Malow.cart.length === 0) {
+    body.innerHTML = `
+      <div class="cart-empty">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <p class="cart-empty__text">Your bag is empty.<br>Discover something beautiful.</p>
+        <a href="shop-all.html" class="btn-pill">Shop the Collection</a>
+      </div>`;
+    if (subtotal) subtotal.textContent = '£0.00';
+    return;
+  }
+
+  body.innerHTML = Malow.cart.map((item, idx) => `
+    <div class="cart-item">
+      <div class="cart-item__thumb">
+        ${item.image
+          ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;">`
+          : shoeIcon()}
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__name">${item.name}${item.colour ? ` — ${item.colour}` : ''}</div>
+        <div class="cart-item__meta">Size ${item.size} · Qty ${item.qty}</div>
+        <div class="cart-item__price">£${(item.price * item.qty).toFixed(2)}</div>
+        <button type="button" class="cart-item__remove" data-cart-remove="${idx}">Remove</button>
+      </div>
+    </div>`).join('');
+
+  if (subtotal) subtotal.textContent = `£${Malow.getCartTotal().toFixed(2)}`;
+
+  body.querySelectorAll('[data-cart-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.getAttribute('data-cart-remove'), 10);
+      removeFromCart(i);
+    });
+  });
+}
+
+function removeFromCart(idx) {
+  if (idx < 0 || idx >= Malow.cart.length) return;
+  Malow.cart.splice(idx, 1);
+  Malow.saveCart();
+}
+window.removeFromCart = removeFromCart;
+
+function addToCart(product) {
+  /* Shopify: POST /cart/add.js with { id: variant_id, quantity: 1 } */
+  const existing = Malow.cart.find(
+    item => item.id === product.id && item.size === product.size && item.colour === product.colour
+  );
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    Malow.cart.push({ ...product, qty: 1 });
+  }
+  Malow.saveCart();
+
+  document.querySelectorAll('[data-open-cart] svg').forEach(svg => {
+    svg.style.transform = 'scale(1.35)';
+    setTimeout(() => { svg.style.transform = ''; }, 280);
+  });
+
+  const drawer  = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('cart-overlay');
+  if (drawer) {
+    drawer.classList.add('open');
+    if (overlay) overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function renderCartPage() {
+  const root = document.getElementById('cart-root');
+  if (!root) return;
+
+  if (Malow.cart.length === 0) {
+    root.innerHTML = `
+      <div class="empty-state">
+        <svg class="empty-state__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <p class="empty-state__text">Your bag is empty.<br>Discover something beautiful.</p>
+        <a href="shop-all.html" class="btn-pill">Shop the Collection</a>
+      </div>`;
+    return;
+  }
+
+  const qtyTotal = Malow.getCartCount();
+  const subtotal = Malow.getCartTotal();
+
+  root.innerHTML = `
+    <div class="cart-page__inner">
+      <div>
+        <div class="cart-table" id="cart-page-items">
+          ${Malow.cart.map((item, idx) => `
+            <div class="cart-table__row">
+              <div class="cart-table__img">
+                ${item.image
+                  ? `<img src="${item.image}" alt="" style="width:100%;height:100%;object-fit:contain;">`
+                  : shoeIcon()}
+              </div>
+              <div>
+                <p class="cart-table__name">${item.name}${item.colour ? ` — ${item.colour}` : ''}</p>
+                <p class="cart-table__size">Size ${item.size} · Qty ${item.qty}</p>
+                <button type="button" class="cart-item__remove" data-cart-remove="${idx}" style="margin-top:8px;">Remove</button>
+              </div>
+              <p class="cart-table__price">£${(item.price * item.qty).toFixed(2)}</p>
+            </div>`).join('')}
+        </div>
+        <div style="margin-top:24px;">
+          <a href="shop-all.html" class="btn-pill" style="font-size:11px;">← Continue Shopping</a>
+        </div>
+      </div>
+      <div class="order-summary-box">
+        <p class="order-summary-box__heading">Order Summary</p>
+        <div class="order-summary-box__row">
+          <span class="order-summary-box__label">Subtotal (${qtyTotal} item${qtyTotal === 1 ? '' : 's'})</span>
+          <span class="order-summary-box__value">£${subtotal.toFixed(2)}</span>
+        </div>
+        <div class="order-summary-box__row">
+          <span class="order-summary-box__label">Shipping</span>
+          <span class="order-summary-box__value">Calculated at checkout</span>
+        </div>
+        <div class="order-summary-box__row">
+          <span class="order-summary-box__label">Discount</span>
+          <span class="order-summary-box__value">—</span>
+        </div>
+        <hr class="order-summary-box__divider">
+        <div class="order-summary-box__total">
+          <span class="order-summary-box__total-label">Total</span>
+          <span class="order-summary-box__total-value">£${subtotal.toFixed(2)}</span>
+        </div>
+        <!-- Shopify: replace with checkout_url or routes.root_url checkout -->
+        <a href="/checkout" class="btn-rect">Proceed to Checkout</a>
+      </div>
+    </div>`;
+
+  root.querySelectorAll('[data-cart-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.getAttribute('data-cart-remove'), 10);
+      removeFromCart(i);
+    });
+  });
+}
+
+function initCartPage() {
+  renderCartPage();
 }
 
 /* ─── Wishlist (event-delegated, safe to call once) ─────── */
@@ -472,8 +690,9 @@ function initDynamicProduct() {
         <a href="size-guide.html" style="color:var(--sunday-slate);text-decoration:underline;text-decoration-color:var(--warm-linen);">Size guide</a>
       </p>
 
-      <a href="${JUSTFAB_SHOP_URL}" class="btn-rect product-info__shop-external" target="_blank" rel="noopener noreferrer"
-         aria-label="Shop on JustFab (opens in a new tab)">Shop on JustFab</a>
+      <div class="product-info__add-wrap">
+        <button type="button" class="btn-rect" id="add-to-bag-btn">Add to Bag</button>
+      </div>
 
       <button class="product-info__wishlist-btn" id="product-wishlist-btn"
               data-wishlist-id="${product.id}" aria-label="Add to favourites">
@@ -501,7 +720,7 @@ function initDynamicProduct() {
             <span class="accordion-toggle__icon" aria-hidden="true">+</span>
           </button>
           <div class="accordion-body">
-            <p>MALOW heels are true to size. If you are between sizes, we recommend sizing up.</p>
+            <p>MALOW heels are true to size.</p>
             <br>
             <div style="overflow-x:auto;">
               <table style="width:100%;border-collapse:collapse;font-size:12px;font-weight:400;color:var(--text-muted);">
@@ -509,15 +728,14 @@ function initDynamicProduct() {
                   <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">UK</th>
                   <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">EU</th>
                   <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">US</th>
-                  <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">Foot</th>
                 </tr></thead>
                 <tbody>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">3</td><td style="padding:8px 0;">36</td><td style="padding:8px 0;">5.5</td><td style="padding:8px 0;">23.7 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">4</td><td style="padding:8px 0;">37</td><td style="padding:8px 0;">6.5</td><td style="padding:8px 0;">24.5 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">5</td><td style="padding:8px 0;">38</td><td style="padding:8px 0;">7.5</td><td style="padding:8px 0;">25.3 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">6</td><td style="padding:8px 0;">39</td><td style="padding:8px 0;">8.5</td><td style="padding:8px 0;">26.2 cm</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">7</td><td style="padding:8px 0;">40</td><td style="padding:8px 0;">9.5</td><td style="padding:8px 0;">27.0 cm</td></tr>
-                  <tr><td style="padding:8px 0;">8</td><td style="padding:8px 0;">41</td><td style="padding:8px 0;">10.5</td><td style="padding:8px 0;">27.9 cm</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">3</td><td style="padding:8px 0;">36</td><td style="padding:8px 0;">5.5</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">4</td><td style="padding:8px 0;">37</td><td style="padding:8px 0;">6.5</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">5</td><td style="padding:8px 0;">38</td><td style="padding:8px 0;">7.5</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">6</td><td style="padding:8px 0;">39</td><td style="padding:8px 0;">8.5</td></tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">7</td><td style="padding:8px 0;">40</td><td style="padding:8px 0;">9.5</td></tr>
+                  <tr><td style="padding:8px 0;">8</td><td style="padding:8px 0;">41</td><td style="padding:8px 0;">10.5</td></tr>
                 </tbody>
               </table>
             </div>
@@ -531,7 +749,7 @@ function initDynamicProduct() {
   /* Colour swatch switching */
   document.querySelectorAll('.colour-swatch-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const idx = parseInt(btn.dataset.variant);
+      const idx = parseInt(btn.dataset.variant, 10);
       document.querySelectorAll('.colour-swatch-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeVariantIdx = idx;
@@ -541,13 +759,42 @@ function initDynamicProduct() {
     });
   });
 
-  /* Size selector (visual only — lookbook) */
-  document.querySelectorAll('.size-btn').forEach(btn => {
+  /* Size selector + Add to Bag */
+  const sizeBtns = document.querySelectorAll('.size-btn');
+  let selectedSize = null;
+  sizeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      sizeBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      selectedSize = btn.dataset.size;
     });
   });
+
+  const addBtn = document.getElementById('add-to-bag-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', () => {
+      if (!selectedSize) {
+        const orig = addBtn.textContent;
+        addBtn.textContent = 'Please select a size';
+        addBtn.style.background = 'var(--warm-linen)';
+        setTimeout(() => { addBtn.textContent = orig; addBtn.style.background = ''; }, 2000);
+        return;
+      }
+      const v = product.variants[activeVariantIdx] || product.variants[0];
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize,
+        colour: v.label,
+        image: v.images[0]
+      });
+      const orig = addBtn.textContent;
+      addBtn.textContent = 'Added to Bag ✓';
+      addBtn.style.background = 'var(--warm-linen)';
+      setTimeout(() => { addBtn.textContent = orig; addBtn.style.background = ''; }, 1800);
+    });
+  }
 
   /* Accordion */
   initAccordion();
@@ -647,6 +894,7 @@ function initFavouritesPage() {
 /* ─── Init ───────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
+  initCartDrawer();
   initWishlist();
   initAboutTabs();
   initAboutFounderExpand();
@@ -656,7 +904,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordion();
   initEmailForms();
   initFavouritesPage();
+  initCartPage();
 
+  Malow.updateCartUI();
   Malow.updateWishlistUI();
 
   initProductCardScrollReveal();

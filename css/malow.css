@@ -260,6 +260,31 @@ p, span, a, li, label, input, button, textarea, select {
   stroke: var(--vintage-pink);
 }
 
+.nav__icon-btn--cart {
+  position: relative;
+}
+
+.nav__cart-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--vintage-pink);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  line-height: 15px;
+  text-align: center;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
 /* Shop All nav button — rosy-blush fill */
 .nav__cta {
   font-size: 12px;
@@ -644,7 +669,8 @@ p, span, a, li, label, input, button, textarea, select {
   overflow: hidden;
   /* Fallback behind SVG; matches pale blush field in malow-badge.svg */
   background-color: #fdf9f9;
-  background-image: url('../images/malow-badge.svg');
+  /* Bump ?v= when malow-badge.svg changes (avoids stale CDN/browser cache on live) */
+  background-image: url('../images/malow-badge.svg?v=4');
   background-position: center;
   /* SVG has wide internal margins in viewBox - scale up so the disc fills the circle */
   background-size: 158% 158%;

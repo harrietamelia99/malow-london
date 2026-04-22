@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/malow.css">
+  <link rel="stylesheet" href="css/malow.css?v=4">
 </head>
 <body>
 
@@ -31,6 +31,12 @@
       <a href="favourites.html" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </a>
+      <button type="button" class="nav__icon-btn nav__icon-btn--cart" data-open-cart aria-label="Shopping bag">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/><path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/></svg>
+        <span class="nav__cart-count" data-cart-count></span>
+      </button>
+
+
 <a href="shop-all.html" class="nav__cta">Shop All</a>
     </div>
   </div>
@@ -215,6 +221,25 @@
     </div>
   </div>
 </footer>
+
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping bag" aria-modal="true">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Your Bag</span>
+    <button type="button" class="cart-drawer__close" id="cart-drawer-close" aria-label="Close bag">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-drawer__body" id="cart-drawer-body"></div>
+  <div class="cart-drawer__footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal__label">Subtotal</span>
+      <span class="cart-subtotal__amount" id="cart-drawer-subtotal">£0.00</span>
+    </div>
+    <a href="cart.html" class="btn-rect">View bag &amp; checkout</a>
+  </div>
+</aside>
+
 <script src="js/malow.js"></script>
 </body>
 </html>

@@ -152,7 +152,7 @@ p, span, a, li, label, input, button, textarea, select {
 .nav__logo {
   display: flex;
   align-items: center;
-  align-self: stretch;
+  align-self: center;
   flex-shrink: 1;
   min-width: 0;
   text-decoration: none;
@@ -167,6 +167,8 @@ p, span, a, li, label, input, button, textarea, select {
   justify-content: flex-start;
   line-height: 1;
   min-width: 0;
+  /* SVG viewBox has extra space below baseline — nudge down for optical centre in pill */
+  transform: translateY(3px);
 }
 
 .nav__logo-img {
@@ -963,9 +965,9 @@ p, span, a, li, label, input, button, textarea, select {
 
 .ticker__mark {
   display: block;
-  height: 30px;
+  height: 34px;
   width: auto;
-  max-width: min(380px, 70vw);
+  max-width: 300px;
   object-fit: contain;
   object-position: left center;
   flex-shrink: 0;

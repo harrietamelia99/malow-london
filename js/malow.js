@@ -93,13 +93,13 @@ function buildProductCard(product, activeFilter) {
     <a class="product-card" href="product.html?id=${product.id}" data-product-id="${product.id}" data-categories="${categories}">
       <div class="product-card__image">
         <img src="${firstImage}" alt="${product.name}" loading="lazy">
-        <button class="product-card__heart" data-wishlist-id="${product.id}" aria-label="Save to favourites">${HEART_SVG}</button>
+        <button type="button" class="product-card__heart" data-wishlist-id="${product.id}" aria-label="Save to favourites">${HEART_SVG}</button>
       </div>
       <div class="product-card__info">
         <p class="product-card__name">${product.name}</p>
         <p class="product-card__price">£${product.price.toFixed(2)}</p>
+        ${swatchesHtml}
       </div>
-      ${swatchesHtml}
     </a>`;
 }
 

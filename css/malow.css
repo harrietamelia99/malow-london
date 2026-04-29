@@ -165,7 +165,7 @@ p, span, a, li, label, input, button, textarea, select {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  gap: 8px;
   line-height: 1;
 }
 
@@ -2761,7 +2761,7 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
   }
 
   .nav__logo-stack {
-    gap: 2px;
+    gap: 6px;
   }
 
   .nav__logo-london {
@@ -2962,6 +2962,10 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 /* ─── 25. RESPONSIVE: MOBILE 480px ──────────────────────── */
 @media (max-width: 480px) {
   .nav__logo-img { height: 24px; max-width: min(158px, 52vw); }
+
+  .nav__logo-stack {
+    gap: 5px;
+  }
 
   .nav__logo-london {
     font-size: 6.5px;

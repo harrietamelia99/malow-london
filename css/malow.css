@@ -685,8 +685,8 @@ p, span, a, li, label, input, button, textarea, select {
   /* Bump ?v= when malow-website-hero.svg changes (avoids stale CDN/browser cache on live) */
   background-image: url('../images/malow-website-hero.svg?v=1');
   background-position: center;
-  /* Square artwork fills the circular clip (was oversized for SVG viewBox margins) */
-  background-size: cover;
+  /* SVG includes viewBox padding around the rings — zoom past cover so the mark matches previous PNG scale */
+  background-size: 158% 158%;
   background-repeat: no-repeat;
   transform: rotate(var(--hero-badge-rotate, 0deg));
   transform-origin: center center;
@@ -694,7 +694,7 @@ p, span, a, li, label, input, button, textarea, select {
 }
 
 .hero__badge-outer:hover .hero__badge-wrap {
-  background-size: 112% 112%;
+  background-size: 177% 177%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -711,7 +711,7 @@ p, span, a, li, label, input, button, textarea, select {
       0 0 14px rgba(100, 90, 90, 0.1);
   }
   .hero__badge-outer:hover .hero__badge-wrap {
-    background-size: cover;
+    background-size: 158% 158%;
   }
 }
 
@@ -2930,7 +2930,7 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
     font-size: 10px;
     letter-spacing: 1.2px;
   }
-  .hero__badge-wrap { background-size: cover; }
+  .hero__badge-wrap { background-size: 158% 158%; }
 
   .about-manifesto { padding: 48px 0; }
   .about-trio { height: 200px; grid-template-columns: 1fr 1fr; }

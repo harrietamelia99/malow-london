@@ -51,7 +51,7 @@ input, textarea { font-family: var(--font-body); }
   --blush-mist:       #F8E8E4;
   /* About founder strip — dusty pink panel */
   --about-founder-bg: #F9EBE8;
-  /* Hero badge: upright asset (malow-badge.svg); nudge with small deg if export drifts */
+  /* Hero badge: malow-website-hero.svg; nudge with small deg if export drifts */
   --hero-badge-rotate: 0deg;
   --radius-card:      12px;
   --radius-panel:     20px;
@@ -148,12 +148,16 @@ p, span, a, li, label, input, button, textarea, select {
   padding: 0 36px;
 }
 
-/* Logo — left; vertically centred in pill via .nav__inner align-items */
+/* Logo — wordmark + “London” in small body sans */
 .nav__logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  line-height: 0;
+  gap: 0.38em;
+  white-space: nowrap;
+  line-height: 1;
+  text-decoration: none;
+  color: inherit;
 }
 
 .nav__logo-img {
@@ -165,6 +169,16 @@ p, span, a, li, label, input, button, textarea, select {
   object-position: left center;
   /* SVG has slight ascender-heavy metrics; nudge for optical vertical centre in pill */
   transform: translateY(1px);
+}
+
+.nav__logo-london {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--text-dark);
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .nav__links {
@@ -225,7 +239,7 @@ p, span, a, li, label, input, button, textarea, select {
   min-width: 0;
 }
 
-/* Instagram — same 20×20 / vintage-pink treatment as heart */
+/* Instagram + Facebook + TikTok — same 20×20 / vintage-pink treatment as heart */
 .nav__social-cluster {
   display: flex;
   align-items: center;
@@ -667,13 +681,12 @@ p, span, a, li, label, input, button, textarea, select {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  /* Fallback behind SVG; matches pale blush field in malow-badge.svg */
-  background-color: #fdf9f9;
-  /* Bump ?v= when malow-badge.svg changes (avoids stale CDN/browser cache on live) */
-  background-image: url('../images/malow-badge.svg?v=4');
+  background-color: transparent;
+  /* Bump ?v= when malow-website-hero.svg changes (avoids stale CDN/browser cache on live) */
+  background-image: url('../images/malow-website-hero.svg?v=1');
   background-position: center;
-  /* SVG has wide internal margins in viewBox - scale up so the disc fills the circle */
-  background-size: 158% 158%;
+  /* Square artwork fills the circular clip (was oversized for SVG viewBox margins) */
+  background-size: cover;
   background-repeat: no-repeat;
   transform: rotate(var(--hero-badge-rotate, 0deg));
   transform-origin: center center;
@@ -681,7 +694,7 @@ p, span, a, li, label, input, button, textarea, select {
 }
 
 .hero__badge-outer:hover .hero__badge-wrap {
-  background-size: 170% 170%;
+  background-size: 112% 112%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -698,7 +711,7 @@ p, span, a, li, label, input, button, textarea, select {
       0 0 14px rgba(100, 90, 90, 0.1);
   }
   .hero__badge-outer:hover .hero__badge-wrap {
-    background-size: 158% 158%;
+    background-size: cover;
   }
 }
 
@@ -2042,6 +2055,28 @@ p, span, a, li, label, input, button, textarea, select {
   margin: 0;
 }
 
+/* Shop All — flush thumbnails (no gutters); keeps JS row / group order */
+.collections-page #collections-grid .collections-group__grid.product-grid {
+  gap: 0;
+  row-gap: 0;
+  column-gap: 0;
+}
+
+.collections-page .collections-group + .collections-group {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.collections-page .collections-group__grid .product-card {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.collections-page .collections-group__grid .product-card__image {
+  border-radius: 0;
+}
+
 /* ─── 20. FAVOURITES PAGE ────────────────────────────────── */
 /* Shopify: integrate Wishlist Hero app at /favourites      */
 .favourites-page {
@@ -2655,7 +2690,12 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
   }
   .nav__logo-img {
     height: 28px;
-    max-width: min(204px, 56vw);
+    max-width: min(178px, 48vw);
+  }
+
+  .nav__logo-london {
+    font-size: 8px;
+    letter-spacing: 0.12em;
   }
 
   /* Hero */
@@ -2694,6 +2734,10 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
   /* Grids */
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .collections-page .collections-group__grid.product-grid {
+    gap: 0;
+    row-gap: 0;
+  }
   /* Also like — one card per row so names & swatches aren’t crushed */
   .also-like .product-grid,
   .also-like__grid {
@@ -2846,12 +2890,21 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
 /* ─── 25. RESPONSIVE: MOBILE 480px ──────────────────────── */
 @media (max-width: 480px) {
-  .nav__logo-img { height: 26px; max-width: min(186px, 60vw); }
+  .nav__logo-img { height: 26px; max-width: min(158px, 52vw); }
+
+  .nav__logo-london {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
   .nav__actions { gap: 14px; }
 
   .product-grid {
     gap: 22px;
     row-gap: 26px;
+  }
+  .collections-page .collections-group__grid.product-grid {
+    gap: 0;
+    row-gap: 0;
   }
 
   .also-like .product-grid,
@@ -2877,7 +2930,7 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
     font-size: 10px;
     letter-spacing: 1.2px;
   }
-  .hero__badge-wrap { background-size: 158% 158%; }
+  .hero__badge-wrap { background-size: cover; }
 
   .about-manifesto { padding: 48px 0; }
   .about-trio { height: 200px; grid-template-columns: 1fr 1fr; }

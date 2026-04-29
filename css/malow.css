@@ -148,7 +148,7 @@ p, span, a, li, label, input, button, textarea, select {
   padding: 0 36px;
 }
 
-/* Logo — inline wordmark + LONDON (same display serif as brand) */
+/* Logo — brand guidelines wordmark (MALOW LONDON, single SVG) */
 .nav__logo {
   display: flex;
   align-items: center;
@@ -165,7 +165,6 @@ p, span, a, li, label, input, button, textarea, select {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.4em;
   line-height: 1;
   min-width: 0;
 }
@@ -174,26 +173,11 @@ p, span, a, li, label, input, button, textarea, select {
   display: block;
   height: 28px;
   width: auto;
-  max-width: min(200px, 38vw);
+  max-width: min(340px, 72vw);
   object-fit: contain;
   object-position: left center;
   flex-shrink: 1;
   min-width: 0;
-}
-
-.nav__logo-london {
-  font-family: var(--font-display);
-  font-size: clamp(14px, 2.65vw, 24px);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-dark);
-  line-height: 1;
-  display: block;
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
-  flex-shrink: 0;
 }
 
 .nav__links {
@@ -979,9 +963,9 @@ p, span, a, li, label, input, button, textarea, select {
 
 .ticker__mark {
   display: block;
-  height: 34px;
+  height: 30px;
   width: auto;
-  max-width: 300px;
+  max-width: min(380px, 70vw);
   object-fit: contain;
   object-position: left center;
   flex-shrink: 0;
@@ -2051,7 +2035,7 @@ p, span, a, li, label, input, button, textarea, select {
   margin: 0 auto 40px;
 }
 
-/* Shop All — groups wrapper (single group = one flush grid) */
+/* Shop All — groups wrapper (sections rendered by JS) */
 .collections-groups {
   display: flex;
   flex-direction: column;
@@ -2072,30 +2056,26 @@ p, span, a, li, label, input, button, textarea, select {
   margin: 0;
 }
 
-/* Shop All — flush grid (no gutters); hairlines via border collapse pattern */
+/* Shop All — spaced grid + rounded cards (aligned with global .product-card) */
 .collections-page #collections-grid .collections-group__grid.product-grid {
-  gap: 0;
-  border-top: 1px solid #ebebeb;
-  border-left: 1px solid #ebebeb;
+  gap: 20px;
+  row-gap: 24px;
 }
 
 .collections-page .collections-group__grid .product-card {
-  background: #fff;
-  border-radius: 0;
+  background: var(--soft-porcelain);
+  border-radius: var(--radius-card);
   border: none;
-  border-right: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
-  box-shadow: none;
+  box-shadow: 0 0 0 0.5px rgba(149, 137, 137, 0.25);
   overflow: hidden;
 }
 
 .collections-page .collections-group__grid .product-card__image {
-  border-radius: 0;
-  background: #fff;
+  background: #fdf8f6;
 }
 
 .collections-page .collections-group__grid .product-card__image img {
-  background: #fff;
+  background: #fdf8f6;
 }
 
 .collections-page .collections-group__grid .product-card__info {
@@ -2759,12 +2739,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
     gap: 12px;
   }
   .nav__logo-img {
-    height: 26px;
-    max-width: min(168px, 36vw);
-  }
-
-  .nav__logo-london {
-    font-size: clamp(13px, 2.8vw, 22px);
+    height: 24px;
+    max-width: min(300px, 68vw);
   }
 
   /* Hero */
@@ -2804,7 +2780,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
   /* Grids */
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .collections-page .collections-group__grid.product-grid {
-    gap: 0;
+    gap: 18px;
+    row-gap: 22px;
   }
   /* Also like — one card per row so names & swatches aren’t crushed */
   .also-like .product-grid,
@@ -2958,12 +2935,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
 /* ─── 25. RESPONSIVE: MOBILE 480px ──────────────────────── */
 @media (max-width: 480px) {
-  .nav__logo-img { height: 22px; max-width: min(132px, 34vw); }
+  .nav__logo-img { height: 22px; max-width: min(260px, 78vw); }
 
-  .nav__logo-london {
-    font-size: clamp(11px, 3.4vw, 17px);
-    letter-spacing: 0.05em;
-  }
   .nav__actions { gap: 14px; }
 
   .product-grid {
@@ -2971,7 +2944,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
     row-gap: 26px;
   }
   .collections-page .collections-group__grid.product-grid {
-    gap: 0;
+    gap: 18px;
+    row-gap: 22px;
   }
 
   .also-like .product-grid,

@@ -182,14 +182,15 @@ p, span, a, li, label, input, button, textarea, select {
 .nav__logo-london {
   font-family: var(--font-body);
   font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--sunday-slate);
+  font-weight: 500;
+  letter-spacing: 0.52em;
+  padding-left: 0.26em;
+  color: #a39995;
   line-height: 1;
   display: block;
   white-space: nowrap;
   margin: 0;
-  padding: 0;
+  padding-right: 0;
 }
 
 .nav__links {
@@ -2765,7 +2766,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
   .nav__logo-london {
     font-size: 7px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.42em;
+    padding-left: 0.21em;
   }
 
   /* Hero */
@@ -2963,7 +2965,8 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
 
   .nav__logo-london {
     font-size: 6.5px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.34em;
+    padding-left: 0.17em;
   }
   .nav__actions { gap: 14px; }
 

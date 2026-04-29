@@ -686,10 +686,6 @@ function initDynamicProduct() {
         ${product.sizes.map(s => `<button class="size-btn" data-size="${s}" aria-label="Size ${s}">${s}</button>`).join('')}
       </div>
 
-      <p style="font-size:11px;font-weight:400;color:var(--sunday-slate);margin-bottom:24px;margin-top:-8px;">
-        <a href="size-guide.html" style="color:var(--sunday-slate);text-decoration:underline;text-decoration-color:var(--warm-linen);">Size guide</a>
-      </p>
-
       <div class="product-info__add-wrap">
         <button type="button" class="btn-rect" id="add-to-bag-btn">Add to Bag</button>
       </div>
@@ -712,33 +708,6 @@ function initDynamicProduct() {
             <ul style="padding-left:0;list-style:none;">
               ${product.details.map(d => `<li style="margin-bottom:6px;">· ${d}</li>`).join('')}
             </ul>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-toggle" aria-expanded="false">
-            Size Guide
-            <span class="accordion-toggle__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="accordion-body">
-            <p>MALOW heels are true to size.</p>
-            <br>
-            <div style="overflow-x:auto;">
-              <table style="width:100%;border-collapse:collapse;font-size:12px;font-weight:400;color:var(--text-muted);">
-                <thead><tr style="border-bottom:1px solid var(--rosy-blush);">
-                  <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">UK</th>
-                  <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">EU</th>
-                  <th style="text-align:left;padding:8px 0;font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:10px;">US</th>
-                </tr></thead>
-                <tbody>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">3</td><td style="padding:8px 0;">36</td><td style="padding:8px 0;">5.5</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">4</td><td style="padding:8px 0;">37</td><td style="padding:8px 0;">6.5</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">5</td><td style="padding:8px 0;">38</td><td style="padding:8px 0;">7.5</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">6</td><td style="padding:8px 0;">39</td><td style="padding:8px 0;">8.5</td></tr>
-                  <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:8px 0;">7</td><td style="padding:8px 0;">40</td><td style="padding:8px 0;">9.5</td></tr>
-                  <tr><td style="padding:8px 0;">8</td><td style="padding:8px 0;">41</td><td style="padding:8px 0;">10.5</td></tr>
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>

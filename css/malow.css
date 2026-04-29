@@ -167,8 +167,8 @@ p, span, a, li, label, input, button, textarea, select {
   justify-content: flex-start;
   line-height: 1;
   min-width: 0;
-  /* SVG viewBox has extra space below baseline — nudge down for optical centre in pill */
-  transform: translateY(3px);
+  /* Optical vertical centre in pill (SVG metrics + larger sizes) */
+  transform: translateY(5px);
 }
 
 .nav__logo-img {

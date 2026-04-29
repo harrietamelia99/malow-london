@@ -152,37 +152,44 @@ p, span, a, li, label, input, button, textarea, select {
 .nav__logo {
   display: flex;
   align-items: center;
+  align-self: stretch;
   flex-shrink: 0;
   text-decoration: none;
   color: inherit;
   line-height: 1;
+  min-width: 0;
 }
 
 .nav__logo-stack {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  justify-content: center;
+  gap: 1px;
   line-height: 1;
 }
 
 .nav__logo-img {
   display: block;
-  height: 30px;
+  height: 28px;
   width: auto;
-  max-width: min(220px, 48vw);
+  max-width: min(216px, 48vw);
   object-fit: contain;
-  object-position: center bottom;
+  object-position: center center;
+  flex-shrink: 0;
 }
 
 .nav__logo-london {
   font-family: var(--font-body);
   font-size: 8px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   color: var(--sunday-slate);
   line-height: 1;
+  display: block;
   white-space: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
 .nav__links {
@@ -2027,7 +2034,7 @@ p, span, a, li, label, input, button, textarea, select {
 
 /* ─── 19. COLLECTIONS PAGE ───────────────────────────────── */
 /* Shopify: sections/collection-template.liquid             */
-.collections-page { padding: 48px 0 80px; background: #fafafa; }
+.collections-page { padding: 48px 0 80px; background: var(--soft-porcelain); }
 
 .collections-page__title {
   font-family: var(--font-body);
@@ -2040,7 +2047,7 @@ p, span, a, li, label, input, button, textarea, select {
   margin: 0 auto 40px;
 }
 
-/* Shop All — product rows + pink dividers between sections */
+/* Shop All — groups wrapper (single group = one flush grid) */
 .collections-groups {
   display: flex;
   flex-direction: column;
@@ -2052,25 +2059,28 @@ p, span, a, li, label, input, button, textarea, select {
 }
 
 .collections-group + .collections-group {
-  border-top: 1px solid #eaeaea;
-  padding-top: clamp(28px, 4vw, 40px);
-  margin-top: clamp(24px, 3vw, 36px);
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .collections-group__grid {
   margin: 0;
 }
 
-/* Shop All — editorial grid: white cards, gap, subtle border */
+/* Shop All — flush grid (no gutters); hairlines via border collapse pattern */
 .collections-page #collections-grid .collections-group__grid.product-grid {
-  gap: 24px;
-  row-gap: 32px;
+  gap: 0;
+  border-top: 1px solid #ebebeb;
+  border-left: 1px solid #ebebeb;
 }
 
 .collections-page .collections-group__grid .product-card {
   background: #fff;
-  border-radius: 10px;
-  border: 1px solid #ebebeb;
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
   box-shadow: none;
   overflow: hidden;
 }
@@ -2795,8 +2805,7 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
   /* Grids */
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .collections-page .collections-group__grid.product-grid {
-    gap: 20px;
-    row-gap: 24px;
+    gap: 0;
   }
   /* Also like — one card per row so names & swatches aren’t crushed */
   .also-like .product-grid,
@@ -2963,8 +2972,7 @@ html:not(.js-product-card-reveal) .product-card:hover .product-card__image img,
     row-gap: 26px;
   }
   .collections-page .collections-group__grid.product-grid {
-    gap: 20px;
-    row-gap: 24px;
+    gap: 0;
   }
 
   .also-like .product-grid,

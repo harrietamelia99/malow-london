@@ -770,13 +770,15 @@ const PRODUCTS = {
 
 };
 
-/* ── Shop All page: product rows (order within each sub-grid) ────── */
+/* ── Shop All page: single grid — order left→right, top→bottom (4 per row) ─ */
 const SHOP_ALL_GROUPS = [
-  { ids: ['lana', 'chloe', 'bella'] },
-  { ids: ['sabrina', 'molly'] },
-  { ids: ['millie', 'taylor'] },
-  { ids: ['ava', 'jenna'] },
-  { ids: ['camila', 'selena', 'olivia'] },
+  {
+    ids: [
+      'lana', 'chloe', 'bella', 'sabrina',
+      'molly', 'millie', 'taylor', 'ava',
+      'jenna', 'camila', 'selena', 'olivia',
+    ],
+  },
 ];
 
 /* ── Ordered list for rendering (homepage, favourites, etc.) ─────── */

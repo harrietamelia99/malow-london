@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "malow-hero": {
+      "type": "malow-hero",
+      "settings": {}
+    },
+    "malow-tagline": {
+      "type": "malow-tagline",
+      "settings": {
+        "text": "Where beautiful design meets comfort."
+      }
+    },
+    "malow-intro": {
+      "type": "malow-intro",
+      "settings": {
+        "heading": "Made for moments\nthat matter.",
+        "subheading": "Glamour should never mean discomfort.",
+        "body": "Heels designed for weddings, proms, race days and every unforgettable moment, so you can look extraordinary and feel confident from the first step to the last dance.",
+        "cta_label": "Shop the Collection"
+      }
+    },
+    "malow-why": {
+      "type": "malow-why",
+      "settings": {
+        "heading": "Why MALOW?",
+        "body": "From ultra soft memory foam footbeds to gentle arch support, each style is made to keep your feet happy, no matter the occasion.",
+        "cta_label": "Discover More"
+      }
+    },
+    "malow-featured-collection": {
+      "type": "malow-featured-collection",
+      "settings": {
+        "heading": "Shop All",
+        "cta_label": "View All",
+        "products_to_show": 8,
+        "collection": "shop-all"
+      }
+    },
+    "malow-ticker": {
+      "type": "malow-ticker",
+      "settings": {}
+    },
+    "malow-instagram": {
+      "type": "malow-instagram",
+      "settings": {
+        "heading": "On Instagram",
+        "subheading": "Behind the scenes from our studio — new styles, fittings, and how you wear MALOW.",
+        "cta_label": "Follow us"
+      },
+      "blocks": {}
+    }
+  },
+  "order": [
+    "malow-hero",
+    "malow-tagline",
+    "malow-intro",
+    "malow-why",
+    "malow-featured-collection",
+    "malow-instagram",
+    "malow-ticker"
+  ]
+}

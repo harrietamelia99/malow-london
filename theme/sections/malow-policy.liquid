@@ -1,0 +1,46 @@
+{%- case policy.handle -%}
+  {%- when 'privacy-policy' -%}
+    {%- assign policy_eyebrow = 'Your Data, Your Rights' -%}
+    {%- assign policy_desc = 'We respect your privacy. This policy explains what we collect when you shop or browse with MALOW London, how we use it, and how you can exercise your rights.' -%}
+  {%- when 'refund-policy' -%}
+    {%- assign policy_eyebrow = 'Hassle-Free Returns' -%}
+    {%- assign policy_desc = 'Your satisfaction matters. Here is everything you need to know about our returns and refund process.' -%}
+  {%- when 'terms-of-service' -%}
+    {%- assign policy_eyebrow = 'Our Agreement With You' -%}
+    {%- assign policy_desc = 'Please read these terms carefully before using our website or making a purchase.' -%}
+  {%- when 'shipping-policy' -%}
+    {%- assign policy_eyebrow = 'Getting To You' -%}
+    {%- assign policy_desc = 'Everything you need to know about how and when your MALOW order will arrive.' -%}
+  {%- else -%}
+    {%- assign policy_eyebrow = '' -%}
+    {%- assign policy_desc = '' -%}
+{%- endcase -%}
+
+<section class="info-hero info-hero--policy">
+  <div class="container info-hero__inner info-hero__inner--centred">
+    {%- if policy_eyebrow != '' -%}
+      <p class="info-hero__eyebrow">{{ policy_eyebrow | upcase }}</p>
+    {%- endif -%}
+    <h1 class="info-hero__title">{{ policy.title }}</h1>
+    {%- if policy_desc != '' -%}
+      <p class="info-hero__desc">{{ policy_desc }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="policy-body">
+      {{ policy.body }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW Policy",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "MALOW Policy" }]
+}
+{% endschema %}

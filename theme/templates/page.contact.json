@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-contact": {
+      "type": "malow-contact",
+      "settings": {}
+    }
+  },
+  "order": ["malow-contact"]
+}

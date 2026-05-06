@@ -1,0 +1,53 @@
+<section class="about-hero about-hero--centred" aria-labelledby="home-intro-heading-{{ section.id }}">
+  <div class="about-hero__watermark" aria-hidden="true">
+    <img class="about-hero__watermark-img"
+      src="{{ 'about-hero-watermark-m.svg' | asset_url }}"
+      alt=""
+      width="420" height="420"
+      decoding="async">
+  </div>
+  <div class="container">
+    <div class="about-hero__text-wrap">
+      <h1 class="about-hero__headline" id="home-intro-heading-{{ section.id }}">
+        {{ section.settings.heading | newline_to_br }}
+      </h1>
+      <p class="about-hero__statement">{{ section.settings.subheading }}</p>
+      <p class="about-hero__sub">{{ section.settings.body }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn-rect">{{ section.settings.cta_label }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW Intro",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Made for moments\nthat matter."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Statement line",
+      "default": "Glamour should never mean discomfort."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Heels designed for weddings, proms, race days and every unforgettable moment, so you can look extraordinary and feel confident from the first step to the last dance."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the Collection"
+    }
+  ],
+  "presets": [{ "name": "MALOW Intro" }]
+}
+{% endschema %}

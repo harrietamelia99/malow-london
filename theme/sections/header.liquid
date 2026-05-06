@@ -1,0 +1,117 @@
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav__inner">
+
+    <a href="{{ routes.root_url }}" class="nav__logo" aria-label="MALOW LONDON - Home">
+      <span class="nav__logo-stack">
+        <img class="nav__logo-img"
+          src="{{ 'malow-brand-logo.svg' | asset_url }}"
+          alt="MALOW London"
+          width="380" height="40" decoding="async">
+      </span>
+    </a>
+
+    <div class="nav__actions">
+      <div class="nav__links nav__links--trailing">
+        <a href="{{ pages['about-us'].url | default: '/pages/about-us' }}" class="nav__link{% if request.page_type == 'page' and page.handle == 'about-us' %} active{% endif %}">About Us</a>
+      </div>
+
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav__social-cluster">
+        <a href="https://www.instagram.com/malow_london/" class="nav__icon-btn nav__icon-btn--social"
+          target="_blank" rel="noopener noreferrer" aria-label="MALOW London on Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </div>
+
+      <a href="{{ routes.root_url }}pages/favourites" class="nav__icon-btn nav__icon-btn--heart" aria-label="Favourites">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </a>
+
+      <button type="button" class="nav__icon-btn nav__icon-btn--cart" id="malow-cart-open" aria-label="Shopping bag ({{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %})">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z"/>
+          <path d="M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          <path d="M1 2v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0019.91 4H5.21l-.94-2H1z"/>
+        </svg>
+        <span class="nav__cart-count" id="malow-cart-count"{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span>
+      </button>
+
+      <a href="/collections/shop-all" class="nav__cta{% if request.path contains '/collections' %} active{% endif %}">Shop All</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="/collections/shop-all" class="mobile-menu__link">Shop All</a>
+  <a href="{{ pages['about-us'].url | default: '/pages/about-us' }}" class="mobile-menu__link">About Us</a>
+  <a href="{{ routes.root_url }}pages/size-guide" class="mobile-menu__link">Size Guide</a>
+</div>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping bag" aria-modal="true">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Your Bag</span>
+    <button type="button" class="cart-drawer__close" id="cart-drawer-close" aria-label="Close bag">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="cart-drawer__body" id="cart-drawer-body">
+    {%- if cart.item_count == 0 -%}
+      <p class="cart-drawer__empty">Your bag is empty.</p>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="cart-item" data-key="{{ item.key }}">
+          <a href="{{ item.url }}" class="cart-item__image-link">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" class="cart-item__img" width="80" height="80" loading="lazy">
+            {%- endif -%}
+          </a>
+          <div class="cart-item__info">
+            <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+            {%- unless item.variant.title == 'Default Title' -%}
+              <p class="cart-item__variant">{{ item.variant.title }}</p>
+            {%- endunless -%}
+            <p class="cart-item__price">{{ item.final_line_price | money }}</p>
+            <div class="cart-item__qty-row">
+              <button class="cart-item__qty-btn" data-action="decrease" data-key="{{ item.key }}" aria-label="Decrease quantity">−</button>
+              <span class="cart-item__qty">{{ item.quantity }}</span>
+              <button class="cart-item__qty-btn" data-action="increase" data-key="{{ item.key }}" aria-label="Increase quantity">+</button>
+              <button class="cart-item__remove" data-key="{{ item.key }}" aria-label="Remove {{ item.title | escape }}">Remove</button>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="cart-drawer__footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal__label">Subtotal</span>
+      <span class="cart-subtotal__amount" id="cart-drawer-subtotal">{{ cart.total_price | money }}</span>
+    </div>
+    <a href="{{ routes.cart_url }}" class="btn-rect">View bag &amp; checkout</a>
+  </div>
+</aside>
+
+{% schema %}
+{
+  "name": "MALOW Header",
+  "settings": []
+}
+{% endschema %}

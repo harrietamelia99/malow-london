@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-product": {
+      "type": "malow-product",
+      "settings": {}
+    }
+  },
+  "order": ["malow-product"]
+}

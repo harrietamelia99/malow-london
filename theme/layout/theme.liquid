@@ -1,0 +1,88 @@
+<!doctype html>
+<html
+  {% if request.design_mode %}
+    class="shopify-design-mode"
+  {% endif %}
+  lang="{{ request.locale.iso_code }}"
+>
+  <head>
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'stylesheets' -%}
+    {%- render 'fonts' -%}
+    {%- render 'scripts' -%}
+    {%- render 'theme-styles-variables' -%}
+    {%- render 'color-schemes' -%}
+
+    {% if request.design_mode %}
+      {%- render 'theme-editor' -%}
+    {% endif %}
+
+    {{ content_for_header }}
+
+    <!-- MALOW: Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- MALOW: Custom styles -->
+    {{- 'malow-custom.css' | asset_url | stylesheet_tag -}}
+  </head>
+
+  <body class="page-width-{{ settings.page_width }}">
+
+    {%- section 'header' -%}
+
+    <main
+      id="MainContent"
+      class="content-for-layout"
+      role="main"
+      data-template="{{ template }}"
+    >
+      {{ content_for_layout }}
+    </main>
+
+    {%- section 'footer' -%}
+
+    <!-- MALOW: Cart JS -->
+    <script src="{{ 'malow-cart.js' | asset_url }}" defer></script>
+
+    <!-- MALOW: Mobile menu JS -->
+    <script>
+      (function () {
+        var hamburger = document.getElementById('nav-hamburger');
+        var menu = document.getElementById('mobile-menu');
+        var closeBtn = document.getElementById('mobile-menu-close');
+
+        function openMenu() {
+          menu.classList.add('open');
+          menu.setAttribute('aria-hidden', 'false');
+          hamburger.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('mobile-menu-is-open');
+        }
+        function closeMenu() {
+          menu.classList.remove('open');
+          menu.setAttribute('aria-hidden', 'true');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('mobile-menu-is-open');
+        }
+
+        if (hamburger && menu) {
+          hamburger.addEventListener('click', function () {
+            var isOpen = menu.classList.contains('mobile-menu--open');
+            isOpen ? closeMenu() : openMenu();
+          });
+        }
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeMenu();
+        });
+      })();
+    </script>
+
+  </body>
+</html>

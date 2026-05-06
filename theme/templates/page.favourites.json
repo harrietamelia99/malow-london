@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-favourites": {
+      "type": "malow-favourites",
+      "settings": {}
+    }
+  },
+  "order": ["malow-favourites"]
+}

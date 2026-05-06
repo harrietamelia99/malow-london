@@ -1,0 +1,266 @@
+{%- comment -%}
+  Renders a MALOW product card.
+  Usage: {% render 'malow-product-card', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign color_option_index = nil
+  for option in product.options_with_values
+    if option.name == 'Color' or option.name == 'Colour'
+      assign color_option_index = forloop.index0
+    endif
+  endfor
+
+  assign first_variant = product.selected_or_first_available_variant
+  assign product_url = product.url
+
+  assign default_color_slug = ''
+  if color_option_index != nil
+    assign default_color_slug = product.options_with_values[color_option_index].values[0] | downcase
+  endif
+
+  assign card_primary_img = nil
+  assign card_hover_img   = nil
+  for img in product.images
+    assign img_alt_lower = img.alt | downcase
+    assign img_src_lower = img.src | downcase
+    if img_alt_lower == default_color_slug
+      if img_src_lower contains 'instep'
+        assign card_primary_img = img
+      elsif card_primary_img == nil and img_src_lower contains 'front'
+        assign card_primary_img = img
+      endif
+      if card_hover_img == nil and img_src_lower contains 'above'
+        assign card_hover_img = img
+      elsif card_hover_img == nil and img_src_lower contains 'heel'
+        assign card_hover_img = img
+      endif
+    endif
+  endfor
+  if card_primary_img == nil
+    assign card_primary_img = product.featured_image
+  endif
+  if card_hover_img == nil and product.images[1]
+    assign card_hover_img = product.images[1]
+  endif
+-%}
+
+<article class="product-card" data-product-id="{{ product.id }}">
+  <a href="{{ product_url }}" class="product-card__image-link" tabindex="-1" aria-hidden="true">
+    <div class="product-card__image-wrap">
+      {%- if card_primary_img -%}
+        <img
+          src="{{ card_primary_img | image_url: width: 600 }}"
+          srcset="{{ card_primary_img | image_url: width: 400 }} 400w, {{ card_primary_img | image_url: width: 600 }} 600w, {{ card_primary_img | image_url: width: 900 }} 900w"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          alt="{{ card_primary_img.alt | default: product.title | escape }}"
+          class="product-card__img product-card__img--primary"
+          id="card-img-{{ product.id }}"
+          loading="lazy"
+          width="{{ card_primary_img.width }}"
+          height="{{ card_primary_img.height }}">
+        {%- if card_hover_img -%}
+          <img
+            src="{{ card_hover_img | image_url: width: 600 }}"
+            alt="{{ card_hover_img.alt | default: product.title | escape }}"
+            class="product-card__img product-card__img--hover"
+            id="card-img-hover-{{ product.id }}"
+            loading="lazy"
+            width="{{ card_hover_img.width }}"
+            height="{{ card_hover_img.height }}">
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-apparel-1' | placeholder_svg_tag: 'product-card__img' }}
+      {%- endif -%}
+
+      {%- unless product.available -%}
+        <span class="product-card__badge product-card__badge--sold-out">Sold Out</span>
+      {%- endunless -%}
+
+      <button
+        type="button"
+        class="product-card__heart"
+        aria-label="Save to favourites"
+        data-product-id="{{ product.id }}"
+        data-product-handle="{{ product.handle }}"
+        data-product-title="{{ product.title | escape }}"
+        data-product-url="{{ product_url }}"
+        data-product-image="{{ product.featured_image | image_url: width: 400 }}"
+        data-product-price="{{ product.price | money }}"
+        onclick="malowToggleFav(this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+    </div>
+  </a>
+
+  <div class="product-card__info">
+    <a href="{{ product_url }}" class="product-card__name-link">
+      <h3 class="product-card__name">{{ product.title }}</h3>
+    </a>
+    <p class="product-card__price">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="product-card__price--sale">{{ product.price | money }}</span>
+        <s class="product-card__price--compare">{{ product.compare_at_price | money }}</s>
+      {%- else -%}
+        {{ product.price | money }}
+      {%- endif -%}
+    </p>
+
+    {%- if color_option_index != nil -%}
+      {%- assign color_option = product.options_with_values[color_option_index] -%}
+      {%- if color_option.values.size > 0 -%}
+        <div class="product-card__swatches" role="group" aria-label="Available colours">
+
+          {%- for color_value in color_option.values -%}
+            {%- assign color_slug = color_value | downcase -%}
+
+            {%- comment -%} Map colour names to their correct hex values {%- endcomment -%}
+            {%- case color_slug -%}
+              {%- when 'gold' -%}         {%- assign swatch_hex = '#c9a45a' -%}
+              {%- when 'silver' -%}       {%- assign swatch_hex = '#b8b8b8' -%}
+              {%- when 'black' -%}        {%- assign swatch_hex = '#3a3535' -%}
+              {%- when 'cream' -%}        {%- assign swatch_hex = '#f0ead8' -%}
+              {%- when 'putty' -%}        {%- assign swatch_hex = '#c8b69c' -%}
+              {%- when 'black patent' -%} {%- assign swatch_hex = '#1e1e1e' -%}
+              {%- when 'nude' -%}         {%- assign swatch_hex = '#d4b896' -%}
+              {%- when 'nude patent' -%}  {%- assign swatch_hex = '#c9a882' -%}
+              {%- when 'black suede' -%}  {%- assign swatch_hex = '#555050' -%}
+              {%- when 'mocha' -%}        {%- assign swatch_hex = '#8b6f5e' -%}
+              {%- when 'pink' -%}         {%- assign swatch_hex = '#f4b8c0' -%}
+              {%- when 'white' -%}        {%- assign swatch_hex = '#f8f4ec' -%}
+              {%- when 'blush' -%}        {%- assign swatch_hex = '#f4b8c0' -%}
+              {%- else -%}                {%- assign swatch_hex = '#cccccc' -%}
+            {%- endcase -%}
+
+            {%- comment -%}
+              Find the first two images for this colour by matching alt text.
+              Variant.featured_image is null for CSV-imported products so we
+              filter product.images by alt text instead.
+            {%- endcomment -%}
+            {%- assign color_img_url = '' -%}
+            {%- assign color_img2_url = '' -%}
+            {%- for img in product.images -%}
+              {%- assign img_alt_lower = img.alt | downcase -%}
+              {%- if img_alt_lower == color_slug -%}
+                {%- if color_img_url == '' -%}
+                  {%- assign color_img_url = img | image_url: width: 600 -%}
+                {%- elsif color_img2_url == '' -%}
+                  {%- assign color_img2_url = img | image_url: width: 600 -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if color_img_url == '' -%}
+              {%- assign color_img_url = product.featured_image | image_url: width: 600 -%}
+            {%- endif -%}
+
+            {%- assign is_first = forloop.first -%}
+            <button
+              type="button"
+              class="product-card__swatch{% if is_first %} active{% endif %}"
+              title="{{ color_value | escape }}"
+              aria-label="{{ color_value | escape }}"
+              aria-pressed="{% if is_first %}true{% else %}false{% endif %}"
+              style="background-color: {{ swatch_hex }};"
+              data-card-id="{{ product.id }}"
+              data-img="{{ color_img_url }}"
+              data-img2="{{ color_img2_url }}"
+              onclick="malowSwatchClick(this)">
+            </button>
+          {%- endfor -%}
+
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</article>
+
+<script>
+/* ── Shared favourites utility (guarded so it's only defined once) ───── */
+if (!window.malowFav) {
+  window.malowFav = {
+    KEY: 'malow_favourites',
+    get: function() {
+      try { return JSON.parse(localStorage.getItem(this.KEY) || '[]'); } catch(e) { return []; }
+    },
+    save: function(items) {
+      try { localStorage.setItem(this.KEY, JSON.stringify(items)); } catch(e) {} },
+    has: function(id) {
+      var favs = this.get();
+      for (var i = 0; i < favs.length; i++) {
+        if (String(favs[i].id) === String(id)) return true;
+      }
+      return false;
+    },
+    toggle: function(productData) {
+      var items = this.get();
+      var id = String(productData.id);
+      var idx = -1;
+      for (var i = 0; i < items.length; i++) {
+        if (String(items[i].id) === id) { idx = i; break; }
+      }
+      if (idx > -1) { items.splice(idx, 1); } else { items.push(productData); }
+      this.save(items);
+      return idx === -1; /* true = just added */
+    }
+  };
+}
+
+if (typeof malowToggleFav === 'undefined') {
+  function malowToggleFav(btn) {
+    var added = window.malowFav.toggle({
+      id:     btn.dataset.productId,
+      handle: btn.dataset.productHandle,
+      title:  btn.dataset.productTitle,
+      url:    btn.dataset.productUrl,
+      image:  btn.dataset.productImage,
+      price:  btn.dataset.productPrice
+    });
+    btn.classList.toggle('active', added);
+    btn.setAttribute('aria-label', added ? 'Remove from favourites' : 'Save to favourites');
+    /* Update label text if present (product page button) */
+    var label = btn.querySelector('.wishlist-label');
+    if (label) label.textContent = added ? 'Saved to Favourites' : 'Save to Favourites';
+  }
+}
+
+/* Initialise heart state on all cards currently in the DOM */
+(function initHearts() {
+  if (!window.malowFav) return;
+  document.querySelectorAll('.product-card__heart[data-product-id]').forEach(function(btn) {
+    if (window.malowFav.has(btn.dataset.productId)) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-label', 'Remove from favourites');
+    }
+  });
+})();
+
+function malowSwatchClick(btn) {
+  var cardId = btn.dataset.cardId;
+  var mainImg = document.getElementById('card-img-' + cardId);
+  var hoverImg = document.getElementById('card-img-hover-' + cardId);
+  if (mainImg && btn.dataset.img) {
+    mainImg.src = btn.dataset.img;
+  }
+  if (hoverImg) {
+    if (btn.dataset.img2) {
+      hoverImg.src = btn.dataset.img2;
+      hoverImg.style.display = '';
+    } else {
+      hoverImg.style.display = 'none';
+    }
+  }
+  // Update active state
+  var wrap = btn.closest('.product-card__swatches');
+  if (wrap) {
+    wrap.querySelectorAll('.product-card__swatch').forEach(function(s) {
+      s.classList.remove('active');
+      s.setAttribute('aria-pressed', 'false');
+    });
+  }
+  btn.classList.add('active');
+  btn.setAttribute('aria-pressed', 'true');
+}
+</script>

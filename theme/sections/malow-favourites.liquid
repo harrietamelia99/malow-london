@@ -1,0 +1,96 @@
+<section class="info-hero">
+  <div class="container info-hero__inner">
+    <h1 class="info-hero__title">Your Favourites</h1>
+    <p class="info-hero__sub">Items you've saved for later.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div id="favourites-grid" class="product-grid"></div>
+    <div id="favourites-empty" class="favourites-empty" hidden>
+      <p>You haven't saved any favourites yet.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn-rect" style="margin-top:24px;display:inline-block;">Browse the Collection</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var FAV_KEY = 'malow_favourites';
+  var grid    = document.getElementById('favourites-grid');
+  var empty   = document.getElementById('favourites-empty');
+
+  function getFavs() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); }
+    catch(e) { return []; }
+  }
+
+  function saveFavs(items) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(items)); } catch(e) {}
+  }
+
+  function remove(id) {
+    saveFavs(getFavs().filter(function(f) { return String(f.id) !== String(id); }));
+    render();
+  }
+
+  function render() {
+    var favs = getFavs();
+    grid.innerHTML = '';
+
+    if (favs.length === 0) {
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+
+    favs.forEach(function(fav) {
+      var article = document.createElement('article');
+      article.className = 'product-card';
+      article.dataset.productId = fav.id;
+
+      article.innerHTML = [
+        '<a href="' + fav.url + '" class="product-card__image-link" tabindex="-1" aria-hidden="true">',
+          '<div class="product-card__image-wrap">',
+            fav.image
+              ? '<img src="' + fav.image + '" alt="' + fav.title.replace(/"/g, '&quot;') + '" class="product-card__img product-card__img--primary" loading="lazy">'
+              : '',
+            '<button class="product-card__heart active" data-fav-id="' + fav.id + '" aria-label="Remove from favourites">',
+              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">',
+                '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+              '</svg>',
+            '</button>',
+          '</div>',
+        '</a>',
+        '<div class="product-card__info">',
+          '<a href="' + fav.url + '" class="product-card__name-link">',
+            '<h3 class="product-card__name">' + fav.title + '</h3>',
+          '</a>',
+          '<p class="product-card__price">' + fav.price + '</p>',
+          '<a href="' + fav.url + '" class="btn-rect" style="margin-top:14px;display:inline-block;font-size:11px;padding:10px 20px;">View product</a>',
+        '</div>',
+      ].join('');
+
+      article.querySelector('.product-card__heart').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        remove(this.dataset.favId);
+      });
+
+      grid.appendChild(article);
+    });
+  }
+
+  render();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MALOW Favourites",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "MALOW Favourites" }]
+}
+{% endschema %}

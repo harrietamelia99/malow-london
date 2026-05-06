@@ -1,0 +1,149 @@
+<div class="product-breadcrumb">
+  <div class="container">
+    <p class="product-breadcrumb__text">
+      <a href="{{ routes.root_url }}" class="product-breadcrumb__link">Home</a>
+      &nbsp;/&nbsp;
+      <span class="product-breadcrumb__current">Your Bag</span>
+    </p>
+  </div>
+</div>
+
+<main class="cart-page">
+  <div class="container">
+    <h1 class="cart-page__title">Your Bag</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-page__empty">
+        <p>Your bag is empty.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn-rect" style="margin-top:24px;display:inline-block;">Shop the Collection</a>
+      </div>
+    {%- else -%}
+      <div class="cart-page__layout">
+
+        <!-- Items -->
+        <div class="cart-page__items">
+          {%- for item in cart.items -%}
+            <div class="cart-page__item" data-key="{{ item.key }}">
+              <a href="{{ item.url }}" class="cart-page__item-img-link">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 300 }}"
+                    alt="{{ item.title | escape }}"
+                    class="cart-page__item-img"
+                    width="150" height="150" loading="lazy">
+                {%- endif -%}
+              </a>
+              <div class="cart-page__item-details">
+                <div class="cart-page__item-top">
+                  <div>
+                    <a href="{{ item.url }}" class="cart-page__item-name">{{ item.product.title }}</a>
+                    {%- unless item.variant.title == 'Default Title' -%}
+                      <p class="cart-page__item-variant">{{ item.variant.title }}</p>
+                    {%- endunless -%}
+                    <p class="cart-page__item-sku">{{ item.variant.sku }}</p>
+                  </div>
+                  <p class="cart-page__item-price">{{ item.final_line_price | money }}</p>
+                </div>
+                <div class="cart-page__item-actions">
+                  <div class="cart-page__qty-wrap">
+                    <button class="cart-page__qty-btn" data-action="decrease" data-key="{{ item.key }}" aria-label="Decrease quantity">−</button>
+                    <span class="cart-page__qty" data-qty="{{ item.key }}">{{ item.quantity }}</span>
+                    <button class="cart-page__qty-btn" data-action="increase" data-key="{{ item.key }}" aria-label="Increase quantity">+</button>
+                  </div>
+                  <button class="cart-page__remove" data-key="{{ item.key }}" aria-label="Remove {{ item.title | escape }}">Remove</button>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Summary -->
+        <aside class="cart-page__summary">
+          <h2 class="cart-page__summary-title">Order Summary</h2>
+
+          <div class="cart-page__summary-row">
+            <span>Subtotal ({{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %})</span>
+            <span id="cart-page-subtotal">{{ cart.total_price | money }}</span>
+          </div>
+          <div class="cart-page__summary-row cart-page__summary-row--shipping">
+            <span>Shipping</span>
+            <span>Calculated at checkout</span>
+          </div>
+
+          <div class="cart-page__summary-divider"></div>
+
+          {%- form 'cart', cart -%}
+            <button type="submit" name="checkout" class="btn-rect cart-page__checkout">
+              Proceed to Checkout
+            </button>
+          {%- endform -%}
+
+          <a href="{{ routes.all_products_collection_url }}" class="cart-page__continue">← Continue shopping</a>
+
+          <div class="cart-page__trust">
+            <p>🔒 Secure checkout &nbsp;·&nbsp; Free UK delivery over £50</p>
+          </div>
+        </aside>
+
+      </div>
+    {%- endif -%}
+  </div>
+</main>
+
+<script>
+(function () {
+  var page = document.querySelector('.cart-page');
+  if (!page) return;
+
+  function money(cents) {
+    return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(cents / 100);
+  }
+
+  function updateItem(key, qty) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: key, quantity: qty })
+    }).then(r => r.json()).then(cart => {
+      if (cart.item_count === 0) {
+        location.reload();
+      } else {
+        var sub = document.getElementById('cart-page-subtotal');
+        if (sub) sub.textContent = money(cart.total_price);
+        var row = page.querySelector('[data-key="' + key + '"]');
+        if (qty === 0 && row) { row.remove(); }
+        else if (row) {
+          var qtyEl = row.querySelector('[data-qty]');
+          if (qtyEl) qtyEl.textContent = qty;
+          var priceEl = row.querySelector('.cart-page__item-price');
+          var item = cart.items.find(function(i) { return i.key === key; });
+          if (priceEl && item) priceEl.textContent = money(item.final_line_price);
+        }
+        if (window.malowCart) window.malowCart.refresh();
+      }
+    });
+  }
+
+  page.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-action]');
+    if (btn) {
+      var key = btn.dataset.key;
+      var row = page.querySelector('[data-key="' + key + '"]');
+      var qtyEl = row ? row.querySelector('[data-qty]') : null;
+      var current = qtyEl ? parseInt(qtyEl.textContent) : 1;
+      var next = btn.dataset.action === 'increase' ? current + 1 : Math.max(0, current - 1);
+      updateItem(key, next);
+    }
+    var rem = e.target.closest('.cart-page__remove');
+    if (rem) updateItem(rem.dataset.key, 0);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MALOW Cart",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "MALOW Cart" }]
+}
+{% endschema %}

@@ -1,0 +1,460 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign color_option_index = nil
+  assign size_option_index = nil
+  for option in product.options_with_values
+    if option.name == 'Color' or option.name == 'Colour'
+      assign color_option_index = forloop.index0
+    endif
+    if option.name == 'Size' or option.name == 'UK size' or option.name == 'UK Size'
+      assign size_option_index = forloop.index0
+    endif
+  endfor
+-%}
+
+<!-- Breadcrumb -->
+<div class="product-breadcrumb">
+  <div class="container">
+    <p class="product-breadcrumb__text">
+      <a href="{{ routes.root_url }}" class="product-breadcrumb__link">Home</a>
+      &nbsp;/&nbsp;
+      {%- if collection -%}
+        <a href="{{ collection.url }}" class="product-breadcrumb__link">{{ collection.title }}</a>
+        &nbsp;/&nbsp;
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}" class="product-breadcrumb__link">Shop All</a>
+        &nbsp;/&nbsp;
+      {%- endif -%}
+      <span class="product-breadcrumb__current">{{ product.title }}</span>
+    </p>
+  </div>
+</div>
+
+<main class="product-page" id="MainContent">
+  <div class="container">
+    <div class="product-page__inner">
+
+      <!-- Gallery -->
+      <div class="product-gallery" id="product-gallery">
+        <div class="product-gallery__main" id="product-gallery-main">
+          {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+          {%- if featured_image -%}
+            <img
+              src="{{ featured_image | image_url: width: 900 }}"
+              srcset="{{ featured_image | image_url: width: 600 }} 600w, {{ featured_image | image_url: width: 900 }} 900w, {{ featured_image | image_url: width: 1200 }} 1200w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="{{ featured_image.alt | default: product.title | escape }}"
+              class="product-gallery__main-img"
+              id="product-gallery-main-img"
+              loading="eager"
+              width="{{ featured_image.width }}"
+              height="{{ featured_image.height }}">
+          {%- else -%}
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'product-gallery__main-img' }}
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="product-gallery__thumbs" role="list" aria-label="Product images">
+            {%- for image in product.images limit: 8 -%}
+              <button
+                class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
+                data-src="{{ image | image_url: width: 900 }}"
+                data-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 900 }} 900w"
+                data-alt="{{ image.alt | default: product.title | escape }}"
+                aria-label="View image {{ forloop.index }}"
+                role="listitem">
+                <img
+                  src="{{ image | image_url: width: 160 }}"
+                  alt="{{ image.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  width="80" height="80">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Product info -->
+      <div class="product-info">
+
+        <h1 class="product-info__title">{{ product.title }}</h1>
+        <p class="product-info__price" id="product-price">
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="product-info__price--sale">{{ current_variant.price | money }}</span>
+            <s class="product-info__price--compare">{{ current_variant.compare_at_price | money }}</s>
+          {%- else -%}
+            {{ current_variant.price | money }}
+          {%- endif -%}
+        </p>
+
+        {%- form 'product', product, id: 'malow-product-form', class: 'product-form' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" id="product-variant-id">
+
+          {%- for option in product.options_with_values -%}
+            {%- assign option_index = forloop.index0 -%}
+            {%- assign is_color = false -%}
+            {%- if option.name == 'Color' or option.name == 'Colour' -%}
+              {%- assign is_color = true -%}
+            {%- endif -%}
+
+            <div class="product-option" data-option-index="{{ option_index }}">
+              <p class="product-option__label">
+                {%- if option.name == 'Color' -%}Colour{%- else -%}{{ option.name }}{%- endif -%}:
+                <span class="product-option__selected" id="option-selected-{{ option_index }}">{{ option.selected_value | upcase }}</span>
+              </p>
+
+              {%- if is_color -%}
+                <div class="product-option__swatches">
+                  {%- for value in option.values -%}
+                    {%- assign color_slug = value | downcase -%}
+                    {%- case color_slug -%}
+                      {%- when 'gold' -%}         {%- assign swatch_hex = '#c9a45a' -%}
+                      {%- when 'silver' -%}       {%- assign swatch_hex = '#b8b8b8' -%}
+                      {%- when 'black' -%}        {%- assign swatch_hex = '#3a3535' -%}
+                      {%- when 'cream' -%}        {%- assign swatch_hex = '#f0ead8' -%}
+                      {%- when 'putty' -%}        {%- assign swatch_hex = '#c8b69c' -%}
+                      {%- when 'black patent' -%} {%- assign swatch_hex = '#1e1e1e' -%}
+                      {%- when 'nude' -%}         {%- assign swatch_hex = '#d4b896' -%}
+                      {%- when 'nude patent' -%}  {%- assign swatch_hex = '#c9a882' -%}
+                      {%- when 'black suede' -%}  {%- assign swatch_hex = '#555050' -%}
+                      {%- when 'mocha' -%}        {%- assign swatch_hex = '#8b6f5e' -%}
+                      {%- when 'pink' -%}         {%- assign swatch_hex = '#f4b8c0' -%}
+                      {%- when 'white' -%}        {%- assign swatch_hex = '#f8f4ec' -%}
+                      {%- when 'blush' -%}        {%- assign swatch_hex = '#f4b8c0' -%}
+                      {%- else -%}                {%- assign swatch_hex = '#cccccc' -%}
+                    {%- endcase -%}
+                    <button
+                      type="button"
+                      class="product-swatch{% if value == option.selected_value %} product-swatch--active{% endif %}"
+                      data-option-index="{{ option_index }}"
+                      data-value="{{ value | escape }}"
+                      aria-label="{{ value | escape }}"
+                      aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                      style="background-color: {{ swatch_hex }};">
+                    </button>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <div class="product-option__sizes">
+                  {%- for value in option.values -%}
+                    {%- comment -%} Check if this value is available {%- endcomment -%}
+                    {%- assign available = false -%}
+                    {%- for variant in product.variants -%}
+                      {%- if variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
+                        {%- if variant.available -%}
+                          {%- assign available = true -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    <button
+                      type="button"
+                      class="product-size{% if value == option.selected_value %} product-size--active{% endif %}{% unless available %} product-size--unavailable{% endunless %}"
+                      data-option-index="{{ option_index }}"
+                      data-value="{{ value | escape }}"
+                      aria-label="Size {{ value | escape }}{% unless available %} - Sold Out{% endunless %}"
+                      aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                      {% unless available %}disabled{% endunless %}>
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+
+          <div class="product-stock" id="product-stock">
+            {%- if current_variant.available -%}
+              <p class="product-stock__in">In Stock</p>
+            {%- else -%}
+              <p class="product-stock__out">Out of Stock</p>
+            {%- endif -%}
+          </div>
+
+          <button
+            type="submit"
+            class="btn-rect product-form__add"
+            id="product-add-btn"
+            {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}
+              Add to Bag
+            {%- else -%}
+              Sold Out
+            {%- endif -%}
+          </button>
+        {%- endform -%}
+
+        <button
+          type="button"
+          class="product-info__wishlist-btn"
+          id="product-wishlist-btn"
+          onclick="malowToggleFav(this)"
+          data-product-id="{{ product.id }}"
+          data-product-handle="{{ product.handle }}"
+          data-product-title="{{ product.title | escape }}"
+          data-product-url="{{ product.url }}"
+          data-product-image="{{ product.featured_image | image_url: width: 400 }}"
+          data-product-price="{{ product.price | money }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="wishlist-label">Save to Favourites</span>
+        </button>
+
+        <!-- Accordion details -->
+        <div class="product-details">
+          <details class="product-accordion">
+            <summary class="product-accordion__summary">Description</summary>
+            <div class="product-accordion__body">
+              {{ product.description }}
+            </div>
+          </details>
+
+          <details class="product-accordion">
+            <summary class="product-accordion__summary">Delivery &amp; Returns</summary>
+            <div class="product-accordion__body">
+              <p>Free UK delivery on all orders over £75. Standard delivery 3–5 working days. Express delivery available at checkout.</p>
+              <p style="margin-top:12px">Returns accepted within 30 days of delivery. Items must be unworn and in original packaging.</p>
+              <a href="{{ routes.root_url }}pages/shipping" style="text-decoration:underline;color:var(--sunday-slate)">Full delivery &amp; returns policy</a>
+            </div>
+          </details>
+
+          <details class="product-accordion">
+            <summary class="product-accordion__summary">Size Guide</summary>
+            <div class="product-accordion__body">
+              <p>MALOW heels are available in UK sizes 3–8. We recommend sizing up if you are between sizes.</p>
+              <a href="{{ routes.root_url }}pages/size-guide" style="text-decoration:underline;color:var(--sunday-slate)">View full size guide</a>
+            </div>
+          </details>
+
+          <details class="product-accordion">
+            <summary class="product-accordion__summary">Why MALOW?</summary>
+            <div class="product-accordion__body">
+              <ul style="padding-left:16px;list-style:disc;">
+                <li>Extra thick memory foam footbed</li>
+                <li>Built-in gentle arch support</li>
+                <li>Super soft vegan upper and lining</li>
+                <li>Signature pink sole with branded metal tab</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- You may also like -->
+{%- assign related_collection = collections['all'] -%}
+<section class="also-like" aria-labelledby="also-like-heading-{{ section.id }}">
+  <div class="container">
+    <h2 class="also-like__heading" id="also-like-heading-{{ section.id }}">You May Also Like</h2>
+    <div class="product-grid">
+      {%- for related in related_collection.products limit: 4 -%}
+        {%- unless related.id == product.id -%}
+          {%- render 'malow-product-card', product: related -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var form        = document.getElementById('malow-product-form');
+  var variantInput = document.getElementById('product-variant-id');
+  var addBtn      = document.getElementById('product-add-btn');
+  var priceEl     = document.getElementById('product-price');
+  var stockEl     = document.getElementById('product-stock');
+  var mainImg     = document.getElementById('product-gallery-main-img');
+  var thumbsWrap  = document.querySelector('.product-gallery__thumbs');
+
+  var variants    = {{ product.variants | json }};
+
+  /* Gallery image data built in Liquid so we get proper CDN URLs + alt text.
+     product.images | json outputs URL strings, not objects, so we build this manually. */
+  var galleryImages = [
+    {%- for image in product.images -%}
+      {%- unless forloop.first -%},{%- endunless -%}
+      {"src":{{ image | image_url: width: 900 | json }},"thumb":{{ image | image_url: width: 160 | json }},"alt":{{ image.alt | default: '' | json }}}
+    {%- endfor -%}
+  ];
+
+  var colorOptionIndex = {{ color_option_index | default: -1 }};
+
+  var selectedOptions = {};
+  {%- for option in product.options_with_values -%}
+    selectedOptions[{{ forloop.index0 }}] = {{ option.selected_value | json }};
+  {%- endfor -%}
+
+  function money(n) {
+    return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(n / 100);
+  }
+
+  function findVariant() {
+    var vals = Object.values(selectedOptions);
+    return variants.find(function(v) {
+      return vals.every(function(val, i) { return v['option' + (i + 1)] === val; });
+    });
+  }
+
+  /* ── Rebuild the full gallery for a given colour name ─────────────── */
+  function renderGallery(colorName) {
+    if (!mainImg) return;
+
+    var colorLower = (colorName || '').toLowerCase();
+    var colorImgs = galleryImages.filter(function(img) {
+      return (img.alt || '').toLowerCase() === colorLower;
+    });
+
+    if (colorImgs.length === 0) colorImgs = galleryImages;
+
+    /* Prefer the angled instep shot as hero — fall back to front, then first image */
+    var heroImg = colorImgs.find(function(img) {
+      var s = img.src.toLowerCase();
+      return s.indexOf('-instep') > -1 || s.indexOf('_instep') > -1;
+    }) || colorImgs.find(function(img) {
+      var s = img.src.toLowerCase();
+      return s.indexOf('-front') > -1 || s.indexOf('_front') > -1;
+    }) || colorImgs[0];
+
+    mainImg.src    = heroImg.src;
+    mainImg.srcset = '';   /* clear srcset so the browser uses our src, not the original srcset */
+    mainImg.alt    = heroImg.alt || '';
+
+    if (thumbsWrap) {
+      thumbsWrap.innerHTML = colorImgs.map(function(img, i) {
+        return '<button class="product-gallery__thumb' + (i === 0 ? ' product-gallery__thumb--active' : '') + '" '
+          + 'data-src="' + img.src + '" '
+          + 'data-alt="' + (img.alt || '').replace(/"/g, '&quot;') + '" '
+          + 'aria-label="View image ' + (i + 1) + '">'
+          + '<img src="' + img.thumb + '" alt="' + (img.alt || '').replace(/"/g, '&quot;') + '" loading="lazy" width="80" height="80">'
+          + '</button>';
+      }).join('');
+
+      thumbsWrap.querySelectorAll('.product-gallery__thumb').forEach(function(thumb) {
+        thumb.addEventListener('click', function() {
+          thumbsWrap.querySelectorAll('.product-gallery__thumb').forEach(function(t) {
+            t.classList.remove('product-gallery__thumb--active');
+          });
+          this.classList.add('product-gallery__thumb--active');
+          mainImg.src    = this.dataset.src;
+          mainImg.srcset = '';
+          mainImg.alt    = this.dataset.alt || '';
+        });
+      });
+    }
+  }
+
+  /* ── Update price, stock, button, URL for selected variant ────────── */
+  function updateVariantUI(variant) {
+    if (!variant) return;
+    variantInput.value = variant.id;
+
+    if (priceEl) {
+      if (variant.compare_at_price > variant.price) {
+        priceEl.innerHTML = '<span class="product-info__price--sale">' + money(variant.price) + '</span>'
+          + '<s class="product-info__price--compare">' + money(variant.compare_at_price) + '</s>';
+      } else {
+        priceEl.textContent = money(variant.price);
+      }
+    }
+
+    if (stockEl) {
+      stockEl.innerHTML = variant.available
+        ? '<p class="product-stock__in">In Stock</p>'
+        : '<p class="product-stock__out">Out of Stock</p>';
+    }
+
+    if (addBtn) {
+      addBtn.disabled = !variant.available;
+      addBtn.textContent = variant.available ? 'Add to Bag' : 'Sold Out';
+    }
+
+    var url = new URL(window.location.href);
+    url.searchParams.set('variant', variant.id);
+    window.history.replaceState({}, '', url.toString());
+  }
+
+  /* ── Option button clicks ─────────────────────────────────────────── */
+  document.querySelectorAll('[data-option-index][data-value]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = parseInt(this.dataset.optionIndex);
+      var val = this.dataset.value;
+      selectedOptions[idx] = val;
+
+      // Active state
+      document.querySelectorAll('[data-option-index="' + idx + '"]').forEach(function(b) {
+        b.classList.remove('product-swatch--active', 'product-size--active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      this.classList.add(this.classList.contains('product-swatch') ? 'product-swatch--active' : 'product-size--active');
+      this.setAttribute('aria-pressed', 'true');
+
+      // Update label text
+      var label = document.getElementById('option-selected-' + idx);
+      if (label) label.textContent = val.toUpperCase();
+
+      // If this is the colour option → rebuild the full gallery
+      if (idx === colorOptionIndex) {
+        renderGallery(val);
+      }
+
+      updateVariantUI(findVariant());
+    });
+  });
+
+  /* ── Add to cart ──────────────────────────────────────────────────── */
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      addBtn.textContent = 'Adding…';
+      addBtn.disabled = true;
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        body: JSON.stringify({ id: variantInput.value, quantity: 1 })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function() {
+        addBtn.textContent = 'Added!';
+        setTimeout(function() {
+          addBtn.textContent = 'Add to Bag';
+          addBtn.disabled = false;
+        }, 1500);
+        if (window.malowCart) window.malowCart.open();
+      })
+      .catch(function() {
+        addBtn.textContent = 'Add to Bag';
+        addBtn.disabled = false;
+      });
+    });
+  }
+
+  // Render initial gallery for the default colour
+  if (colorOptionIndex >= 0 && selectedOptions[colorOptionIndex]) {
+    renderGallery(selectedOptions[colorOptionIndex]);
+  }
+
+  // Initialise wishlist button state
+  var wishlistBtn = document.getElementById('product-wishlist-btn');
+  if (wishlistBtn && window.malowFav) {
+    if (window.malowFav.has(wishlistBtn.dataset.productId)) {
+      wishlistBtn.classList.add('active');
+      var wLabel = wishlistBtn.querySelector('.wishlist-label');
+      if (wLabel) wLabel.textContent = 'Saved to Favourites';
+    }
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MALOW Product",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "MALOW Product" }]
+}
+{% endschema %}

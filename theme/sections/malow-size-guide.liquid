@@ -1,0 +1,83 @@
+<section class="info-hero">
+  <div class="container info-hero__inner">
+    <span class="info-hero__kicker">Find your perfect fit</span>
+    <h1 class="info-hero__title">Size Guide</h1>
+    <p class="info-hero__sub">All MALOW styles are available in UK sizes 3–8 and run true to size.</p>
+  </div>
+</section>
+
+<section class="section size-section">
+  <div class="container">
+    <h2 class="info-section__heading">Size conversions</h2>
+    <div class="size-table-wrap">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th class="size-table__head">UK</th>
+            <th class="size-table__head">EU</th>
+            <th class="size-table__head">US</th>
+            <th class="size-table__head">FR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="size-table__row"><td class="size-table__cell size-table__cell--uk">3</td><td class="size-table__cell">36</td><td class="size-table__cell">5</td><td class="size-table__cell">36</td></tr>
+          <tr class="size-table__row size-table__row--alt"><td class="size-table__cell size-table__cell--uk">4</td><td class="size-table__cell">37</td><td class="size-table__cell">6</td><td class="size-table__cell">37</td></tr>
+          <tr class="size-table__row"><td class="size-table__cell size-table__cell--uk">5</td><td class="size-table__cell">38</td><td class="size-table__cell">7</td><td class="size-table__cell">38</td></tr>
+          <tr class="size-table__row size-table__row--alt"><td class="size-table__cell size-table__cell--uk">6</td><td class="size-table__cell">39</td><td class="size-table__cell">8</td><td class="size-table__cell">39</td></tr>
+          <tr class="size-table__row"><td class="size-table__cell size-table__cell--uk">7</td><td class="size-table__cell">40</td><td class="size-table__cell">9</td><td class="size-table__cell">40</td></tr>
+          <tr class="size-table__row size-table__row--alt"><td class="size-table__cell size-table__cell--uk">8</td><td class="size-table__cell">41</td><td class="size-table__cell">10</td><td class="size-table__cell">41</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section size-section">
+  <div class="container">
+    <h2 class="info-section__heading">The MALOW comfort difference</h2>
+    <div class="comfort-pillars">
+
+      <div class="comfort-pillar">
+        <svg class="comfort-pillar__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        </svg>
+        <h3 class="comfort-pillar__title">Memory foam footbed</h3>
+        <p class="comfort-pillar__desc">A 6mm memory foam layer beneath every footbed contours to your foot, redistributing pressure across each step.</p>
+      </div>
+
+      <div class="comfort-pillar">
+        <svg class="comfort-pillar__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+          <path d="M3 17l9-14 9 14H3z"/>
+        </svg>
+        <h3 class="comfort-pillar__title">Gentle arch support</h3>
+        <p class="comfort-pillar__desc">A subtle arch contour lifts and supports the natural curve of your foot, reducing fatigue on long wear occasions.</p>
+      </div>
+
+      <div class="comfort-pillar">
+        <svg class="comfort-pillar__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="7" width="16" height="14" rx="1.5" ry="1.5"/>
+          <line x1="4" y1="11" x2="20" y2="11"/>
+          <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+        </svg>
+        <h3 class="comfort-pillar__title">Beautiful packaging</h3>
+        <p class="comfort-pillar__desc">Beautifully packaged scented shoe box, making every pair feel extra special.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section info-cta-section" aria-label="Browse collection">
+  <div class="container info-cta-section__inner">
+    <a href="{{ routes.all_products_collection_url }}" class="btn-rect">Browse the collection</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW Size Guide",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "MALOW Size Guide" }]
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-cookies-policy": {
+      "type": "malow-cookies-policy",
+      "settings": {}
+    }
+  },
+  "order": ["malow-cookies-policy"]
+}

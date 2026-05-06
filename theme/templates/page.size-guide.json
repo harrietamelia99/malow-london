@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-size-guide": {
+      "type": "malow-size-guide",
+      "settings": {}
+    }
+  },
+  "order": ["malow-size-guide"]
+}

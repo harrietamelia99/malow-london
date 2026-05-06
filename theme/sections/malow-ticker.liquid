@@ -1,0 +1,22 @@
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    {%- comment -%}Duplicate the set of items so the CSS -50% translateX loop is seamless{%- endcomment -%}
+    {%- for run in (1..2) -%}
+      {%- for i in (1..8) -%}
+        <span class="ticker__item ticker__item--mark">
+          <img src="{{ 'malow-wordmark.svg' | asset_url }}" alt="" class="ticker__mark" width="160" height="28" decoding="async" loading="eager">
+        </span>
+        <span class="ticker__sep">&#10022;</span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "MALOW Ticker",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "MALOW Ticker" }]
+}
+{% endschema %}

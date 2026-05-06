@@ -1,0 +1,61 @@
+<main class="collections-page">
+  <div class="container">
+
+    <h1 class="collections-page__title">
+      {%- if collection.handle == 'all' or collection.title == 'Products' -%}
+        Shop All
+      {%- else -%}
+        {{ collection.title | default: 'Shop All' }}
+      {%- endif -%}
+    </h1>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+
+      {%- if collection.products.size > 0 -%}
+        <div class="product-grid">
+          {%- for product in collection.products -%}
+            {%- render 'malow-product-card', product: product -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" class="pagination__btn btn-pill">Previous</a>
+            {%- endif -%}
+            <span class="pagination__info">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" class="pagination__btn btn-pill">Next</a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+
+      {%- else -%}
+        <div style="text-align:center;padding:64px 0;">
+          <p style="font-size:15px;font-weight:300;color:var(--sunday-slate);margin-bottom:32px;">No styles found — check back soon.</p>
+          <a href="{{ routes.root_url }}" class="btn-pill">Back to Home</a>
+        </div>
+      {%- endif -%}
+
+    {%- endpaginate -%}
+  </div>
+</main>
+
+{% schema %}
+{
+  "name": "MALOW Collection",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "label": "Products per page"
+    }
+  ],
+  "presets": [{ "name": "MALOW Collection" }]
+}
+{% endschema %}

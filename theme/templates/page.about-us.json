@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "malow-about": {
+      "type": "malow-about",
+      "settings": {
+        "heading": "About us"
+      },
+      "blocks": {}
+    }
+  },
+  "order": ["malow-about"]
+}

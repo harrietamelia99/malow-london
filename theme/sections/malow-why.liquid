@@ -1,0 +1,48 @@
+<section class="why-malow" aria-labelledby="why-malow-heading-{{ section.id }}">
+  <div class="container">
+    <div class="why-malow__inner">
+
+      <div>
+        <h2 class="why-malow__heading" id="why-malow-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
+        <p class="why-malow__body">{{ section.settings.body }}</p>
+        <br>
+        <a href="{{ pages['about-us'].url | default: '/pages/about-us' }}" class="btn-pill why-malow__cta">{{ section.settings.cta_label }}</a>
+      </div>
+
+      <div class="why-malow__image-wrap" aria-hidden="true">
+        <img src="{{ 'malow-insole-diagram.png' | asset_url }}"
+          alt="MALOW footbed diagram: cushioned footbed, gentle arch support, contoured insole board"
+          class="why-malow__img">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW Why Section",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why MALOW?"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "From ultra soft memory foam footbeds to gentle arch support, each style is made to keep your feet happy, no matter the occasion."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Discover More"
+    }
+  ],
+  "presets": [{ "name": "MALOW Why Section" }]
+}
+{% endschema %}

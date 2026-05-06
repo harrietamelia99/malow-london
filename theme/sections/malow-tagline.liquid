@@ -1,0 +1,19 @@
+<section class="tagline">
+  <p class="tagline__text">{{ section.settings.text }}</p>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW Tagline",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Tagline text",
+      "default": "Where beautiful design meets comfort."
+    }
+  ],
+  "presets": [{ "name": "MALOW Tagline" }]
+}
+{% endschema %}

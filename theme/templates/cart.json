@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-cart": {
+      "type": "malow-cart",
+      "settings": {}
+    }
+  },
+  "order": ["malow-cart"]
+}

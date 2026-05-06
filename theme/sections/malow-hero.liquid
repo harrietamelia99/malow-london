@@ -1,0 +1,56 @@
+<section class="hero" aria-label="Hero banner">
+  <div class="hero__card-wrap">
+    <div class="hero__image-card">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 2400 }}"
+          srcset="{{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 2400 }} 2400w"
+          sizes="100vw"
+          alt="{{ section.settings.image.alt | default: 'MALOW London hero image' | escape }}"
+          class="hero__image-card-img"
+          loading="eager"
+          fetchpriority="high">
+      {%- else -%}
+        <img
+          src="{{ 'hero-banner.png' | asset_url }}"
+          alt="MALOW London heels in cream, pink and taupe"
+          class="hero__image-card-img"
+          loading="eager"
+          fetchpriority="high">
+      {%- endif -%}
+
+      <div class="hero__overlay">
+        <div class="hero__badge-outer">
+          {%- comment -%}
+            The badge is rendered via CSS background-image so the background-size: 158%
+            trick correctly zooms past the SVG's outer whitespace. We inject the CDN URL
+            via an inline style tag because the malow-custom.css uses a relative path
+            that doesn't work on Shopify's CDN.
+          {%- endcomment -%}
+          <style>
+            .hero__badge-wrap {
+              background-image: url('{{ "malow-website-hero.svg" | asset_url }}') !important;
+            }
+          </style>
+          <div class="hero__badge-wrap" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW Hero",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image",
+      "info": "Recommended: 2400 × 900px"
+    }
+  ],
+  "presets": [{ "name": "MALOW Hero" }]
+}
+{% endschema %}

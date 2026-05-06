@@ -1,0 +1,201 @@
+<!-- Founder story -->
+<section class="about-founder about-founder--lead" aria-labelledby="about-founder-heading">
+  <div class="container about-founder__shell">
+    <div class="about-founder__grid">
+
+      <figure class="about-founder__figure">
+        {%- if section.settings.founder_image != blank -%}
+          <img class="about-founder__img"
+            src="{{ section.settings.founder_image | image_url: width: 800 }}"
+            srcset="{{ section.settings.founder_image | image_url: width: 600 }} 600w, {{ section.settings.founder_image | image_url: width: 800 }} 800w"
+            alt="{{ section.settings.founder_image.alt | default: 'Emily Bennett, MALOW London co-founder' | escape }}"
+            width="800" height="1000"
+            loading="lazy">
+        {%- else -%}
+          <img class="about-founder__img"
+            src="{{ 'about-emily-bennett.png' | asset_url }}"
+            alt="Emily Bennett, MALOW London co-founder"
+            width="800" height="1000"
+            loading="lazy">
+        {%- endif -%}
+      </figure>
+
+      <div class="about-founder__text-side">
+        <div class="about-founder__panel">
+          <div class="about-founder__text-inner">
+            <h1 class="about-founder__heading" id="about-founder-heading">{{ section.settings.heading }}</h1>
+            <div class="about-founder__body">
+              <div class="about-founder__body-teaser">
+                {{ section.settings.story_intro }}
+              </div>
+              <div class="about-founder__body-rest" id="about-founder-rest" hidden>
+                {{ section.settings.story_rest }}
+              </div>
+            </div>
+          </div>
+          <button type="button" class="about-founder__toggle" id="about-founder-toggle"
+            aria-expanded="false" aria-controls="about-founder-rest">
+            Read full story
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var toggle = document.getElementById('about-founder-toggle');
+    var rest   = document.getElementById('about-founder-rest');
+    if (!toggle || !rest) return;
+    var panel  = toggle.closest('.about-founder__panel');
+    if (!panel) return;
+
+    toggle.addEventListener('click', function() {
+      var isExpanded = panel.classList.contains('about-founder__panel--expanded');
+
+      /* Toggle the CSS class that animates max-height open/shut */
+      panel.classList.toggle('about-founder__panel--expanded', !isExpanded);
+
+      /* Keep hidden in sync for screen-reader accessibility */
+      rest.hidden = isExpanded;
+
+      this.setAttribute('aria-expanded', String(!isExpanded));
+      this.textContent = isExpanded ? 'Read full story' : 'Show less';
+    });
+  })();
+</script>
+
+
+<!-- Features -->
+<section class="about-features section">
+  <div class="container">
+    <div class="about-features__header">
+      <span class="about-features__kicker">The Design</span>
+      <h2 class="about-features__heading">What's inside every pair</h2>
+    </div>
+    <div class="about-features__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'feature' -%}
+          <div class="about-feature" {{ block.shopify_attributes }}>
+            <div class="about-feature__top">
+              <span class="about-feature__num">0{{ forloop.index }}</span>
+              <span class="about-feature__rule"></span>
+            </div>
+            <h4 class="about-feature__name">{{ block.settings.title }}</h4>
+            <p class="about-feature__desc">{{ block.settings.description }}</p>
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="about-feature">
+          <div class="about-feature__top"><span class="about-feature__num">01</span><span class="about-feature__rule"></span></div>
+          <h4 class="about-feature__name">Thick cushioned foam footbed</h4>
+          <p class="about-feature__desc">A thick cushioned foam footbed absorbs impact, keeping you comfortable from the first step to the last dance.</p>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature__top"><span class="about-feature__num">02</span><span class="about-feature__rule"></span></div>
+          <h4 class="about-feature__name">Supportive insole board</h4>
+          <p class="about-feature__desc">A supportive insole board ensures every step feels stable, as well as looking elegant.</p>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature__top"><span class="about-feature__num">03</span><span class="about-feature__rule"></span></div>
+          <h4 class="about-feature__name">Gentle arch support</h4>
+          <p class="about-feature__desc">Built-in gentle arch support creates natural balance and ease, intelligently integrated into the construction of every pair.</p>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature__top"><span class="about-feature__num">04</span><span class="about-feature__rule"></span></div>
+          <h4 class="about-feature__name">Designed with purpose</h4>
+          <p class="about-feature__desc">We design with purpose - combining comfort, structure, and refined proportions to ensure each silhouette feels as good as it looks.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+
+<!-- Pillars -->
+<section class="about-pillars">
+  <div class="container">
+    <div class="about-pillars__grid">
+      <div class="about-pillar">
+        <span class="about-pillar__num">01</span>
+        <h3 class="about-pillar__heading">Comfort at our Core</h3>
+        <p class="about-pillar__text">Every pair is thoughtfully designed with comfort at its core, featuring cushioned foam footbeds, balanced heel shapes, and carefully chosen materials.</p>
+      </div>
+      <div class="about-pillar">
+        <span class="about-pillar__num">02</span>
+        <h3 class="about-pillar__heading">Details that Matter</h3>
+        <p class="about-pillar__text">We focus on the details that matter: secure straps, stable heels, soft linings, and silhouettes that flatter without sacrificing wearability.</p>
+      </div>
+      <div class="about-pillar">
+        <span class="about-pillar__num">03</span>
+        <h3 class="about-pillar__heading">Style without Compromise</h3>
+        <p class="about-pillar__text">We never compromise on style. Our designs are made to compliment your outfit and elevate your look, whatever the occasion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Shop teaser -->
+<section class="about-shop section">
+  <div class="container">
+    <div class="about-shop__header">
+      <span class="about-shop__kicker">The Collection</span>
+      <h2 class="about-shop__heading">Shop MALOW</h2>
+    </div>
+    <div class="product-grid">
+      {%- for product in collections.all.products limit: 4 -%}
+        {%- render 'malow-product-card', product: product -%}
+      {%- endfor -%}
+    </div>
+    <div class="about-shop__cta">
+      <a href="{{ routes.all_products_collection_url }}" class="btn-rect">View All Styles</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MALOW About",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page heading",
+      "default": "About us"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder photo"
+    },
+    {
+      "type": "richtext",
+      "id": "story_intro",
+      "label": "Story intro (visible first)",
+      "default": "<p>MALOW London started with a very real problem: loving heels, but never being able to wear them for as long as you\u2019d like.</p><p>Our co-founder, Emily Bennett, has spent over 20 years designing footwear, and like so many women, she always found herself reaching for beautiful heels\u2026 only to regret it a few hours later.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "story_rest",
+      "label": "Story rest (revealed on click)",
+      "default": "<p>MALOW London was created to bring together style and comfort in a way that actually works. Shoes you can wear without counting down the minutes until you can take them off.</p><p>Every pair is designed to feel as good as it looks. Think timeless shapes, modern touches, and colours that go with everything in your wardrobe.</p><p>At the heart of it all, MALOW London is about enjoying the moment: staying comfortable, feeling glamorous, and never having to choose between the two.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Design feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "MALOW About" }]
+}
+{% endschema %}

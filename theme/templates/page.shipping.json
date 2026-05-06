@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "malow-shipping": {
+      "type": "malow-shipping",
+      "settings": {}
+    }
+  },
+  "order": ["malow-shipping"]
+}

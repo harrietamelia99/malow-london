@@ -35,7 +35,8 @@ const Malow = {
     const count = this.getCartCount();
     document.querySelectorAll('[data-cart-count]').forEach(el => {
       el.textContent = count > 0 ? String(count) : '';
-      el.style.display = count > 0 ? 'flex' : 'none';
+      el.classList.toggle('nav__cart-count--visible', count > 0);
+      el.style.removeProperty('display');
     });
   },
 

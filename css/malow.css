@@ -277,27 +277,41 @@ p, span, a, li, label, input, button, textarea, select {
 
 .nav__icon-btn--cart {
   position: relative;
+  overflow: visible;
 }
 
 .nav__cart-count {
   position: absolute;
-  top: 2px;
-  right: 2px;
-  min-width: 15px;
-  height: 15px;
+  /* Sit outside the 20×20 glyph so the digit doesn’t cover the cart */
+  top: -5px;
+  right: -7px;
+  left: auto;
+  bottom: auto;
+  margin: 0;
+  min-width: 14px;
+  height: 14px;
   padding: 0 4px;
   border-radius: 999px;
   background: var(--vintage-pink);
   color: #fff;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
   font-family: var(--font-body);
-  line-height: 15px;
+  line-height: 14px;
+  letter-spacing: -0.02em;
   text-align: center;
   display: none;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  z-index: 2;
+  box-sizing: border-box;
+  border: 1px solid var(--soft-porcelain);
+  box-shadow: 0 1px 2px rgba(149, 137, 137, 0.18);
+}
+
+.nav__cart-count.nav__cart-count--visible {
+  display: inline-flex;
 }
 
 /* Shop All nav button — rosy-blush fill */

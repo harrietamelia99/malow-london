@@ -1,0 +1,15 @@
+<!-- MALOW: "Join our list" button for the Order confirmation email.
+     Shopify admin > Settings > Notifications > Customer notifications > Order confirmation > Edit code.
+     Paste this just above the "If you have any questions" / footer section.
+     The link opens the 10% sign-up pop-up on the website. -->
+{% unless customer.email_marketing_consent.state == 'subscribed' %}
+<table class="row" style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:24px;">
+  <tr>
+    <td style="padding:24px;border-radius:14px;background:#FBF2EE;text-align:center;font-family:'Avenir Next',Avenir,Helvetica,Arial,sans-serif;">
+      <p style="margin:0 0 6px;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#958989;">Join the MALOW list</p>
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#6f6565;">Be the first to hear about new styles, restocks and exclusive offers.</p>
+      <a href="{{ shop.url }}/?newsletter=open" style="display:inline-block;padding:13px 30px;border-radius:14px;background:#958989;color:#ffffff;text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Sign me up</a>
+    </td>
+  </tr>
+</table>
+{% endunless %}

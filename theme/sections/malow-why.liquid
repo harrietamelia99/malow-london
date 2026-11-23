@@ -9,15 +9,52 @@
         <a href="{{ pages['about-us'].url | default: '/pages/about-us' }}" class="btn-pill why-malow__cta">{{ section.settings.cta_label }}</a>
       </div>
 
-      <div class="why-malow__image-wrap" aria-hidden="true">
-        <img src="{{ 'malow-insole-diagram.png' | asset_url }}"
-          alt="MALOW footbed diagram: cushioned footbed, gentle arch support, contoured insole board"
-          class="why-malow__img">
+      <div class="why-malow__media">
+        {%- if section.settings.video != blank -%}
+          <div class="why-malow__video-wrap">
+            {{ section.settings.video | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              playsinline: true,
+              controls: false,
+              preload: 'metadata',
+              image_size: '1200x',
+              class: 'why-malow__video'
+            }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_diagram -%}
+          <div class="why-malow__image-wrap" aria-hidden="true">
+            <img src="{{ 'malow-insole-diagram.png' | asset_url }}"
+              alt="MALOW footbed diagram: cushioned footbed, gentle arch support, contoured insole board"
+              class="why-malow__img"
+              loading="lazy">
+          </div>
+        {%- endif -%}
       </div>
 
     </div>
   </div>
 </section>
+
+{%- if section.settings.video != blank -%}
+<script>
+  (function () {
+    // Only play the comfort video while it's on screen (saves data on mobile)
+    var v = document.querySelector('#shopify-section-{{ section.id }} .why-malow__video');
+    if (!v || !('IntersectionObserver' in window)) return;
+    v.muted = true;
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.25 }).observe(v);
+  })();
+</script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -41,6 +78,18 @@
       "id": "cta_label",
       "label": "Button label",
       "default": "Discover More"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Comfort video",
+      "info": "Shows above the footbed diagram. Plays muted on a loop."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_diagram",
+      "label": "Show footbed diagram",
+      "default": true
     }
   ],
   "presets": [{ "name": "MALOW Why Section" }]

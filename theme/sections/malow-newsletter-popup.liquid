@@ -1,0 +1,214 @@
+{%- comment -%}
+  MALOW 10% sign-up pop-up
+  - Uses Shopify's own customer form, so sign-ups land in Shopify > Customers, subscribed to email marketing
+    (tagged "newsletter"). The Resend welcome email is triggered from that (see malow-welcome-email/).
+  - Shows once per visitor after a delay, then not again for X days (or ever, once they've signed up)
+  - Opens instantly from any link to ?newsletter=open or #newsletter (used in the order confirmation email)
+{%- endcomment -%}
+
+{%- if section.settings.enabled -%}
+  {%- form 'customer', id: 'malow-newsletter-form', class: 'malow-popup__form' -%}
+    {%- liquid
+      assign posted = false
+      if form.posted_successfully?
+        assign posted = true
+      endif
+    -%}
+    <div
+      class="malow-popup{% if posted or form.errors %} is-open{% endif %}"
+      id="malow-newsletter-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="malow-popup-heading"
+      aria-hidden="{% if posted or form.errors %}false{% else %}true{% endif %}"
+      data-delay="{{ section.settings.delay | times: 1000 }}"
+      data-days="{{ section.settings.days_hidden }}"
+      data-posted="{{ posted }}"
+      data-design-mode="{{ request.design_mode }}"
+    >
+      <div class="malow-popup__backdrop" data-popup-close></div>
+      <div class="malow-popup__card{% if section.settings.image != blank %} malow-popup__card--with-image{% endif %}">
+        <button type="button" class="malow-popup__close" data-popup-close aria-label="Close">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+
+        {%- if section.settings.image != blank -%}
+          <div class="malow-popup__image">
+            <img src="{{ section.settings.image | image_url: width: 900 }}" alt="" loading="lazy" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}">
+          </div>
+        {%- endif -%}
+
+        <div class="malow-popup__content">
+          {%- if posted -%}
+            <p class="malow-popup__kicker">{{ section.settings.success_kicker }}</p>
+            <h2 class="malow-popup__heading" id="malow-popup-heading">{{ section.settings.success_heading }}</h2>
+            <p class="malow-popup__text">{{ section.settings.success_text }}</p>
+            {%- if section.settings.discount_code != blank -%}
+              <button type="button" class="malow-popup__code" data-copy-code="{{ section.settings.discount_code | escape }}">
+                <span>{{ section.settings.discount_code }}</span>
+                <small data-copy-label>Tap to copy</small>
+              </button>
+            {%- endif -%}
+            <a href="{{ routes.collections_url }}/shop-all" class="btn-pill malow-popup__button">Shop the collection</a>
+          {%- else -%}
+            <p class="malow-popup__kicker">{{ section.settings.kicker }}</p>
+            <h2 class="malow-popup__heading" id="malow-popup-heading">{{ section.settings.heading }}</h2>
+            <p class="malow-popup__text">{{ section.settings.text }}</p>
+
+            <input type="hidden" name="contact[tags]" value="newsletter, popup">
+            <label for="malow-popup-email" class="visually-hidden">Email address</label>
+            <input
+              id="malow-popup-email"
+              class="malow-popup__input"
+              type="email"
+              name="contact[email]"
+              placeholder="Your email address"
+              autocomplete="email"
+              autocapitalize="off"
+              spellcheck="false"
+              required
+              {% if form.errors %}aria-invalid="true" aria-describedby="malow-popup-error"{% endif %}>
+            {%- if form.errors -%}
+              <p class="malow-popup__error" id="malow-popup-error">
+                {%- if form.errors contains 'email' -%}
+                  Please enter a valid email address.
+                {%- else -%}
+                  {{ form.errors | default_errors }}
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            <button type="submit" class="btn-pill malow-popup__button">{{ section.settings.button_label }}</button>
+            <p class="malow-popup__small">{{ section.settings.small_print }}</p>
+            <button type="button" class="malow-popup__no" data-popup-close>No thanks</button>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endform -%}
+
+  <script>
+    (function () {
+      var popup = document.getElementById('malow-newsletter-popup');
+      if (!popup) return;
+      var KEY_SEEN = 'malow_popup_seen';
+      var KEY_DONE = 'malow_popup_subscribed';
+      var delay = parseInt(popup.getAttribute('data-delay'), 10) || 8000;
+      var days = parseInt(popup.getAttribute('data-days'), 10) || 14;
+      var posted = popup.getAttribute('data-posted') === 'true';
+      var designMode = popup.getAttribute('data-design-mode') === 'true';
+
+      function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+      function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+      function open() {
+        popup.classList.add('is-open');
+        popup.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('malow-popup-open');
+        var input = popup.querySelector('.malow-popup__input');
+        if (input) setTimeout(function () { input.focus({ preventScroll: true }); }, 250);
+      }
+      function close() {
+        popup.classList.remove('is-open');
+        popup.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('malow-popup-open');
+        set(KEY_SEEN, String(Date.now()));
+      }
+
+      popup.querySelectorAll('[data-popup-close]').forEach(function (el) {
+        el.addEventListener('click', close);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && popup.classList.contains('is-open')) close();
+      });
+
+      // Copy discount code
+      var codeBtn = popup.querySelector('[data-copy-code]');
+      if (codeBtn) {
+        codeBtn.addEventListener('click', function () {
+          var code = codeBtn.getAttribute('data-copy-code');
+          var label = codeBtn.querySelector('[data-copy-label]');
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(function () { if (label) label.textContent = 'Copied!'; });
+          }
+        });
+      }
+
+      if (posted) {
+        set(KEY_DONE, '1');
+        document.body.classList.add('malow-popup-open');
+        return;
+      }
+      if (popup.classList.contains('is-open')) {
+        document.body.classList.add('malow-popup-open');
+        return;
+      }
+
+      // Open straight away from the order confirmation email link (?newsletter=open or #newsletter)
+      var forceOpen = /[?&]newsletter=open/.test(location.search) || location.hash === '#newsletter';
+      if (forceOpen) { open(); return; }
+
+      // Open from any on-site link to #newsletter
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href$="#newsletter"]');
+        if (a) { e.preventDefault(); open(); }
+      });
+
+      if (designMode) return; // don't pop up while editing in the theme editor
+      if (get(KEY_DONE)) return;
+      var seen = parseInt(get(KEY_SEEN), 10);
+      if (seen && Date.now() - seen < days * 864e5) return;
+
+      setTimeout(function () {
+        if (!document.body.classList.contains('mobile-menu-is-open')) open();
+      }, delay);
+    })();
+  </script>
+
+  {%- if request.design_mode -%}
+    <script>
+      // In the theme editor, show the pop-up while this section is selected so it can be styled
+      document.addEventListener('shopify:section:select', function (e) {
+        if (e.detail.sectionId === '{{ section.id }}') {
+          var p = document.getElementById('malow-newsletter-popup');
+          if (p) { p.classList.add('is-open'); p.setAttribute('aria-hidden', 'false'); }
+        }
+      });
+      document.addEventListener('shopify:section:deselect', function (e) {
+        if (e.detail.sectionId === '{{ section.id }}') {
+          var p = document.getElementById('malow-newsletter-popup');
+          if (p) { p.classList.remove('is-open'); p.setAttribute('aria-hidden', 'true'); }
+        }
+      });
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "MALOW Sign-up pop-up",
+  "tag": "div",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show pop-up", "default": true },
+    { "type": "range", "id": "delay", "label": "Show after", "min": 2, "max": 30, "step": 1, "unit": "s", "default": 8 },
+    { "type": "range", "id": "days_hidden", "label": "Don't show again for (after closing)", "min": 1, "max": 60, "step": 1, "unit": "d", "default": 14 },
+    { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+    { "type": "header", "content": "Sign-up" },
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Join the MALOW list" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "10% off your first order" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Be the first to hear about new styles, restocks and exclusive offers, plus get 10% off your first order." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Get my 10% off" },
+    { "type": "text", "id": "small_print", "label": "Small print", "default": "By signing up you agree to receive marketing emails from MALOW London. Unsubscribe at any time." },
+    { "type": "header", "content": "After signing up" },
+    { "type": "text", "id": "success_kicker", "label": "Small heading", "default": "Welcome to MALOW" },
+    { "type": "text", "id": "success_heading", "label": "Heading", "default": "Here's your 10% off" },
+    { "type": "textarea", "id": "success_text", "label": "Text", "default": "Use this code at checkout. We've also sent it to your inbox." },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount code",
+      "default": "WELCOME10",
+      "info": "Create this code first in Shopify > Discounts (10% off, one use per customer)."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{%- comment -%}
+  Renders a video (muted, looping, inline) or an image that fills its container.
+  Params: video, image, eager (bool), alt, position
+{%- endcomment -%}
+{%- liquid
+  assign pos = position | default: 'center'
+  assign loading = 'lazy'
+  if eager
+    assign loading = 'eager'
+  endif
+-%}
+{%- if video != blank -%}
+  {{ video | video_tag:
+    autoplay: true,
+    loop: true,
+    muted: true,
+    playsinline: true,
+    controls: false,
+    preload: 'metadata',
+    image_size: '1600x',
+    class: 'hero-media hero-media--video'
+  }}
+{%- elsif image != blank -%}
+  <img
+    src="{{ image | image_url: width: 2400 }}"
+    srcset="{{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: 1200 }} 1200w, {{ image | image_url: width: 1800 }} 1800w, {{ image | image_url: width: 2400 }} 2400w"
+    sizes="100vw"
+    alt="{{ image.alt | default: alt | escape }}"
+    class="hero-media hero-media--image"
+    style="object-position: {{ pos }}"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    loading="{{ loading }}"
+    {% if eager %}fetchpriority="high"{% endif %}>
+{%- else -%}
+  {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-media hero-media--placeholder' }}
+{%- endif -%}

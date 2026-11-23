@@ -1,0 +1,32 @@
+{%- comment -%}
+  MALOW Black Friday promo (Nov 2026)
+  - render 'malow-black-friday', part: 'bar'     -> thin black bar above the header (every page)
+  - render 'malow-black-friday', part: 'ribbon'  -> black corner ribbon on the homepage banner
+  Turns itself off after end_date (UK time). To switch off early, set enabled to false.
+{%- endcomment -%}
+{%- liquid
+  assign enabled = true
+  assign end_date = '2026-12-01 00:00:00 +0000'
+  assign bar_text = 'BLACK FRIDAY - 20% OFF EVERYTHING, NO CODE NEEDED'
+  assign bar_link = routes.collections_url | append: '/shop-all'
+  assign ribbon_big = '20% OFF'
+  assign ribbon_small = 'BLACK FRIDAY'
+
+  assign now_s = 'now' | date: '%s' | plus: 0
+  assign end_s = end_date | date: '%s' | plus: 0
+  if now_s >= end_s
+    assign enabled = false
+  endif
+-%}
+{%- if enabled -%}
+  {%- if part == 'bar' -%}
+    <a href="{{ bar_link }}" class="malow-bf-bar">
+      <span>{{ bar_text }}</span>
+    </a>
+  {%- elsif part == 'ribbon' -%}
+    <a href="{{ bar_link }}" class="malow-bf-ribbon" aria-label="Black Friday, 20% off everything">
+      <span class="malow-bf-ribbon__big">{{ ribbon_big }}</span>
+      <span class="malow-bf-ribbon__small">{{ ribbon_small }}</span>
+    </a>
+  {%- endif -%}
+{%- endif -%}

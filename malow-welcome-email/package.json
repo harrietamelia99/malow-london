@@ -1,0 +1,6 @@
+{
+  "name": "malow-welcome-email",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" }
+}

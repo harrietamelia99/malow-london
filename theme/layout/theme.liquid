@@ -34,6 +34,7 @@
 
   <body class="page-width-{{ settings.page_width }}">
 
+    {%- render 'malow-black-friday', part: 'bar' -%}
     {%- section 'header' -%}
 
     <main
@@ -46,6 +47,9 @@
     </main>
 
     {%- section 'footer' -%}
+
+    {%- comment -%} MALOW: 10% sign-up pop-up {%- endcomment -%}
+    {%- section 'malow-newsletter-popup' -%}
 
     <!-- MALOW: Cart JS -->
     <script src="{{ 'malow-cart.js' | asset_url }}" defer></script>

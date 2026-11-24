@@ -1,4 +1,4 @@
-// Shopify webhook (customers/create + customers/update) -> Resend welcome email
+// Shopify webhook (customers_marketing_consent/update) -> Resend welcome email
 // Sends the 10% welcome email once to anyone who subscribes to email marketing,
 // whether they signed up in the pop-up or ticked the box at checkout.
 import crypto from 'node:crypto';
@@ -114,12 +114,13 @@ export async function POST(request) {
   let customer;
   try { customer = JSON.parse(raw); } catch { return new Response('Bad JSON', { status: 400 }); }
 
-  const email = (customer.email || '').trim().toLowerCase();
+  // customers/create|update send `email`; customers_marketing_consent/update sends `email_address`
+  const email = (customer.email || customer.email_address || '').trim().toLowerCase();
   const consent = customer.email_marketing_consent?.state
     ?? customer.emailMarketingConsent?.marketingState
     ?? (customer.accepts_marketing === true ? 'subscribed' : undefined);
   const subscribed = String(consent || '').toLowerCase() === 'subscribed';
-  console.log('customer webhook', { id: customer.id, consent: consent ?? null, topic: request.headers.get('x-shopify-topic'), keys: Object.keys(customer).join(',') });
+  console.log('customer webhook', { id: customer.id, consent: consent ?? null, topic: request.headers.get('x-shopify-topic') });
   if (!email || !subscribed) {
     return Response.json({ skipped: 'not subscribed' });
   }

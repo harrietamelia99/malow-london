@@ -120,7 +120,8 @@ export async function POST(request) {
     ?? customer.emailMarketingConsent?.marketingState
     ?? (customer.accepts_marketing === true ? 'subscribed' : undefined);
   const subscribed = String(consent || '').toLowerCase() === 'subscribed';
-  console.log('customer webhook', { id: customer.id, consent: consent ?? null, topic: request.headers.get('x-shopify-topic') });
+  const customerId = customer.customer_id ?? customer.id ?? email;
+  console.log('customer webhook', { id: customerId, consent: consent ?? null, topic: request.headers.get('x-shopify-topic') });
   if (!email || !subscribed) {
     return Response.json({ skipped: 'not subscribed' });
   }
@@ -139,10 +140,10 @@ export async function POST(request) {
     subject: 'Welcome to MALOW - here\'s 10% off',
     html: welcomeHtml(customer.first_name),
     headers: {
-      'X-Entity-Ref-ID': `welcome-${customer.id}`,
+      'X-Entity-Ref-ID': `welcome-${customerId}`,
       'List-Unsubscribe': '<mailto:support@malowlondon.com?subject=Unsubscribe>',
     },
-  }, { 'Idempotency-Key': `welcome-${customer.id}` });
+  }, { 'Idempotency-Key': `welcome-${customerId}` });
   if (!sent.ok) {
     console.error('Resend send error', sent.status, sent.data);
     return new Response('Send error', { status: 500 });

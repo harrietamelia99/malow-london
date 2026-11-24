@@ -7,7 +7,7 @@ const {
   SHOPIFY_WEBHOOK_SECRET,
   RESEND_API_KEY,
   RESEND_SEGMENT_ID,
-  FROM_EMAIL = 'MALOW London <hello@malowlondon.com>',
+  FROM_EMAIL = 'MALOW London <support@malowlondon.com>',
   DISCOUNT_CODE = 'WELCOME10',
   SHOP_URL = 'https://malowlondon.com',
 } = process.env;
@@ -20,10 +20,10 @@ function validHmac(rawBody, header) {
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
-async function resend(path, method = 'GET', body) {
+async function resend(path, method = 'GET', body, extraHeaders = {}) {
   const res = await fetch(`https://api.resend.com${path}`, {
     method,
-    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json', ...extraHeaders },
     body: body ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
@@ -98,7 +98,7 @@ function welcomeHtml(firstName) {
 <tr><td align="center" style="padding:22px 24px 0;font-family:${body};font-size:11px;line-height:1.7;color:#958989;">
 Enter your code at checkout. One use per customer.<br>
 You're receiving this because you signed up to hear from MALOW London.<br>
-<a href="mailto:hello@malowlondon.com?subject=Unsubscribe" style="color:#958989;">Unsubscribe</a>
+<a href="mailto:support@malowlondon.com?subject=Unsubscribe" style="color:#958989;">Unsubscribe</a>
 </td></tr></table>
 
 </td></tr></table>
@@ -126,6 +126,23 @@ export async function POST(request) {
     return Response.json({ skipped: 'already welcomed' });
   }
 
+  // Send first (idempotent per customer for 24h), then save the contact,
+  // so a failed send gets retried by Shopify rather than marked as done.
+  const sent = await resend('/emails', 'POST', {
+    from: FROM_EMAIL,
+    to: [email],
+    subject: 'Welcome to MALOW - here\'s 10% off',
+    html: welcomeHtml(customer.first_name),
+    headers: {
+      'X-Entity-Ref-ID': `welcome-${customer.id}`,
+      'List-Unsubscribe': '<mailto:support@malowlondon.com?subject=Unsubscribe>',
+    },
+  }, { 'Idempotency-Key': `welcome-${customer.id}` });
+  if (!sent.ok) {
+    console.error('Resend send error', sent.status, sent.data);
+    return new Response('Send error', { status: 500 });
+  }
+
   const added = await resend('/contacts', 'POST', {
     email,
     first_name: customer.first_name || undefined,
@@ -136,21 +153,6 @@ export async function POST(request) {
   if (!added.ok) {
     console.error('Resend contact error', added.status, added.data);
     return new Response('Contact error', { status: 500 }); // Shopify will retry
-  }
-
-  const sent = await resend('/emails', 'POST', {
-    from: FROM_EMAIL,
-    to: [email],
-    subject: 'Welcome to MALOW - here\'s 10% off',
-    html: welcomeHtml(customer.first_name),
-    headers: {
-      'X-Entity-Ref-ID': `welcome-${customer.id}`,
-      'List-Unsubscribe': '<mailto:hello@malowlondon.com?subject=Unsubscribe>',
-    },
-  });
-  if (!sent.ok) {
-    console.error('Resend send error', sent.status, sent.data);
-    return new Response('Send error', { status: 500 });
   }
 
   return Response.json({ sent: true });

@@ -7,7 +7,7 @@ const {
   SHOPIFY_WEBHOOK_SECRET,
   RESEND_API_KEY,
   RESEND_SEGMENT_ID,
-  FROM_EMAIL = 'MALOW London <support@malowlondon.com>',
+  FROM_EMAIL = 'MALOW LONDON <support@malowlondon.com>',
   DISCOUNT_CODE = 'WELCOME10',
   SHOP_URL = 'https://malowlondon.com',
 } = process.env;
@@ -44,7 +44,7 @@ function welcomeHtml(firstName) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light only">
-<title>Welcome to MALOW</title>
+<title>Welcome to MALOW LONDON</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   body { margin: 0; padding: 0; background: #FDECEB; }
@@ -57,30 +57,30 @@ function welcomeHtml(firstName) {
 </style>
 </head>
 <body style="margin:0;padding:0;background:#FDECEB;">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Here's 10% off your first MALOW order.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Here's 10% off your first MALOW LONDON order.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FDECEB;padding:32px 12px;">
 <tr><td align="center">
 <table role="presentation" class="card" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFFFF;border-radius:20px;border:0.5px solid #958989;font-family:${body};color:#958989;">
 
 <tr><td align="center" class="pad" style="padding:40px 40px 0;">
-<a href="${SHOP_URL}" style="text-decoration:none;"><img src="${SHOP_URL}/cdn/shop/files/malow-email-logo.png?width=600" width="200" alt="MALOW" style="display:block;width:200px;max-width:60%;height:auto;border:0;"></a>
+<a href="${SHOP_URL}" style="text-decoration:none;"><img src="${SHOP_URL}/cdn/shop/files/malow-email-logo.png?width=600" width="200" alt="MALOW LONDON" style="display:block;width:200px;max-width:60%;height:auto;border:0;"></a>
 <p style="margin:10px 0 0;font-family:${display};font-size:13px;letter-spacing:6px;color:#958989;">LONDON</p>
 </td></tr>
 
 <tr><td class="pad" style="padding:28px 40px 0;"><div style="height:0.5px;line-height:0.5px;background:#E7DAC7;">&nbsp;</div></td></tr>
 
 <tr><td class="pad" style="padding:28px 40px 0;">
-<a href="${SHOP_URL}/collections/shop-all" style="text-decoration:none;"><img src="${SHOP_URL}/cdn/shop/files/malow-email-taylor-gold.jpg?width=960" width="480" alt="MALOW Taylor heels in gold" style="display:block;width:100%;max-width:480px;height:auto;border:0;border-radius:14px;"></a>
+<a href="${SHOP_URL}/collections/shop-all" style="text-decoration:none;"><img src="${SHOP_URL}/cdn/shop/files/malow-email-taylor-gold.jpg?width=960" width="480" alt="MALOW LONDON Taylor heels in gold" style="display:block;width:100%;max-width:480px;height:auto;border:0;border-radius:14px;"></a>
 </td></tr>
 
 <tr><td align="center" class="pad" style="padding:28px 40px 0;">
-<h1 class="h1" style="margin:0;font-family:${body};font-weight:400;font-size:32px;line-height:1.2;letter-spacing:0.5px;color:#958989;">Welcome to MALOW</h1>
+<h1 class="h1" style="margin:0;font-family:${body};font-weight:400;font-size:32px;line-height:1.2;letter-spacing:0.5px;color:#958989;">Welcome to MALOW LONDON</h1>
 <p style="margin:10px 0 0;font-family:${body};font-size:16px;line-height:1.5;color:#958989;">Where beautiful design meets comfort.</p>
 </td></tr>
 
 <tr><td class="pad" style="padding:28px 44px 0;font-size:15px;line-height:1.75;color:#958989;">
 <p style="margin:0 0 14px;">${hi}</p>
-<p style="margin:0 0 14px;">Thank you for joining us. MALOW heels are made for the moments that matter, with ultra soft memory foam footbeds and gentle arch support, so you can feel confident from the first step to the last dance.</p>
+<p style="margin:0 0 14px;">Thank you for joining us. MALOW LONDON heels are made for the moments that matter, with ultra soft memory foam footbeds and gentle arch support, so you can feel confident from the first step to the last dance.</p>
 <p style="margin:0;">As a thank you, here's 10% off your first order.</p>
 </td></tr>
 
@@ -101,7 +101,7 @@ function welcomeHtml(firstName) {
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
 <tr><td align="center" style="padding:22px 24px 0;font-family:${body};font-size:11px;line-height:1.7;color:#958989;">
 Enter your code at checkout. One use per customer.<br>
-You're receiving this because you signed up to hear from MALOW London.<br>
+You're receiving this because you signed up to hear from MALOW LONDON.<br>
 <a href="mailto:support@malowlondon.com?subject=Unsubscribe" style="color:#958989;">Unsubscribe</a>
 </td></tr></table>
 
@@ -141,7 +141,7 @@ export async function POST(request) {
   const sent = await resend('/emails', 'POST', {
     from: FROM_EMAIL,
     to: [email],
-    subject: 'Welcome to MALOW - here\'s 10% off',
+    subject: 'Welcome to MALOW LONDON - here\'s 10% off',
     html: welcomeHtml(customer.first_name),
     headers: {
       'X-Entity-Ref-ID': `welcome-${customerId}`,

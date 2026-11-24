@@ -69,6 +69,10 @@ function welcomeHtml(firstName) {
 
 <tr><td class="pad" style="padding:28px 40px 0;"><div style="height:0.5px;line-height:0.5px;background:#E7DAC7;">&nbsp;</div></td></tr>
 
+<tr><td class="pad" style="padding:28px 40px 0;">
+<a href="${SHOP_URL}/collections/shop-all" style="text-decoration:none;"><img src="${SHOP_URL}/cdn/shop/files/malow-email-taylor-gold.jpg?width=960" width="480" alt="MALOW Taylor heels in gold" style="display:block;width:100%;max-width:480px;height:auto;border:0;border-radius:14px;"></a>
+</td></tr>
+
 <tr><td align="center" class="pad" style="padding:28px 40px 0;">
 <h1 class="h1" style="margin:0;font-family:${body};font-weight:400;font-size:32px;line-height:1.2;letter-spacing:0.5px;color:#958989;">Welcome to MALOW</h1>
 <p style="margin:10px 0 0;font-family:${body};font-size:16px;line-height:1.5;color:#958989;">Where beautiful design meets comfort.</p>

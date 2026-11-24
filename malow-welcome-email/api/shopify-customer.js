@@ -119,7 +119,7 @@ export async function POST(request) {
     ?? customer.emailMarketingConsent?.marketingState
     ?? (customer.accepts_marketing === true ? 'subscribed' : undefined);
   const subscribed = String(consent || '').toLowerCase() === 'subscribed';
-  console.log('customer webhook', { id: customer.id, consent: consent ?? null, topic: request.headers.get('x-shopify-topic') });
+  console.log('customer webhook', { id: customer.id, consent: consent ?? null, topic: request.headers.get('x-shopify-topic'), keys: Object.keys(customer).join(',') });
   if (!email || !subscribed) {
     return Response.json({ skipped: 'not subscribed' });
   }

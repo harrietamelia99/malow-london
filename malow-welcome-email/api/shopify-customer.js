@@ -115,8 +115,12 @@ export async function POST(request) {
   try { customer = JSON.parse(raw); } catch { return new Response('Bad JSON', { status: 400 }); }
 
   const email = (customer.email || '').trim().toLowerCase();
-  const consent = customer.email_marketing_consent?.state;
-  if (!email || consent !== 'subscribed') {
+  const consent = customer.email_marketing_consent?.state
+    ?? customer.emailMarketingConsent?.marketingState
+    ?? (customer.accepts_marketing === true ? 'subscribed' : undefined);
+  const subscribed = String(consent || '').toLowerCase() === 'subscribed';
+  console.log('customer webhook', { id: customer.id, consent: consent ?? null, topic: request.headers.get('x-shopify-topic') });
+  if (!email || !subscribed) {
     return Response.json({ skipped: 'not subscribed' });
   }
 
